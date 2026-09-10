@@ -1,6 +1,7 @@
 import type { QuerySchema } from '@@/schemas/query'
 import type { SelectStatement } from 'sql-bricks'
 import type { z } from 'zod'
+import { SqlBricks } from './sql-bricks'
 
 const { in: $in, and, eq } = SqlBricks
 

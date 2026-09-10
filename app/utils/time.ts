@@ -34,12 +34,12 @@ export function shortTime(unix = 0) {
 }
 
 export function date2unix(dateValue: DateValue | Date, type?: string) {
-  const date = dateValue instanceof Date ? dateValue : dateValue.toDate(getTimeZone())
+  const date = dateValue instanceof Date ? new Date(dateValue.getTime()) : dateValue.toDate(getTimeZone())
   if (type === 'start')
-    return Math.floor(date.setHours(0, 0, 0) / 1000)
+    return Math.floor(date.setHours(0, 0, 0, 0) / 1000)
 
   if (type === 'end')
-    return Math.floor(date.setHours(23, 59, 59) / 1000)
+    return Math.floor(date.setHours(23, 59, 59, 999) / 1000)
 
   return Math.floor(date.getTime() / 1000)
 }

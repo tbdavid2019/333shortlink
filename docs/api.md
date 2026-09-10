@@ -4,6 +4,19 @@ Writing API documentation manually can be very laborious, and we will automatica
 
 This place provides an example of creating a short link API. Other APIs are currently available for viewing through browser developer tools.
 
+## Analytics time ranges
+
+Analytics endpoints use Unix timestamps in seconds. `startAt` and `endAt` are an inclusive closed interval:
+
+```text
+timestamp >= toDateTime(startAt)
+AND timestamp <= toDateTime(endAt)
+```
+
+To query a complete calendar-date range such as `2026-09-01` through `2026-09-09`, send the start of September 1 and the end of September 9 (`23:59:59`) in the user's intended timezone. Sending September 9 at `00:00:00` only includes the first instant of that date; the API does not infer or extend date-only input.
+
+Presets such as `last-7d`, `last-30d`, and `last-90d` are rolling windows ending at the current time. `this-week`, `this-month`, and `today` start at the calendar boundary but also end at the current time.
+
 ## API Reference
 
 ### Create Short Link
