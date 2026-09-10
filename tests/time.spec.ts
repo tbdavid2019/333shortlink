@@ -27,4 +27,25 @@ describe('date2unix', () => {
 
     expect(input.getTime()).toBe(original)
   })
+
+  it('calculates boundaries in the requested timezone', () => {
+    const timezone = 'America/Los_Angeles'
+    const startAt = date2unix(parseDate('2026-09-09'), 'start', timezone)
+    const endAt = date2unix(parseDate('2026-09-09'), 'end', timezone)
+    const format = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23',
+    })
+
+    const toParts = (unix: number) => Object.fromEntries(format.formatToParts(unix * 1000).map(({ type, value }) => [type, value]))
+
+    expect(toParts(startAt)).toMatchObject({ year: '2026', month: '09', day: '09', hour: '00', minute: '00', second: '00' })
+    expect(toParts(endAt)).toMatchObject({ year: '2026', month: '09', day: '09', hour: '23', minute: '59', second: '59' })
+  })
 })

@@ -1,5 +1,5 @@
 import type { DateValue } from '@internationalized/date'
-import { fromAbsolute, toCalendarDate } from '@internationalized/date'
+import { fromAbsolute, fromDate, toCalendarDate } from '@internationalized/date'
 
 export function getTimeZone() {
   if (typeof Intl === 'undefined')
@@ -33,15 +33,19 @@ export function shortTime(unix = 0) {
   return shortTime.format(unix * 1000)
 }
 
-export function date2unix(dateValue: DateValue | Date, type?: string) {
-  const date = dateValue instanceof Date ? new Date(dateValue.getTime()) : dateValue.toDate(getTimeZone())
-  if (type === 'start')
-    return Math.floor(date.setHours(0, 0, 0, 0) / 1000)
+export type DateBoundary = 'start' | 'end'
 
-  if (type === 'end')
-    return Math.floor(date.setHours(23, 59, 59, 999) / 1000)
+export function date2unix(dateValue: DateValue | Date, type?: DateBoundary, timeZone = getTimeZone()) {
+  const date = dateValue instanceof Date ? new Date(dateValue.getTime()) : dateValue.toDate(timeZone)
+  if (!type)
+    return Math.floor(date.getTime() / 1000)
 
-  return Math.floor(date.getTime() / 1000)
+  const zonedDate = fromDate(date, timeZone)
+  const boundary = type === 'start'
+    ? zonedDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+    : zonedDate.set({ hour: 23, minute: 59, second: 59, millisecond: 999 })
+
+  return Math.floor(boundary.toDate().getTime() / 1000)
 }
 
 export function unix2date(unix: number) {

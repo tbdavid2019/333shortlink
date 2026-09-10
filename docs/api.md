@@ -17,6 +17,8 @@ To query a complete calendar-date range such as `2026-09-01` through `2026-09-09
 
 Presets such as `last-7d`, `last-30d`, and `last-90d` are rolling windows ending at the current time. `this-week`, `this-month`, and `today` start at the calendar boundary but also end at the current time.
 
+The frontend date helper uses the browser's IANA timezone by default. Callers that need deterministic calendar boundaries can provide an explicit timezone, for example `date2unix(date, 'end', 'America/Los_Angeles')`.
+
 ## API Reference
 
 ### Create Short Link
