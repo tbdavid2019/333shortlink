@@ -24,6 +24,7 @@
 * **首頁去品牌化並改為登入頁面**：
   * 將 [`app/pages/index.vue`](app/pages/index.vue) 原有的公司簡介（「資旅軟體開發有限公司」、統編、代表人、地址等品牌資訊）以及 loading spinner 完全移除，去品牌化並直接改為與 `/dashboard/login` 一致的 `<Login />` 登入介面（`layout: 'auth'`）。
   * 更新 [`app/middleware/auth.global.ts`](app/middleware/auth.global.ts)，使首頁 `/` 與 `/dashboard/login` 統一作為認證入口：已登入者造訪 `/` 或 `/dashboard/login` 自動跳轉至 `/dashboard`；未登入者直接在 `/` 進行 Passkey 或 Site Token 登入。
+  * 移除 [`server/middleware/1.redirect.ts`](server/middleware/1.redirect.ts) 與 [`nuxt.config.ts`](nuxt.config.ts) 中的 `homeURL` 強制跳轉邏輯，避免環境變數（如 `NUXT_HOME_URL`）將首頁訪問劫持至外部站點或失效網址，保證訪客造訪根域名 `/` 必為登入頁面。
   * 自 [`app/app.config.ts`](app/app.config.ts) 移除不再使用的 `company` 設定區塊。
 
 ### 📌 Dashboard Passkey 登入與裝置管理

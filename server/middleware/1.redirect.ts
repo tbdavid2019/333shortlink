@@ -81,11 +81,8 @@ function renderSocialPreviewHtml(params: {
 export default eventHandler(async (event) => {
   const { pathname: slug } = parsePath(event.path.replace(/^\/|\/$/g, '')) // remove leading and trailing slashes
   const { slugRegex, reserveSlug } = useAppConfig(event)
-  const { homeURL, redirectWithQuery, caseSensitive } = useRuntimeConfig(event)
+  const { redirectWithQuery, caseSensitive } = useRuntimeConfig(event)
   const { cloudflare } = event.context
-
-  if (event.path === '/' && homeURL)
-    return sendRedirect(event, homeURL)
 
   if (slug && !reserveSlug.includes(slug) && slugRegex.test(slug) && cloudflare) {
     const { KV } = cloudflare.env
