@@ -19,7 +19,8 @@ export default eventHandler(async (event) => {
     return { success: true, passkey: { id: passkey.id, name: passkey.name, createdAt: passkey.createdAt } }
   }
   catch (error) {
-    console.error('Passkey registration verification failed:', error instanceof Error ? error.message : 'Unknown error')
-    throw createError({ statusCode: 400, statusMessage: 'Could not verify this passkey. Start registration again.' })
+    const reason = error instanceof Error ? error.message.slice(0, 120) : 'Unknown verification error'
+    console.error('Passkey registration verification failed:', reason)
+    throw createError({ statusCode: 400, statusMessage: `Passkey verification failed: ${reason}. Start registration again.` })
   }
 })

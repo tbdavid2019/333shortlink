@@ -54,7 +54,6 @@ async function addPasskey() {
     await loadPasskeys()
   }
   catch (error) {
-    console.error('Passkey registration failed:', error)
     toast.error(error?.data?.statusMessage || 'Passkey registration was cancelled or failed')
   }
   finally {
