@@ -1,7 +1,6 @@
 import { deleteCookie, getCookie, getRequestURL, setCookie } from 'h3'
 
 const CREDENTIAL_PREFIX = 'passkey:credential:'
-const USER_HANDLE_KEY = 'passkey:user-handle'
 const SESSION_COOKIE = 'sink_passkey_session'
 const CHALLENGE_TTL_SECONDS = 120
 const SESSION_TTL_SECONDS = 60 * 60 * 8
@@ -34,6 +33,7 @@ interface PasskeyChallenge {
 export interface PasskeyCredential {
   id: string
   name: string
+  userHandle: string
   publicKeyX: string
   publicKeyY: string
   counter: number
@@ -121,7 +121,7 @@ async function createChallenge(event: Parameters<typeof getRequestURL>[0], cerem
   }
 
   if (ceremony === 'register')
-    challenge.userHandle = await getUserHandle(getKV(event))
+    challenge.userHandle = await getUserHandle(challenge.rpId)
 
   const payload = bytesToBase64Url(encoder.encode(JSON.stringify(challenge)))
   const signature = await signValue(`passkey-challenge:${payload}`, token)
@@ -135,13 +135,9 @@ async function createChallenge(event: Parameters<typeof getRequestURL>[0], cerem
   return { requestId, challenge }
 }
 
-async function getUserHandle(KV: PasskeyKV) {
-  let userHandle = await KV.get(USER_HANDLE_KEY)
-  if (!userHandle) {
-    userHandle = randomBase64Url(32)
-    await KV.put(USER_HANDLE_KEY, userHandle)
-  }
-  return userHandle
+async function getUserHandle(rpId: string) {
+  const handle = await crypto.subtle.digest('SHA-256', encoder.encode(`glsoft.ai:administrator:${rpId}`))
+  return bytesToBase64Url(new Uint8Array(handle))
 }
 
 export async function consumeChallenge(
@@ -406,15 +402,15 @@ export async function verifyRegistration(
   if (!constantTimeEqual(key.credentialId, credential.rawId) || credential.id !== credential.rawId)
     throw new Error('Passkey credential ID mismatch')
 
-  const storedUserHandle = await getUserHandle(getKV(event))
-  if (!challenge.userHandle || !constantTimeEqual(challenge.userHandle, storedUserHandle))
-    throw new Error('Passkey account context changed')
+  if (!challenge.userHandle)
+    throw new Error('Passkey account context is missing')
   if (!clientDataBytes.length)
     throw new Error('Client data is empty')
 
   return {
     id: key.credentialId,
     name,
+    userHandle: challenge.userHandle,
     publicKeyX: key.publicKeyX,
     publicKeyY: key.publicKeyY,
     counter: readUint32(authenticatorData, 33),
@@ -482,8 +478,7 @@ export async function verifyAuthentication(
     throw createError({ statusCode: 401, statusMessage: 'Passkey was not recognized' })
 
   const userHandle = credential.response.userHandle
-  const expectedUserHandle = await getUserHandle(KV)
-  if (!userHandle || !constantTimeEqual(userHandle, expectedUserHandle))
+  if (!userHandle || !constantTimeEqual(userHandle, record.userHandle))
     throw createError({ statusCode: 401, statusMessage: 'Passkey account was not recognized' })
 
   const clientDataBytes = await verifyClientData(event, credential.response.clientDataJSON, challenge, 'webauthn.get')
