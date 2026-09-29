@@ -20,12 +20,28 @@
     "system": "Système"
   },
   "login": {
-    "title": "Connexion",
-    "description": "Entrez votre jeton pour vous connecter",
+    "title": "Se connecter avec une passkey",
+    "description": "Utilisez Touch ID, Face ID, Windows Hello ou une passkey enregistrée.",
+    "brand": "glsoft.ai",
+    "admin_access": "Accès administrateur",
+    "workspace_title": "Gérez vos liens en toute clarté.",
+    "workspace_description": "Créez et organisez vos liens courts, puis consultez leurs performances.",
+    "sample_path": "Exemple de redirection",
+    "original_url": "Lien d’origine",
+    "short_url": "Lien court",
+    "footer": "Confirmez avec votre appareil pour continuer.",
+    "passkey_action": "Continuer avec une passkey",
+    "passkey_waiting": "Confirmez sur votre appareil…",
+    "passkey_unsupported": "Les passkeys nécessitent un navigateur compatible et une connexion HTTPS sécurisée.",
+    "passkey_failed": "La connexion par passkey n’a pas abouti. Réessayez ou utilisez le Site Token.",
+    "passkey_unregistered": "Aucune passkey n’est enregistrée. Connectez-vous avec le Site Token, puis ajoutez-en une dans Paramètres → Security.",
+    "token_heading": "Utiliser le Site Token",
+    "token_description": "Le Site Token reste disponible pour les intégrations API.",
+    "token_placeholder": "Saisissez votre Site Token",
     "tips": "Astuces",
     "preview_token": "Le jeton du site pour le mode aperçu est",
-    "submit": "Connexion",
-    "failed": "Échec de la connexion, veuillez réessayer"
+    "submit": "Connexion avec le token",
+    "failed": "Le Site Token est invalide. Vérifiez-le et réessayez."
   },
   "logout": {
     "title": "Déconnexion ?",

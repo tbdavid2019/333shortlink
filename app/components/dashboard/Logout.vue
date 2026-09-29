@@ -1,9 +1,21 @@
 <script setup>
 import { LogOut } from 'lucide-vue-next'
+import { toast } from 'vue-sonner'
 
-function logOut() {
-  localStorage.removeItem('SinkSiteToken')
-  navigateTo('/dashboard/login')
+async function logOut() {
+  const token = localStorage.getItem('SinkSiteToken')
+  try {
+    await $fetch('/api/passkey/logout', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+    localStorage.removeItem('SinkSiteToken')
+    await navigateTo('/dashboard/login')
+  }
+  catch {
+    toast.error('Could not sign out. Please try again.')
+  }
 }
 </script>
 

@@ -20,12 +20,28 @@
     "system": "跟随系统"
   },
   "login": {
-    "title": "登录",
-    "description": "请输入站点令牌以登录",
+    "title": "使用 Passkey 登录",
+    "description": "使用 Touch ID、Face ID、Windows Hello 或已保存的 Passkey 登录。",
+    "brand": "glsoft.ai",
+    "admin_access": "管理员登录",
+    "workspace_title": "清晰管理每一条链接。",
+    "workspace_description": "创建和整理短链接，并查看链接表现。",
+    "sample_path": "链接跳转示意",
+    "original_url": "原始链接",
+    "short_url": "短链接",
+    "footer": "通过设备验证后即可继续。",
+    "passkey_action": "使用 Passkey 登录",
+    "passkey_waiting": "请在设备上完成验证…",
+    "passkey_unsupported": "Passkey 需要受支持的浏览器和安全的 HTTPS 连接。",
+    "passkey_failed": "Passkey 登录未完成，请重试或改用 Site Token。",
+    "passkey_unregistered": "尚未注册 Passkey。请先用 Site Token 登录，再到“设置 → Security”添加。",
+    "token_heading": "改用 Site Token",
+    "token_description": "Site Token 仍可用于 API 集成。",
+    "token_placeholder": "输入 Site Token",
     "tips": "提示",
     "preview_token": "预览模式的站点令牌是",
-    "submit": "登录",
-    "failed": "登录失败，请重试"
+    "submit": "使用 Token 登录",
+    "failed": "Site Token 无效，请检查后重试。"
   },
   "logout": {
     "title": "退出登录？",

@@ -53,9 +53,9 @@ pnpm install
 cp .env.example .env
 ```
 
-並修改其中的設定（例如管理後台的登入密碼等）：
+並修改其中的設定：
 
-- `NUXT_SITE_TOKEN`: 後台登入密碼（不支援純數字，多個密碼可用逗號 `,` 分開）。
+- `NUXT_SITE_TOKEN`: Site Token 登入備援，以及既有 API / MCP bearer client 的存取憑證。多個 token 可用逗號 `,` 分開。
 - `NUXT_HOME_URL`: 首頁預設跳轉的 URL。
 - `NUXT_CF_ACCOUNT_ID` 與 `NUXT_CF_API_TOKEN`: 用於讀取 Cloudflare 分析數據的帳號 ID 與 API Token。
 
@@ -263,11 +263,11 @@ Sink 內建對 **Model Context Protocol (MCP)** 以及 **Cloudflare WebMCP**（C
 
 ### 3. 部署並設定環境變數與機密 (Secrets)
 
-當您使用 `pnpm deploy:worker` 部署上線後，請前往 **Workers & Pages** -> 選擇您的 Worker 專案 -> 進入 **Settings (設定)** -> **Variables (變數)** -> 點擊 **Add (新增變數)**，並設定以下 3 個關鍵參數：
+當您使用 `pnpm deploy:worker` 部署上線後，請前往 **Workers & Pages** -> 選擇您的 Worker 專案 -> 進入 **Settings (設定)** -> **Variables (變數)** -> 點擊 **Add (新增變數)**，並設定以下關鍵參數：
 
 | 環境變數名稱             | 類型                | 說明                                                                                                                   |
 | :----------------------- | :------------------ | :--------------------------------------------------------------------------------------------------------------------- |
-| **`NUXT_SITE_TOKEN`**    | **機密 (Secret)**   | **【必填】** 後台登入密碼，長度必須**大於等於 8 個字元**（且不能為純數字）。                                           |
+| **`NUXT_SITE_TOKEN`**    | **機密 (Secret)**   | **【必填】** Site Token 登入備援與 API / MCP bearer access；每個 token 至少 8 個字元，多 token 以逗號分隔。             |
 | **`NUXT_CF_ACCOUNT_ID`** | **變數 (Variable)** | **【統計分析必填】** 您的 Cloudflare 帳戶 ID（可在首頁右側面板或網址中找到）。                                         |
 | **`NUXT_CF_API_TOKEN`**  | **機密 (Secret)**   | **【統計分析必填】** 您的 Cloudflare API Token。建立時必須賦予 **`Account.Account Analytics` (讀取帳戶分析)** 的權限。 |
 
@@ -275,21 +275,29 @@ _(選填)_：如果您不希望訪客直接訪問您的短網址根域名首頁�
 
 ---
 
-## 🔐 進入後台與密碼設定
+## 🔐 進入後台與設定 Passkey
 
 ### 1. 如何進入管理後台
 
 - **本地開發**：打開瀏覽器訪問 `http://localhost:3000/dashboard`。
 - **線上部署**：訪問 `https://您的網域/dashboard`。
-- 進入該路徑後，系統會引導您至登入頁面，您需要輸入設定的 **Site Token（即後台密碼）** 即可登入管理面板。
+- 進入該路徑後，可使用 Passkey（Touch ID、Face ID、Windows Hello 或密碼管理器）登入；Site Token 登入備援仍可使用。
 
-### 2. 如何設定後台密碼 (Site Token)
+### 2. 註冊 Passkey
 
-後台密碼是透過環境變數 `NUXT_SITE_TOKEN` 來進行設定的（不支援純數字，多個密碼可用英文逗號 `,` 分隔，例如 `Password1,Password2`）：
+首次新增 Passkey 時，先用目前的 Site Token 登入後台，再前往 **Settings -> Security**：
 
-#### 💡 本地開發環境：
+- 輸入裝置名稱，例如 `MacBook Touch ID`，再點擊 **Add passkey**。
+- 瀏覽器會開啟裝置驗證；完成 Touch ID、Face ID 或 Windows Hello 後，Passkey 就會綁定到目前網域。
+- 要在不同瀏覽器或裝置登入時，可在同一個頁面各註冊一個 Passkey。
 
-直接修改專案根目錄下的 `.env` 檔案：
+Passkey 私鑰留在裝置或其密碼管理器，伺服器只保存公開金鑰與憑證資料。WebAuthn 需要 HTTPS；本機開發可使用 `localhost`。Passkey 綁定註冊時使用的網域。
+
+### 3. 設定 Site Token 備援與 API 存取
+
+`NUXT_SITE_TOKEN` 維持既有設定方式，提供 Site Token 登入備援，以及下游 App 呼叫 API / MCP 的 bearer access。保留原本 token 值即可讓既有整合繼續運作。
+
+本地開發可在 `.env` 設定：
 
 ```env
 NUXT_SITE_TOKEN="您的自訂密碼"
@@ -297,17 +305,11 @@ NUXT_SITE_TOKEN="您的自訂密碼"
 
 #### 🌐 生產環境 (Cloudflare Workers)：
 
-您可以使用以下兩種方式之一來設定線上環境的密碼：
+在 Cloudflare Variables and Secrets 中保留既有 `NUXT_SITE_TOKEN`，或透過 Wrangler 設定：
 
-- **方法 A：透過 Cloudflare 網頁控制台設定（推薦，安全度高）**
-  如上方的表格所述，直接在 **Settings -> Variables** 中新增 `NUXT_SITE_TOKEN` 并點擊右側的 **Encrypt (加密)**。
-- **方法 B：使用 Wrangler 命令列設定**
-  您也可以直接在終端機中運行以下指令上傳密碼：
-  ```bash
-  # 如果您有多個 Cloudflare 帳戶，請在指令前帶上 CLOUDFLARE_ACCOUNT_ID
-  CLOUDFLARE_ACCOUNT_ID="您的帳號ID" pnpm wrangler secret put NUXT_SITE_TOKEN
-  ```
-  依終端機提示輸入您要設定的密碼即可。
+```bash
+pnpm wrangler secret put NUXT_SITE_TOKEN
+```
 
 ---
 

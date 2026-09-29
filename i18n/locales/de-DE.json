@@ -20,12 +20,28 @@
     "system": "System"
   },
   "login": {
-    "title": "Anmelden",
-    "description": "Gib deinen Site-Token ein, um dich anzumelden",
+    "title": "Mit Passkey anmelden",
+    "description": "Nutze Touch ID, Face ID, Windows Hello oder einen gespeicherten Passkey.",
+    "brand": "glsoft.ai",
+    "admin_access": "Administratorzugang",
+    "workspace_title": "Behalte deine Links im Blick.",
+    "workspace_description": "Erstelle und organisiere Kurzlinks und prüfe ihre Leistung.",
+    "sample_path": "Beispiel für eine Weiterleitung",
+    "original_url": "Ursprünglicher Link",
+    "short_url": "Kurzlink",
+    "footer": "Bestätige mit deinem Gerät, um fortzufahren.",
+    "passkey_action": "Mit Passkey fortfahren",
+    "passkey_waiting": "Bestätige auf deinem Gerät…",
+    "passkey_unsupported": "Passkeys benötigen einen kompatiblen Browser und eine sichere HTTPS-Verbindung.",
+    "passkey_failed": "Die Passkey-Anmeldung wurde nicht abgeschlossen. Versuche es erneut oder nutze deinen Site Token.",
+    "passkey_unregistered": "Es ist noch kein Passkey registriert. Melde dich mit dem Site Token an und füge unter Einstellungen → Security einen hinzu.",
+    "token_heading": "Site Token verwenden",
+    "token_description": "Der Site Token bleibt für API-Integrationen verfügbar.",
+    "token_placeholder": "Site Token eingeben",
     "tips": "Tipps",
     "preview_token": "Der Site-Token für den Vorschaumodus ist",
-    "submit": "Anmelden",
-    "failed": "Anmeldung fehlgeschlagen, bitte versuche es erneut"
+    "submit": "Mit Token anmelden",
+    "failed": "Der Site Token wurde abgelehnt. Prüfe ihn und versuche es erneut."
   },
   "logout": {
     "title": "Abmelden?",

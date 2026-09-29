@@ -4,7 +4,7 @@
 2. Create a project in [Cloudflare Pages](https://developers.cloudflare.com/pages/).
 3. Select the `Sink` repository and choose the `Nuxt.js` preset.
 4. Configure the following environment variables:
-   - `NUXT_SITE_TOKEN`: Must be at least **8** characters long. This token grants access to your dashboard.
+   - `NUXT_SITE_TOKEN`: Must be at least **8** characters long. This token grants Site Token fallback sign-in and API / MCP bearer access; existing integrations can keep using it.
    - `NUXT_CF_ACCOUNT_ID`: Find your [account ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/).
    - `NUXT_CF_API_TOKEN`: Create a [Cloudflare API token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) with at least `Account.Account Analytics` permission. [See reference.](https://developers.cloudflare.com/analytics/analytics-engine/sql-api/#authentication)
 

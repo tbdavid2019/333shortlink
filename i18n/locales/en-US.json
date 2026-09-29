@@ -20,12 +20,28 @@
     "system": "System"
   },
   "login": {
-    "title": "Login",
-    "description": "Enter your site token to login",
+    "title": "Sign in with a passkey",
+    "description": "Use Touch ID, Face ID, Windows Hello, or another saved passkey.",
+    "brand": "glsoft.ai",
+    "admin_access": "Administrator access",
+    "workspace_title": "Your links, clearly managed.",
+    "workspace_description": "Create and organize short links, then review how they perform.",
+    "sample_path": "Example redirect",
+    "original_url": "Original link",
+    "short_url": "Short link",
+    "footer": "Confirm with your device to continue.",
+    "passkey_action": "Continue with a passkey",
+    "passkey_waiting": "Waiting for your device…",
+    "passkey_unsupported": "Passkeys need a supported browser and a secure HTTPS connection.",
+    "passkey_failed": "Passkey sign-in did not complete. Try again or use your Site Token.",
+    "passkey_unregistered": "No passkey is registered yet. Sign in with your Site Token, then add one in Settings → Security.",
+    "token_heading": "Use your Site Token",
+    "token_description": "Your Site Token remains available for API integrations.",
+    "token_placeholder": "Enter your Site Token",
     "tips": "Tips",
     "preview_token": "The site token for preview mode is",
-    "submit": "Login",
-    "failed": "Login failed, please try again"
+    "submit": "Sign in with token",
+    "failed": "The Site Token was rejected. Check it and try again."
   },
   "logout": {
     "title": "LogOut?",

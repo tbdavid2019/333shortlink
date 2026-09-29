@@ -1,21 +1,7 @@
 <script setup>
 import { BloggerIcon, GitHubIcon, GmailIcon, MastodonIcon, TelegramIcon, XIcon } from 'vue3-simple-icons'
 
-const { title, email, telegram, blog, twitter, mastodon, github, company } = useAppConfig()
-
-const dynamicCompanyName = ref('')
-
-onMounted(async () => {
-  try {
-    const data = await $fetch('/api/public/settings/enterprise')
-    if (data && data.enabled && data.companyName) {
-      dynamicCompanyName.value = data.companyName
-    }
-  }
-  catch (e) {
-    console.error(e)
-  }
-})
+const { title, email, telegram, blog, twitter, mastodon, github } = useAppConfig()
 </script>
 
 <template>
@@ -32,14 +18,6 @@ onMounted(async () => {
           dark:text-gray-100
         "
       >{{ title }}</span>
-      <span
-        class="
-          mt-4 text-sm text-gray-500
-          sm:mt-0 sm:ml-4 sm:border-l sm:border-gray-200 sm:pl-4
-        "
-      >
-        &copy; {{ new Date().getFullYear() }} {{ dynamicCompanyName || company?.name || title }}
-      </span>
       <span
         class="
           mt-4 inline-flex justify-center space-x-5

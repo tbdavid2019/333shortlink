@@ -20,12 +20,28 @@
     "system": "跟隨系統"
   },
   "login": {
-    "title": "登入",
-    "description": "請輸入站點密碼以登入",
+    "title": "使用 Passkey 登入",
+    "description": "使用 Touch ID、Face ID、Windows Hello 或已儲存的 Passkey 登入。",
+    "brand": "glsoft.ai",
+    "admin_access": "管理員登入",
+    "workspace_title": "清楚掌握每一條連結。",
+    "workspace_description": "建立與整理短網址，並查看連結的成效。",
+    "sample_path": "連結跳轉示意",
+    "original_url": "原始連結",
+    "short_url": "短網址",
+    "footer": "使用裝置驗證後即可繼續。",
+    "passkey_action": "使用 Passkey 登入",
+    "passkey_waiting": "請在裝置上完成驗證…",
+    "passkey_unsupported": "Passkey 需要支援的瀏覽器與安全的 HTTPS 連線。",
+    "passkey_failed": "Passkey 登入未完成，請重試或改用 Site Token。",
+    "passkey_unregistered": "尚未註冊 Passkey。請先用 Site Token 登入，再到「設定 → Security」新增。",
+    "token_heading": "改用 Site Token",
+    "token_description": "Site Token 仍可供 API 整合使用。",
+    "token_placeholder": "輸入 Site Token",
     "tips": "提示",
     "preview_token": "預覽模式的站點密碼是",
-    "submit": "登入",
-    "failed": "登入失敗，請重試"
+    "submit": "使用 Token 登入",
+    "failed": "Site Token 無效，請確認後再試一次。"
   },
   "logout": {
     "title": "登出？",

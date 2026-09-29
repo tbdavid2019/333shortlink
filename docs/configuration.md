@@ -1,5 +1,13 @@
 # Sink Configuration
 
+## Dashboard Passkeys
+
+The dashboard supports Touch ID, Face ID, Windows Hello, and other WebAuthn passkeys. Sign in with the existing `NUXT_SITE_TOKEN` first, then open **Settings -> Security** to register or remove devices. Registration requires HTTPS; `localhost` is valid for local development.
+
+Passkey credentials are stored in the existing Cloudflare KV binding. The private key stays with the authenticator; KV stores the public key and credential metadata. Passkeys are bound to the exact hostname used during registration, so register separately for each hostname or browser profile that needs access.
+
+Successful passkey sign-in creates an `HttpOnly`, `SameSite=Lax` session cookie that expires after 8 hours. `NUXT_SITE_TOKEN` remains unchanged for downstream API and MCP clients, and remains available as a dashboard sign-in fallback. Apply Cloudflare rate limiting to `GET /api/passkey/login/options` to limit challenge creation.
+
 Sink provides some configuration options, which can be referred to in [.env.example](../.env.example).
 
 > When using Worker deployment, please note that variables with the `NUXT_PUBLIC_` prefix need to be configured in Workers' **Settings** -> **Build** -> **Variables and Secrets** and **Settings** -> **Variables and Secrets**.

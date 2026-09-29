@@ -20,12 +20,28 @@
     "system": "Hệ thống"
   },
   "login": {
-    "title": "Đăng nhập",
-    "description": "Nhập token của trang để đăng nhập",
+    "title": "Đăng nhập bằng Passkey",
+    "description": "Dùng Touch ID, Face ID, Windows Hello hoặc Passkey đã lưu.",
+    "brand": "glsoft.ai",
+    "admin_access": "Quyền quản trị",
+    "workspace_title": "Quản lý liên kết rõ ràng hơn.",
+    "workspace_description": "Tạo và sắp xếp liên kết ngắn, sau đó xem hiệu quả của chúng.",
+    "sample_path": "Ví dụ chuyển hướng",
+    "original_url": "Liên kết gốc",
+    "short_url": "Liên kết ngắn",
+    "footer": "Xác nhận bằng thiết bị để tiếp tục.",
+    "passkey_action": "Tiếp tục bằng Passkey",
+    "passkey_waiting": "Hãy xác nhận trên thiết bị…",
+    "passkey_unsupported": "Passkey cần trình duyệt tương thích và kết nối HTTPS an toàn.",
+    "passkey_failed": "Đăng nhập bằng Passkey chưa hoàn tất. Hãy thử lại hoặc dùng Site Token.",
+    "passkey_unregistered": "Chưa có Passkey. Hãy đăng nhập bằng Site Token rồi thêm Passkey trong Settings → Security.",
+    "token_heading": "Dùng Site Token",
+    "token_description": "Site Token vẫn dùng được cho các tích hợp API.",
+    "token_placeholder": "Nhập Site Token",
     "tips": "Mẹo",
     "preview_token": "Token của chế độ xem trước là",
-    "submit": "Đăng nhập",
-    "failed": "Đăng nhập thất bại, vui lòng thử lại"
+    "submit": "Đăng nhập bằng token",
+    "failed": "Site Token không hợp lệ. Hãy kiểm tra và thử lại."
   },
   "logout": {
     "title": "Đăng xuất?",

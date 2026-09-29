@@ -1,5 +1,16 @@
 # CHANGELOG & Deployment Gotchas (開發與部署備忘錄)
 
+## 📅 [2026-09-29]
+
+### 📌 Dashboard Passkey 登入與裝置管理
+
+* 新增 WebAuthn Passkey 登入，支援平台驗證器的 Touch ID、Face ID、Windows Hello 與密碼管理器。
+* 在 Dashboard Settings 新增 Security 頁籤，可註冊及移除 Passkey；首次註冊使用既有 Site Token 登入。
+* Passkey 驗證使用 120 秒隨機 challenge、RP ID / origin / 使用者驗證檢查與 Web Crypto ES256 簽章驗證；成功後建立 8 小時 HttpOnly session cookie。
+* 保留 `NUXT_SITE_TOKEN` 作為登入備援及既有 API / MCP bearer access，既有下游 App 不需更換 token。
+* 移除共用頁尾中的公司版權文字，保留 glsoft.ai 名稱與社群連結。
+* Passkey 公開金鑰與裝置名稱存入既有 Cloudflare KV；未新增環境變數或外部依賴。
+
 本文件記錄了專案開發、部署及設定過程中遇到的一些關鍵「坑」與解決方案，供後續維護參考。
 
 ---

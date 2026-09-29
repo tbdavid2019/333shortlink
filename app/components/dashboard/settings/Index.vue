@@ -235,7 +235,12 @@ onMounted(() => {
       default-value="seo"
       class="w-full"
     >
-      <TabsList class="grid max-w-[600px] grid-cols-3">
+      <TabsList
+        class="
+          grid w-full max-w-[800px] grid-cols-2
+          sm:grid-cols-4
+        "
+      >
         <TabsTrigger value="seo">
           Site SEO
         </TabsTrigger>
@@ -244,6 +249,9 @@ onMounted(() => {
         </TabsTrigger>
         <TabsTrigger value="transition">
           Transition Page
+        </TabsTrigger>
+        <TabsTrigger value="security">
+          Security
         </TabsTrigger>
       </TabsList>
 
@@ -1139,6 +1147,9 @@ onMounted(() => {
             </CardContent>
           </Card>
         </div>
+      </TabsContent>
+      <TabsContent value="security" class="mt-6">
+        <DashboardSettingsPasskeys />
       </TabsContent>
     </Tabs>
   </div>
