@@ -21,7 +21,10 @@
   * 在 [`nuxt.config.ts`](nuxt.config.ts) 明確宣告 `vueI18n: './i18n/i18n.config.ts'`，並將 `/dashboard/login` 納入 `nitro.prerender.routes`，使登入頁面具備靜態 HTML 預渲染。
 * **Cloudflare Pages 預設建置 Preset 修復**：
   * 根因分析：Cloudflare Pages 於 CI 自動建置時預設調用 `pnpm build`（即 `nuxt build`）；原先 `nuxt.config.ts` 的 `nitro.preset` 未定義且專案目錄存在 `wrangler.jsonc`，導致 Nitro 自動回退為 `cloudflare-module`，產出 `dist/server/index.mjs` 與 `dist/public`，缺少 Pages 必需的 `dist/_worker.js`，導致部署至 Pages 後邊緣 API 與部分頁面遭遇 404 或快取錯亂。
-  * 在 [`package.json`](package.json) 中將 `"build"` 腳本明確設為 `NITRO_PRESET=cloudflare-pages NODE_OPTIONS=--max-old-space-size=8192 nuxt build`，並在 [`nuxt.config.ts`](nuxt.config.ts) 將非 DEV 環境預設 preset 設為 `cloudflare-pages`，確保無論透過 Pages CI 還是本機都能產出完整的 `dist/_worker.js`。
+* **首頁去品牌化並改為登入頁面**：
+  * 將 [`app/pages/index.vue`](app/pages/index.vue) 原有的公司簡介（「資旅軟體開發有限公司」、統編、代表人、地址等品牌資訊）以及 loading spinner 完全移除，去品牌化並直接改為與 `/dashboard/login` 一致的 `<Login />` 登入介面（`layout: 'auth'`）。
+  * 更新 [`app/middleware/auth.global.ts`](app/middleware/auth.global.ts)，使首頁 `/` 與 `/dashboard/login` 統一作為認證入口：已登入者造訪 `/` 或 `/dashboard/login` 自動跳轉至 `/dashboard`；未登入者直接在 `/` 進行 Passkey 或 Site Token 登入。
+  * 自 [`app/app.config.ts`](app/app.config.ts) 移除不再使用的 `company` 設定區塊。
 
 ### 📌 Dashboard Passkey 登入與裝置管理
 

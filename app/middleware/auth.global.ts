@@ -5,7 +5,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const token = window.localStorage.getItem('SinkSiteToken')
   const headers = token ? { Authorization: `Bearer ${token}` } : undefined
 
-  if (!to.path.startsWith('/dashboard'))
+  const isAuthRoute = to.path === '/' || to.path === '/dashboard/login'
+  const isDashboardRoute = to.path.startsWith('/dashboard')
+
+  if (!isAuthRoute && !isDashboardRoute)
     return
 
   let authenticated = false
@@ -17,9 +20,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
     authenticated = false
   }
 
-  if (to.path === '/dashboard/login' && authenticated)
+  if (isAuthRoute && authenticated)
     return navigateTo('/dashboard')
 
-  if (to.path !== '/dashboard/login' && !authenticated)
+  if (isDashboardRoute && to.path !== '/dashboard/login' && !authenticated)
     return navigateTo('/dashboard/login')
 })
