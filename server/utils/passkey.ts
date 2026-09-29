@@ -153,29 +153,34 @@ export async function consumeChallenge(
     path: '/',
   })
   const token = getSiteToken(event)
-  if (!cookie || !token || cookie.length > 4096)
-    throw createError({ statusCode: 400, statusMessage: 'Passkey request expired. Try again.' })
+  if (!cookie)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie was not returned by the browser.' })
+  if (!token)
+    throw createError({ statusCode: 503, statusMessage: 'Passkey signing key is not configured.' })
+  if (cookie.length > 4096)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie exceeded its size limit.' })
 
   const [payload, signature, ...extra] = cookie.split('.')
   if (extra.length || !payload || !signature)
-    throw createError({ statusCode: 400, statusMessage: 'Passkey request expired. Try again.' })
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie was malformed.' })
   const expectedSignature = await signValue(`passkey-challenge:${payload}`, token)
   if (!constantTimeEqual(signature, expectedSignature))
-    throw createError({ statusCode: 400, statusMessage: 'Passkey request expired. Try again.' })
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge signature did not match.' })
 
   let challenge: PasskeyChallenge
   try {
     challenge = JSON.parse(new TextDecoder().decode(base64UrlToBytes(payload)))
   }
   catch {
-    throw createError({ statusCode: 400, statusMessage: 'Passkey request expired. Try again.' })
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge payload could not be parsed.' })
   }
 
-  if (challenge.requestId !== requestId
-    || challenge.ceremony !== ceremony
-    || challenge.expiresAt <= Math.floor(Date.now() / 1000)) {
-    throw createError({ statusCode: 400, statusMessage: 'Passkey request expired. Try again.' })
-  }
+  if (challenge.requestId !== requestId)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey request ID did not match.' })
+  if (challenge.ceremony !== ceremony)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey ceremony type did not match.' })
+  if (challenge.expiresAt <= Math.floor(Date.now() / 1000))
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge expired. Start registration again.' })
   if (challenge.origin !== currentOrigin(event) || challenge.rpId !== currentRpId(event))
     throw createError({ statusCode: 400, statusMessage: 'Passkey request origin changed' })
   return challenge
