@@ -167,12 +167,20 @@ export async function consumeChallenge(
   if (!constantTimeEqual(signature, expectedSignature))
     throw createError({ statusCode: 400, statusMessage: 'Passkey challenge signature did not match.' })
 
-  let challenge: PasskeyChallenge
+  let decodedPayload: Uint8Array
   try {
-    challenge = JSON.parse(new TextDecoder().decode(base64UrlToBytes(payload)))
+    decodedPayload = base64UrlToBytes(payload)
   }
   catch {
-    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge payload could not be parsed.' })
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge token is not valid Base64URL.' })
+  }
+
+  let challenge: PasskeyChallenge
+  try {
+    challenge = JSON.parse(new TextDecoder().decode(decodedPayload))
+  }
+  catch {
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge token is not valid JSON.' })
   }
 
   if (challenge.requestId !== requestId)
