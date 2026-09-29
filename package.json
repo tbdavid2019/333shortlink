@@ -18,8 +18,9 @@
     "lint-staged": "lint-staged",
     "wrangler": "wrangler",
     "dev": "nuxt dev",
+    "build:pages": "NITRO_PRESET=cloudflare-pages npm run build",
     "deploy": "npm run deploy:pages",
-    "deploy:pages": "wrangler pages deploy dist",
+    "deploy:pages": "NITRO_PRESET=cloudflare-pages npm run build && wrangler pages deploy dist",
     "deploy:worker": "wrangler deploy",
     "preview": "wrangler dev --var $(cat .env | sed 's/=/:/g')",
     "test": "vitest"

@@ -147,7 +147,7 @@ export async function consumeChallenge(
 
   const [payload, signature, ...extra] = challengeToken.split('.')
   if (extra.length || !payload || !signature)
-    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie was malformed.' })
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge token was malformed.' })
   const expectedSignature = await signValue(`passkey-challenge:${payload}`, token)
   if (!constantTimeEqual(signature, expectedSignature))
     throw createError({ statusCode: 400, statusMessage: 'Passkey challenge signature did not match.' })

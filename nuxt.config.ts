@@ -37,6 +37,9 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
+    '/': {
+      prerender: true,
+    },
     '/dashboard/**': {
       prerender: true,
       ssr: false,
@@ -57,6 +60,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: [
+        '/',
         '/dashboard/settings',
         '/dashboard/settings/seo',
         '/dashboard/settings/enterprise',

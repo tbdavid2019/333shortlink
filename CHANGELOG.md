@@ -2,6 +2,22 @@
 
 ## 📅 [2026-09-29]
 
+### 📌 Dashboard Settings Canonical Routes、Passkey 解碼修正與 Pages 部署配置
+
+* **後台 Canonical Routes 直達**：
+  * 將 [`app/pages/dashboard/settings.vue`](app/pages/dashboard/settings.vue) 重構為 [`app/pages/dashboard/settings/[[tab]].vue`](app/pages/dashboard/settings/[[tab]].vue)，支援直達路徑 `/dashboard/settings/security`、`/dashboard/settings/seo`、`/dashboard/settings/enterprise`、`/dashboard/settings/transition`。
+  * 點擊頁籤時自動透過 `router.replace` 同步更新瀏覽器網址列為 Canonical Route，重新整理或加入書籤皆能精準保留所在頁籤，並相容 `?tab=...` 查詢參數。
+  * 在 [`nuxt.config.ts`](nuxt.config.ts) 的 `nitro.prerender.routes` 明確加入上述設定直達子路徑，建置時產出獨立靜態 HTML 檔，免去 404 跳轉延遲。
+  * 修正 [`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue) 中 `const { title } = useAppConfig()` 遮蔽 prop `title` 的問題（原先麵包屑會重複顯示站點名稱 `glsoft.ai > 儀表板 > glsoft.ai`），並新增子路徑階層支援（例如 `glsoft.ai > 儀表板 > 設定 > Security`）。
+  * 修正 [`app/components/dashboard/Nav.vue`](app/components/dashboard/Nav.vue) 於設定子路徑時無法維持「設定」頁籤高亮狀態的問題。
+* **Passkey WebAuthn Challenge 解碼修正**：
+  * 修正 [`server/utils/passkey.ts`](server/utils/passkey.ts) 中 `base64UrlToBytes` 的字元驗證正則：原先誤寫為 `/^[w-]*$/`（僅匹配英文字母 `w` 與 `-`），導致任何標準 Base64URL challenge payload 解碼直接拋錯，觸發 `Passkey request expired` 或 `Passkey challenge token is not valid Base64URL`。已修正為 `/^[\w-]*={0,2}$/`。
+  * 將 Challenge 傳遞改為顯式 HMAC 簽名 `challengeToken`，消除 Cookie 遺失與跨域限制。
+  * 新增 [`tests/passkey.spec.ts`](tests/passkey.spec.ts) 單元測試，涵蓋 registration options 產生與 challengeToken 簽章/解碼驗證。
+* **Cloudflare Pages 部署備忘 (`local.md`)**：
+  * 新增本地開發與部署備忘錄 [`local.md`](local.md)（已列入 [`.gitignore`](.gitignore) 防止外洩），詳細註記專案採用 Cloudflare Pages 部署。
+  * 在 [`package.json`](package.json) 補充 `"build:pages"` 與 `"deploy:pages"`，強制帶入 `NITRO_PRESET=cloudflare-pages`，確保產出 `dist/_worker.js`，避免因使用預設 Worker preset 遺失 worker 入口而造成 Pages 上的 `/` 與 `/api/*` 回傳 404。
+
 ### 📌 Dashboard Passkey 登入與裝置管理
 
 * 新增 WebAuthn Passkey 登入，支援平台驗證器的 Touch ID、Face ID、Windows Hello 與密碼管理器。
