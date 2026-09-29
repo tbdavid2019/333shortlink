@@ -1,9 +1,10 @@
 <script setup>
 import { AlertCircle, Fingerprint, KeyRound, LoaderCircle } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
+import { useLoginCopy } from '~/utils/login-copy'
 import { prepareRequestOptions, serializePasskeyCredential } from '~/utils/passkey'
 
-const { t } = useI18n()
+const copy = useLoginCopy()
 const token = ref('')
 const passkeySupported = ref(false)
 const passkeyLoading = ref(false)
@@ -41,8 +42,8 @@ async function signInWithPasskey() {
   }
   catch (error) {
     passkeyError.value = error?.statusCode === 404
-      ? t('login.passkey_unregistered')
-      : t('login.passkey_failed')
+      ? copy.value.passkeyUnregistered
+      : copy.value.passkeyFailed
   }
   finally {
     passkeyLoading.value = false
@@ -61,7 +62,7 @@ async function signInWithToken() {
   }
   catch (error) {
     console.error(error)
-    toast.error(t('login.failed'))
+    toast.error(copy.value.tokenFailed)
   }
   finally {
     tokenLoading.value = false
@@ -82,10 +83,10 @@ async function signInWithToken() {
       </span>
       <div>
         <p class="text-sm font-semibold tracking-wide text-foreground">
-          {{ $t('login.brand') }}
+          {{ copy.brand }}
         </p>
         <p class="text-xs text-muted-foreground">
-          {{ $t('login.admin_access') }}
+          {{ copy.adminAccess }}
         </p>
       </div>
     </div>
@@ -107,10 +108,10 @@ async function signInWithToken() {
           <Fingerprint class="size-6" />
         </div>
         <h1 class="text-3xl font-semibold tracking-tight text-foreground">
-          {{ $t('login.title') }}
+          {{ copy.title }}
         </h1>
         <p class="mt-2 text-sm leading-6 text-muted-foreground">
-          {{ $t('login.description') }}
+          {{ copy.description }}
         </p>
       </div>
 
@@ -127,7 +128,7 @@ async function signInWithToken() {
         >
           <LoaderCircle v-if="passkeyLoading" class="mr-2 size-4 animate-spin" />
           <Fingerprint v-else class="mr-2 size-4" />
-          {{ passkeyLoading ? $t('login.passkey_waiting') : $t('login.passkey_action') }}
+          {{ passkeyLoading ? copy.passkeyWaiting : copy.passkeyAction }}
         </Button>
 
         <p
@@ -135,7 +136,7 @@ async function signInWithToken() {
             text-xs leading-5 text-muted-foreground
           "
         >
-          {{ $t('login.passkey_unsupported') }}
+          {{ copy.passkeyUnsupported }}
         </p>
         <p
           v-if="passkeyError" role="alert" class="
@@ -153,7 +154,7 @@ async function signInWithToken() {
               px-4 py-3 text-sm font-medium text-foreground
             "
           >
-            <span>{{ $t('login.token_heading') }}</span>
+            <span>{{ copy.tokenHeading }}</span>
             <KeyRound
               class="
                 size-4 text-muted-foreground transition-transform
@@ -163,7 +164,7 @@ async function signInWithToken() {
           </summary>
           <div class="space-y-3 border-t border-border/80 p-4">
             <p class="text-xs leading-5 text-muted-foreground">
-              {{ $t('login.token_description') }}
+              {{ copy.tokenDescription }}
             </p>
             <form class="space-y-3" @submit.prevent="signInWithToken">
               <input
@@ -172,7 +173,7 @@ async function signInWithToken() {
                 type="password"
                 autocomplete="current-password"
                 required
-                :placeholder="$t('login.token_placeholder')"
+                :placeholder="copy.tokenPlaceholder"
                 class="
                   h-11 w-full rounded-lg border border-input bg-background px-4
                   text-sm text-foreground transition outline-none
@@ -183,9 +184,9 @@ async function signInWithToken() {
               >
               <Alert v-if="previewMode">
                 <AlertCircle class="size-4" />
-                <AlertTitle>{{ $t('login.tips') }}</AlertTitle>
+                <AlertTitle>{{ copy.tips }}</AlertTitle>
                 <AlertDescription>
-                  {{ $t('login.preview_token') }} <code
+                  {{ copy.previewToken }} <code
                     class="
                       font-mono text-green-600
                       dark:text-green-400
@@ -197,7 +198,7 @@ async function signInWithToken() {
                 <LoaderCircle
                   v-if="tokenLoading" class="mr-2 size-4 animate-spin"
                 />
-                {{ $t('login.submit') }}
+                {{ copy.tokenSubmit }}
               </Button>
             </form>
           </div>

@@ -1,5 +1,8 @@
 <script setup>
 import { ArrowRight } from 'lucide-vue-next'
+import { useLoginCopy } from '~/utils/login-copy'
+
+const copy = useLoginCopy()
 </script>
 
 <template>
@@ -25,10 +28,10 @@ import { ArrowRight } from 'lucide-vue-next'
           </span>
           <div>
             <p class="text-sm font-semibold tracking-wide">
-              {{ $t('login.brand') }}
+              {{ copy.brand }}
             </p>
             <p class="text-xs text-emerald-100/65">
-              {{ $t('login.admin_access') }}
+              {{ copy.adminAccess }}
             </p>
           </div>
         </div>
@@ -40,10 +43,10 @@ import { ArrowRight } from 'lucide-vue-next'
               xl:text-5xl
             "
           >
-            {{ $t('login.workspace_title') }}
+            {{ copy.workspaceTitle }}
           </h2>
           <p class="mt-6 max-w-md text-base leading-7 text-emerald-50/70">
-            {{ $t('login.workspace_description') }}
+            {{ copy.workspaceDescription }}
           </p>
 
           <div
@@ -58,12 +61,12 @@ import { ArrowRight } from 'lucide-vue-next'
                 text-emerald-100/55 uppercase
               "
             >
-              {{ $t('login.sample_path') }}
+              {{ copy.samplePath }}
             </p>
             <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <div class="min-w-0">
                 <p class="mb-1 text-[11px] text-emerald-100/55">
-                  {{ $t('login.original_url') }}
+                  {{ copy.originalUrl }}
                 </p>
                 <p class="truncate text-sm font-medium text-white">
                   example.com/launch
@@ -72,7 +75,7 @@ import { ArrowRight } from 'lucide-vue-next'
               <ArrowRight class="size-4 text-emerald-300" />
               <div class="min-w-0">
                 <p class="mb-1 text-[11px] text-emerald-100/55">
-                  {{ $t('login.short_url') }}
+                  {{ copy.shortUrl }}
                 </p>
                 <p class="truncate text-sm font-medium text-emerald-200">
                   glsoft.ai/go/live
@@ -83,7 +86,7 @@ import { ArrowRight } from 'lucide-vue-next'
         </div>
 
         <p class="text-xs text-emerald-50/55">
-          {{ $t('login.footer') }}
+          {{ copy.footer }}
         </p>
       </aside>
 
