@@ -16,7 +16,12 @@
   * 新增 [`tests/passkey.spec.ts`](tests/passkey.spec.ts) 單元測試，涵蓋 registration options 產生與 challengeToken 簽章/解碼驗證。
 * **Cloudflare Pages 部署備忘 (`local.md`)**：
   * 新增本地開發與部署備忘錄 [`local.md`](local.md)（已列入 [`.gitignore`](.gitignore) 防止外洩），詳細註記專案採用 Cloudflare Pages 部署。
-  * 在 [`package.json`](package.json) 補充 `"build:pages"` 與 `"deploy:pages"`，強制帶入 `NITRO_PRESET=cloudflare-pages`，確保產出 `dist/_worker.js`，避免因使用預設 Worker preset 遺失 worker 入口而造成 Pages 上的 `/` 與 `/api/*` 回傳 404。
+* **i18n 多國語系靜態打包與防呆修復**：
+  * 在 [`i18n/i18n.config.ts`](i18n/i18n.config.ts) 中直接靜態引入所有語系 JSON（`de-DE`、`en-US`、`fr-FR`、`vi-VN`、`zh-CN`、`zh-TW`）並注入 `messages` 物件，確保編譯產物內嵌完整語系字串，徹底根絕 `/dashboard/login` 渲染出 raw key（如 `login.brand`、`login.workspace_title`、`login.title` 等）的問題。
+  * 在 [`nuxt.config.ts`](nuxt.config.ts) 明確宣告 `vueI18n: './i18n/i18n.config.ts'`，並將 `/dashboard/login` 納入 `nitro.prerender.routes`，使登入頁面具備靜態 HTML 預渲染。
+* **Cloudflare Pages 預設建置 Preset 修復**：
+  * 根因分析：Cloudflare Pages 於 CI 自動建置時預設調用 `pnpm build`（即 `nuxt build`）；原先 `nuxt.config.ts` 的 `nitro.preset` 未定義且專案目錄存在 `wrangler.jsonc`，導致 Nitro 自動回退為 `cloudflare-module`，產出 `dist/server/index.mjs` 與 `dist/public`，缺少 Pages 必需的 `dist/_worker.js`，導致部署至 Pages 後邊緣 API 與部分頁面遭遇 404 或快取錯亂。
+  * 在 [`package.json`](package.json) 中將 `"build"` 腳本明確設為 `NITRO_PRESET=cloudflare-pages NODE_OPTIONS=--max-old-space-size=8192 nuxt build`，並在 [`nuxt.config.ts`](nuxt.config.ts) 將非 DEV 環境預設 preset 設為 `cloudflare-pages`，確保無論透過 Pages CI 還是本機都能產出完整的 `dist/_worker.js`。
 
 ### 📌 Dashboard Passkey 登入與裝置管理
 

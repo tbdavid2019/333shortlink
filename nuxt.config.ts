@@ -56,11 +56,12 @@ export default defineNuxtConfig({
   },
   compatibilityDate: 'latest',
   nitro: {
-    preset: import.meta.env.DEV ? 'cloudflare-module' : undefined,
+    preset: process.env.NITRO_PRESET || (import.meta.env.DEV ? 'cloudflare-module' : 'cloudflare-pages'),
     prerender: {
       crawlLinks: true,
       routes: [
         '/',
+        '/dashboard/login',
         '/dashboard/settings',
         '/dashboard/settings/seo',
         '/dashboard/settings/enterprise',
@@ -110,6 +111,7 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
+    vueI18n: './i18n/i18n.config.ts',
     locales: currentLocales,
     compilation: {
       strictMessage: false,
