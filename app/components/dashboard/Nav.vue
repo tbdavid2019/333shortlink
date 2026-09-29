@@ -1,12 +1,18 @@
 <script setup>
 const route = useRoute()
+
+const activeNav = computed(() => {
+  if (route.path.startsWith('/dashboard/settings'))
+    return '/dashboard/settings'
+  return route.path
+})
 </script>
 
 <template>
   <section class="flex justify-between">
     <Tabs
       v-if="route.path !== '/dashboard/link'"
-      :default-value="route.path"
+      :model-value="activeNav"
       @update:model-value="navigateTo"
     >
       <TabsList>

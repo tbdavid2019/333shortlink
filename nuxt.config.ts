@@ -54,6 +54,16 @@ export default defineNuxtConfig({
   compatibilityDate: 'latest',
   nitro: {
     preset: import.meta.env.DEV ? 'cloudflare-module' : undefined,
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/dashboard/settings',
+        '/dashboard/settings/seo',
+        '/dashboard/settings/enterprise',
+        '/dashboard/settings/transition',
+        '/dashboard/settings/security',
+      ],
+    },
     experimental: {
       openAPI: true,
     },

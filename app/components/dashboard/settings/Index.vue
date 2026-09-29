@@ -219,6 +219,36 @@ const previewTransitionHtml = computed(() => {
   }
 })
 
+const router = useRouter()
+const route = useRoute()
+
+const validTabs = ['seo', 'enterprise', 'transition', 'security']
+
+const currentTab = computed(() => {
+  const param = route.params.tab
+  const rawParam = Array.isArray(param) ? param[0] : param
+  if (rawParam && validTabs.includes(rawParam.toLowerCase()))
+    return rawParam.toLowerCase()
+  const rawQuery = typeof route.query.tab === 'string' ? route.query.tab.toLowerCase() : ''
+  if (rawQuery && validTabs.includes(rawQuery))
+    return rawQuery
+  return 'seo'
+})
+
+function onTabChange(tab) {
+  if (!validTabs.includes(tab))
+    return
+  if (route.path !== `/dashboard/settings/${tab}`) {
+    router.replace({
+      path: `/dashboard/settings/${tab}`,
+      query: {
+        ...route.query,
+        tab: undefined,
+      },
+    })
+  }
+}
+
 onMounted(() => {
   fetchSeoSettings()
   fetchEnterpriseSettings()
@@ -232,8 +262,9 @@ onMounted(() => {
     <DashboardNav />
 
     <Tabs
-      default-value="seo"
+      :model-value="currentTab"
       class="w-full"
+      @update:model-value="onTabChange"
     >
       <TabsList
         class="

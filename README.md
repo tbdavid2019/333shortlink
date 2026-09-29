@@ -267,7 +267,7 @@ Sink 內建對 **Model Context Protocol (MCP)** 以及 **Cloudflare WebMCP**（C
 
 | 環境變數名稱             | 類型                | 說明                                                                                                                   |
 | :----------------------- | :------------------ | :--------------------------------------------------------------------------------------------------------------------- |
-| **`NUXT_SITE_TOKEN`**    | **機密 (Secret)**   | **【必填】** Site Token 登入備援與 API / MCP bearer access；每個 token 至少 8 個字元，多 token 以逗號分隔。             |
+| **`NUXT_SITE_TOKEN`**    | **機密 (Secret)**   | **【必填】** Site Token 登入備援與 API / MCP bearer access；每個 token 至少 8 個字元，多 token 以逗號分隔。            |
 | **`NUXT_CF_ACCOUNT_ID`** | **變數 (Variable)** | **【統計分析必填】** 您的 Cloudflare 帳戶 ID（可在首頁右側面板或網址中找到）。                                         |
 | **`NUXT_CF_API_TOKEN`**  | **機密 (Secret)**   | **【統計分析必填】** 您的 Cloudflare API Token。建立時必須賦予 **`Account.Account Analytics` (讀取帳戶分析)** 的權限。 |
 

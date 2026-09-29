@@ -24,7 +24,7 @@ async function signInWithPasskey() {
   passkeyLoading.value = true
   passkeyError.value = ''
   try {
-    const { requestId, options } = await $fetch('/api/passkey/login/options')
+    const { requestId, challengeToken, options } = await $fetch('/api/passkey/login/options')
     const credential = await navigator.credentials.get({
       publicKey: prepareRequestOptions(options),
     })
@@ -33,7 +33,7 @@ async function signInWithPasskey() {
 
     await $fetch('/api/passkey/login/verify', {
       method: 'POST',
-      body: { requestId, credential: serializePasskeyCredential(credential) },
+      body: { requestId, challengeToken, credential: serializePasskeyCredential(credential) },
       credentials: 'same-origin',
     })
     localStorage.removeItem('SinkSiteToken')

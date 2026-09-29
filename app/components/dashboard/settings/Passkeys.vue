@@ -32,7 +32,7 @@ async function addPasskey() {
 
   adding.value = true
   try {
-    const { requestId, options } = await useAPI('/api/passkey/registration/options', {
+    const { requestId, challengeToken, options } = await useAPI('/api/passkey/registration/options', {
       method: 'POST',
       body: { name: passkeyName.value.trim() },
     })
@@ -46,6 +46,7 @@ async function addPasskey() {
       method: 'POST',
       body: {
         requestId,
+        challengeToken,
         credential: serializePasskeyCredential(credential),
       },
     })

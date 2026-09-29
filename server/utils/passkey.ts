@@ -71,7 +71,7 @@ function bytesToBase64Url(bytes: Uint8Array) {
 }
 
 function base64UrlToBytes(value: string) {
-  if (!/^[w-]*$/.test(value))
+  if (!/^[\w-]*={0,2}$/.test(value))
     throw new Error('Invalid base64url value')
 
   const base64 = value.replace(/-/g, '+').replace(/_/g, '/')
@@ -125,14 +125,7 @@ async function createChallenge(event: Parameters<typeof getRequestURL>[0], cerem
 
   const payload = bytesToBase64Url(encoder.encode(JSON.stringify(challenge)))
   const signature = await signValue(`passkey-challenge:${payload}`, token)
-  setCookie(event, 'sink_passkey_challenge', `${payload}.${signature}`, {
-    httpOnly: true,
-    secure: getRequestURL(event).protocol === 'https:',
-    sameSite: 'lax',
-    path: '/',
-    maxAge: CHALLENGE_TTL_SECONDS,
-  })
-  return { requestId, challenge }
+  return { requestId, challenge, challengeToken: `${payload}.${signature}` }
 }
 
 async function getUserHandle(rpId: string) {
@@ -143,24 +136,16 @@ async function getUserHandle(rpId: string) {
 export async function consumeChallenge(
   event: Parameters<typeof getRequestURL>[0],
   requestId: string,
+  challengeToken: string,
   ceremony: Ceremony,
 ) {
-  const cookie = getCookie(event, 'sink_passkey_challenge')
-  deleteCookie(event, 'sink_passkey_challenge', {
-    httpOnly: true,
-    secure: getRequestURL(event).protocol === 'https:',
-    sameSite: 'lax',
-    path: '/',
-  })
   const token = getSiteToken(event)
-  if (!cookie)
-    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie was not returned by the browser.' })
   if (!token)
     throw createError({ statusCode: 503, statusMessage: 'Passkey signing key is not configured.' })
-  if (cookie.length > 4096)
-    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie exceeded its size limit.' })
+  if (!challengeToken || challengeToken.length > 4096)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge token is missing or too large.' })
 
-  const [payload, signature, ...extra] = cookie.split('.')
+  const [payload, signature, ...extra] = challengeToken.split('.')
   if (extra.length || !payload || !signature)
     throw createError({ statusCode: 400, statusMessage: 'Passkey challenge cookie was malformed.' })
   const expectedSignature = await signValue(`passkey-challenge:${payload}`, token)
@@ -196,10 +181,11 @@ export async function consumeChallenge(
 
 export async function createRegistrationOptions(event: Parameters<typeof getRequestURL>[0], name: string) {
   const KV = getKV(event)
-  const { requestId, challenge } = await createChallenge(event, 'register', name)
+  const { requestId, challenge, challengeToken } = await createChallenge(event, 'register', name)
   const existing = await listPasskeys(KV)
   return {
     requestId,
+    challengeToken,
     options: {
       challenge: challenge.challenge,
       rp: { id: challenge.rpId, name: 'glsoft.ai' },
@@ -225,10 +211,11 @@ export async function createAuthenticationOptions(event: Parameters<typeof getRe
   const credentials = await listPasskeys(getKV(event))
   if (!credentials.length)
     throw createError({ statusCode: 404, statusMessage: 'No passkey is registered yet' })
-  const { requestId, challenge } = await createChallenge(event, 'authenticate')
+  const { requestId, challenge, challengeToken } = await createChallenge(event, 'authenticate')
 
   return {
     requestId,
+    challengeToken,
     options: {
       challenge: challenge.challenge,
       rpId: challenge.rpId,

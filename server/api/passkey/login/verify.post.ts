@@ -4,6 +4,7 @@ import { consumeChallenge, parseCredential, setPasskeySession, verifyAuthenticat
 
 const LoginSchema = z.object({
   requestId: z.string().regex(/^[\w-]{20,32}$/),
+  challengeToken: z.string().min(64).max(4096),
   credential: z.unknown(),
 })
 
@@ -12,7 +13,7 @@ export default eventHandler(async (event) => {
   const body = await readValidatedBody(event, LoginSchema.parse)
 
   try {
-    const challenge = await consumeChallenge(event, body.requestId, 'authenticate')
+    const challenge = await consumeChallenge(event, body.requestId, body.challengeToken, 'authenticate')
     const credential = parseCredential(body.credential)
     await verifyAuthentication(event, challenge, credential)
     await setPasskeySession(event)

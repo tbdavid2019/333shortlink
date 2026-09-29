@@ -6,8 +6,16 @@ defineProps({
     type: String,
     required: true,
   },
+  subTitle: {
+    type: String,
+    default: '',
+  },
+  subHref: {
+    type: String,
+    default: '',
+  },
 })
-const { title } = useAppConfig()
+const { title: siteTitle } = useAppConfig()
 </script>
 
 <template>
@@ -15,7 +23,7 @@ const { title } = useAppConfig()
     <BreadcrumbList>
       <BreadcrumbItem>
         <BreadcrumbLink href="/">
-          {{ title }}
+          {{ siteTitle }}
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
@@ -29,8 +37,23 @@ const { title } = useAppConfig()
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbPage>{{ title }}</BreadcrumbPage>
+        <BreadcrumbLink
+          v-if="subTitle"
+          :as="NuxtLink"
+          :to="subHref || '/dashboard/settings'"
+        >
+          {{ title }}
+        </BreadcrumbLink>
+        <BreadcrumbPage v-else>
+          {{ title }}
+        </BreadcrumbPage>
       </BreadcrumbItem>
+      <template v-if="subTitle">
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>{{ subTitle }}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </template>
     </BreadcrumbList>
 
     <DashboardLogout />
