@@ -38,5 +38,22 @@ describe('passkey registration & challenge flow', () => {
     expect(errData.statusMessage).toContain('Invalid passkey response')
     expect(errData.statusMessage).not.toContain('expired')
     expect(errData.statusMessage).not.toContain('Base64URL')
+
+    // Test replay prevention: reusing the consumed challenge token must be rejected
+    const replayRes = await fetchWithAuth('/api/passkey/registration/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requestId: data.requestId,
+        challengeToken: data.challengeToken,
+        credential: { invalid: true },
+      }),
+    })
+
+    expect(replayRes.status).toBe(400)
+    const replayErr = await replayRes.json() as { statusMessage: string }
+    expect(replayErr.statusMessage).toContain('Passkey challenge has already been used')
   })
 })

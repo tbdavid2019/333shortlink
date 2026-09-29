@@ -1,6 +1,7 @@
 import { deleteCookie, getCookie, getRequestURL, setCookie } from 'h3'
 
 const CREDENTIAL_PREFIX = 'passkey:credential:'
+const CONSUMED_CHALLENGE_PREFIX = 'passkey:challenge:consumed:'
 const SESSION_COOKIE = 'sink_passkey_session'
 const CHALLENGE_TTL_SECONDS = 120
 const SESSION_TTL_SECONDS = 60 * 60 * 8
@@ -172,10 +173,21 @@ export async function consumeChallenge(
     throw createError({ statusCode: 400, statusMessage: 'Passkey request ID did not match.' })
   if (challenge.ceremony !== ceremony)
     throw createError({ statusCode: 400, statusMessage: 'Passkey ceremony type did not match.' })
-  if (challenge.expiresAt <= Math.floor(Date.now() / 1000))
+  const now = Math.floor(Date.now() / 1000)
+  if (challenge.expiresAt <= now)
     throw createError({ statusCode: 400, statusMessage: 'Passkey challenge expired. Start registration again.' })
   if (challenge.origin !== currentOrigin(event) || challenge.rpId !== currentRpId(event))
     throw createError({ statusCode: 400, statusMessage: 'Passkey request origin changed' })
+
+  const KV = getKV(event)
+  const consumedKey = `${CONSUMED_CHALLENGE_PREFIX}${challenge.requestId}`
+  const alreadyConsumed = await KV.get(consumedKey)
+  if (alreadyConsumed)
+    throw createError({ statusCode: 400, statusMessage: 'Passkey challenge has already been used.' })
+
+  const remainingTtl = Math.max(60, challenge.expiresAt - now)
+  await KV.put(consumedKey, '1', { expirationTtl: remainingTtl })
+
   return challenge
 }
 

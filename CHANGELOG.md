@@ -10,10 +10,11 @@
   * 在 [`nuxt.config.ts`](nuxt.config.ts) 的 `nitro.prerender.routes` 明確加入上述設定直達子路徑，建置時產出獨立靜態 HTML 檔，免去 404 跳轉延遲。
   * 修正 [`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue) 中 `const { title } = useAppConfig()` 遮蔽 prop `title` 的問題（原先麵包屑會重複顯示站點名稱 `glsoft.ai > 儀表板 > glsoft.ai`），並新增子路徑階層支援（例如 `glsoft.ai > 儀表板 > 設定 > Security`）。
   * 修正 [`app/components/dashboard/Nav.vue`](app/components/dashboard/Nav.vue) 於設定子路徑時無法維持「設定」頁籤高亮狀態的問題。
-* **Passkey WebAuthn Challenge 解碼修正**：
+* **Passkey WebAuthn Challenge 解碼與重放防護修正**：
   * 修正 [`server/utils/passkey.ts`](server/utils/passkey.ts) 中 `base64UrlToBytes` 的字元驗證正則：原先誤寫為 `/^[w-]*$/`（僅匹配英文字母 `w` 與 `-`），導致任何標準 Base64URL challenge payload 解碼直接拋錯，觸發 `Passkey request expired` 或 `Passkey challenge token is not valid Base64URL`。已修正為 `/^[\w-]*={0,2}$/`。
   * 將 Challenge 傳遞改為顯式 HMAC 簽名 `challengeToken`，消除 Cookie 遺失與跨域限制。
-  * 新增 [`tests/passkey.spec.ts`](tests/passkey.spec.ts) 單元測試，涵蓋 registration options 產生與 challengeToken 簽章/解碼驗證。
+  * **Codex Code Review 安全加固**：依據 Codex Code Review 指出 challenge 在 120 秒過期前可遭重放的潛在風險，在 `consumeChallenge` 加入基於 Cloudflare KV 的單次消費防重放機制（`passkey:challenge:consumed:<requestId>`，帶動態 TTL 自動過期清理），確保任何 challenge 經驗證後立即作廢，徹底杜絕 Replay Attack。
+  * 新增 [`tests/passkey.spec.ts`](tests/passkey.spec.ts) 單元測試，涵蓋 registration options 產生、challengeToken 簽章/解碼驗證與二次重放請求阻斷測試。
 * **Cloudflare Pages 部署備忘 (`local.md`)**：
   * 新增本地開發與部署備忘錄 [`local.md`](local.md)（已列入 [`.gitignore`](.gitignore) 防止外洩），詳細註記專案採用 Cloudflare Pages 部署。
 * **i18n 多國語系靜態打包與防呆修復**：
