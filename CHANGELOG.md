@@ -8,10 +8,11 @@
   * **動態 Canonical 與 `og:url`**：修復原先因預渲染導出 `undefined` 的問題，改由 Cloudflare Workers 邊緣 SSR 即時解析當前訪問之多網域（例如 `https://aiurl.tw` 與 `https://glsoft.ai`），動態產生對應的 `<link rel="canonical" href="...">` 與 `<meta property="og:url" content="...">`。
   * **移除首頁 `noindex, nofollow` 限制**：在 [`app/pages/index.vue`](app/pages/index.vue) 與 [`app/app.vue`](app/app.vue) 移除錯誤阻擋搜尋引擎爬蟲的指令，改為 `robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'`。
   * **優化 Title 與 Meta Description 規格長度**：
-    * 抬頭改為推薦之 50–60 字元長度：`${siteBrand} — 現代化極速開源短網址服務 | 隱私安全・即時分析・WebMCP`。
-    * 描述改為推薦之 120–160 字元長度，包含完整關鍵字與核心技術亮點。
-  * **OpenGraph 橫幅標準化（1200x630px）**：
-    * 重新製作高質感開源風格向量橫幅 [`public/banner.svg`](public/banner.svg)，並以原生工具精確導出標準 1200x630px 之 [`public/banner.png`](public/banner.png)。
+    * 抬頭改為推薦之 50–60 字元長度：`${siteBrand} — 現代化極速開源短網址服務 | 隱私安全・即時分析・客製跳轉`。
+    * 描述改為客觀專注於短網址核心功能之 85 字元（110–160 字元最佳區間），去除過度宣傳詞彙與過度綁定字樣。
+  * **OpenGraph 橫幅標準化與文案校正（1200x630px）**：
+    * 校正橫幅文案與 Feature Pills，去除浮誇的「AI 原生短網址」與「Cloudflare Workers」行銷標籤，回歸短網址的核心能力（極速跳轉、Passkey 免密登入、即時數據分析、客製過渡頁面與開源部署）。
+    * 以原生工具精確導出標準 1200x630px 之 [`public/banner.png`](public/banner.png)。
     * 於 `<head>` 明確標註 `og:image:width: 1200`、`og:image:height: 630`、`og:image:type: image/png` 以及絕對路徑 `og:image:secure_url`。
   * **清除硬編碼社群帳號**：移除舊有特定個人 Twitter handle（`@oobwei`），改為純淨動態配置。
 * **全新 333 品牌 Logo 視覺體系升級**：

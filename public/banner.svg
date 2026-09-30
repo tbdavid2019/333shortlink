@@ -60,37 +60,37 @@
 
     <!-- Main Title -->
     <text x="156" y="72" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1">333shortlink</text>
-    <text x="156" y="112" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="600" fill="#34d399">⚡ 極速開源・安全隱私・AI 原生短網址</text>
+    <text x="156" y="112" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="600" fill="#34d399">⚡ 極速開源・安全隱私・即時分析短網址</text>
 
     <!-- Description Paragraph -->
-    <text x="0" y="200" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="500" fill="#e2e8f0" line-height="1.5">
-      100% Serverless URL Shortener built on Cloudflare Workers &amp; KV.
+    <text x="0" y="200" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="500" fill="#e2e8f0">
+      Modern, High-Performance Open-Source URL Shortener.
     </text>
     <text x="0" y="240" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">
-      Zero Maintenance • Global Edge Latency • Biometric Passkeys (WebAuthn) • Chrome WebMCP
+      Fast Redirection • Real-time Analytics • Biometric Passkeys • Custom Transition Pages
     </text>
 
     <!-- Feature Pills -->
     <g transform="translate(0, 310)">
       <!-- Pill 1 -->
-      <rect x="0" y="0" width="220" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="110" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Cloudflare Workers</text>
+      <rect x="0" y="0" width="180" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="90" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Fast Redirection</text>
 
       <!-- Pill 2 -->
-      <rect x="236" y="0" width="210" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="341" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Passkey WebAuthn</text>
+      <rect x="196" y="0" width="200" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="296" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Passkey WebAuthn</text>
 
       <!-- Pill 3 -->
-      <rect x="462" y="0" width="200" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="562" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Chrome WebMCP</text>
+      <rect x="412" y="0" width="210" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="517" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Real-time Analytics</text>
 
       <!-- Pill 4 -->
-      <rect x="678" y="0" width="180" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="768" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Real-time Analytics</text>
+      <rect x="638" y="0" width="200" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="738" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Custom Transition</text>
 
       <!-- Pill 5 -->
-      <rect x="874" y="0" width="126" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="937" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">llms.txt</text>
+      <rect x="854" y="0" width="146" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="927" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Open Source</text>
     </g>
   </g>
 </svg>

@@ -4,7 +4,7 @@ definePageMeta({ layout: 'auth' })
 const siteBrand = useSiteBrand()
 
 useSeoMeta({
-  title: computed(() => `${siteBrand.value} — 現代化極速開源短網址服務 | 隱私安全・即時分析・WebMCP`),
+  title: computed(() => `${siteBrand.value} — 現代化極速開源短網址服務 | 隱私安全・即時分析・客製跳轉`),
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 })
 </script>
