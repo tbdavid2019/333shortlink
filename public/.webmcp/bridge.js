@@ -1,5 +1,6 @@
-// WebMCP Client Bridge for Sink URL Shortener
-// Enables browser AI agents (Chrome 146+, Cloudflare BrowserRun) to interact directly with Sink tools
+// WebMCP Client Bridge for 333shortlink URL Shortener
+// Enables browser AI agents (Chrome 146+, Cloudflare BrowserRun) to interact directly with 333shortlink tools
+// Specification: https://developer.chrome.com/docs/ai/webmcp
 
 (async function initWebMCPBridge() {
   if (typeof window === 'undefined') {
@@ -40,10 +41,12 @@
         name: tool.name,
         description: tool.description,
         inputSchema: tool.inputSchema,
-        execute: async (args) => {
+        ...(tool.annotations ? { annotations: tool.annotations } : {}),
+        execute: async (args, options = {}) => {
           const callRes = await fetch(mcpUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            signal: options.signal,
             body: JSON.stringify({
               jsonrpc: '2.0',
               id: `webmcp-call-${Date.now()}`,

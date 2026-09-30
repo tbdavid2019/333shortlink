@@ -2,6 +2,25 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 支援 llms.txt 規範標準與升級 Google Chrome WebMCP 官方規格 (Support llms.txt Standard & Chrome WebMCP Specification)
+
+* **支援 llms.txt 規範標準 ([llmstxt.org](https://llmstxt.org/))**：
+  * 新增 [`public/llms.txt`](public/llms.txt)：依據 llmstxt.org 標準編寫之精簡機器可讀摘要，提供 H1 抬頭、區塊引言說明、MCP 服務端點、全功能工具清單（`shorten_url`、`lookup_link`、`list_links`、`delete_link`、`get_link_analytics`、`get_service_info`）與模組化文件索引。
+  * 新增 [`public/llms-full.txt`](public/llms-full.txt)：包含系統架構、MCP JSON-RPC 2.0 協議結構、工具參數 Schema、安全防護與各平台客戶端整合的完整串接 Markdown 文件，供大語言模型直接載入 Context Window。
+  * 更新 [`app/app.vue`](app/app.vue)：於全站 HTML `<head>` 自動注入 `<link rel="help" type="text/markdown" href="/llms.txt" title="LLMs.txt">` 與 `<link rel="alternate" type="text/markdown" href="/llms.txt" title="LLMs.txt">`，提供 AI Agent 與網路爬蟲自動探索標準。
+* **全面對齊 Google Chrome 官方 WebMCP 規格標準 ([developer.chrome.com/docs/ai/webmcp](https://developer.chrome.com/docs/ai/webmcp))**：
+  * **工具安全標記（Annotations Metadata）**：
+    * 於 [`server/utils/mcp.ts`](server/utils/mcp.ts)、[`app/plugins/webmcp.client.ts`](app/plugins/webmcp.client.ts) 與 [`public/.webmcp/bridge.js`](public/.webmcp/bridge.js) 為全數 6 個工具補齊 Chrome WebMCP `annotations` 規範：
+      * `readOnlyHint`: 針對冪等性唯讀工具（`lookup_link`、`list_links`、`get_link_analytics`、`get_service_info`）宣告為 `true`，標明不會修改系統狀態。
+      * `consequentialHint`: 針對不可逆的刪除工具（`delete_link`）宣告為 `true`，提示 Chrome 瀏覽器端 Agent 及 AI 客戶端於執行前強制彈窗向使用者請求確認。
+      * `untrustedContentHint`: 明確標記外部不受信任字串之處理。
+  * **AbortSignal 請求取消機制（Request Cancellation）**：
+    * 在前端注入之 `document.modelContext.registerTool` 工具 `execute(args, options)` 中，將 `options.signal` 正確傳遞至底層 `fetch` / `$fetch`，支援當 Agent 或使用者中止對話時即時取消傳輸中的網路請求。
+  * **模組化手冊擴充（`docs/mcp.md`）**：
+    * 補充 Chrome 瀏覽器本地測試實驗旗標說明（`chrome://flags/#enable-webmcp-testing`）。
+    * 提供 Model Context Tool Inspector Chrome 擴充套件除錯與工具沙盒測試指南。
+    * 同步更新三語 README（`README.md`、`README.zh-TW.md`、`README.zh-CN.md`），納入 `/llms.txt` 與 WebMCP 最新規範。
+
 ### 📌 專案正式命名為 333shortlink 與全站開源資訊脫敏 (Project Renaming to 333shortlink & Neutralization)
 
 * **專案全面重命名為 `333shortlink`**：

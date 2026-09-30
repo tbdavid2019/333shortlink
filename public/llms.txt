@@ -1,0 +1,33 @@
+# 333shortlink
+
+> 333shortlink is an open-source, serverless URL shortener and real-time analytics service built on Cloudflare Workers (with Static Assets), Cloudflare Workers KV, and Nuxt 4.
+
+333shortlink provides fast URL redirection, detailed visitor analytics, biometric Passkey authentication (WebAuthn), and native support for AI agents through the Model Context Protocol (MCP) and Google Chrome WebMCP.
+
+## AI & Agent Endpoints
+
+- [Model Context Protocol Endpoint](/mcp): JSON-RPC 2.0 endpoint implementing the Model Context Protocol (MCP) and Cloudflare WebMCP. Accepts POST requests with methods `initialize`, `ping`, `tools/list`, `tools/call`, `resources/list`, and `resources/read`.
+- [WebMCP Browser Bridge](/.webmcp/bridge.js): Client-side JavaScript bridge enabling in-page AI agents (Chrome 146+ with `#enable-webmcp-testing` or Cloudflare BrowserRun) to call shortener tools directly through `document.modelContext`.
+- [OpenAPI Specification](/swagger.json): OpenAPI 3.0 specification covering all REST API endpoints.
+
+## Core Agent Tools
+
+- `shorten_url`: Shorten a destination URL into a fast, trackable shortlink with optional custom slug, expiration (e.g. `1h`, `24h`, `7d`, `30d`), and notes. Public tool.
+- `lookup_link`: Retrieve destination URL, creation timestamp, and expiration metadata for a given slug. Public tool.
+- `list_links`: Paginated listing of stored shortlinks with full metadata. Requires `Authorization: Bearer <NUXT_SITE_TOKEN>`.
+- `delete_link`: Delete an existing shortlink. Marked with `consequentialHint: true` to request confirmation before permanent deletion. Requires Site Token.
+- `get_link_analytics`: Query access statistics, visitor counts, and referrers for a given slug. Requires Site Token.
+- `get_service_info`: Query service status, running version, and WebMCP protocol capabilities. Public tool.
+
+## Documentation & Developer Guides
+
+- [Project Overview & Quickstart](/docs/deployment/workers.md): 5-minute setup and deployment guide for Cloudflare Workers.
+- [WebMCP & MCP Protocol Guide](/docs/mcp.md): Specifications and client setup instructions for Claude Desktop, Cursor, and Chrome WebMCP.
+- [Transition Pages & Tracking Guide](/docs/transition-page.md): Guide for countdown interstitial pages, GA4, Meta Pixel, and LINE LIFF integration.
+- [Security & Passkeys Guide](/docs/security.md): WebAuthn biometric login, HMAC challenges, single-use anti-replay protection, and Site Token configuration.
+- [REST API Reference](/docs/api.md): Complete HTTP endpoints, parameter schemas, and response formats.
+- [Configuration Reference](/docs/configuration.md): Runtime environment variables and configuration options.
+
+## Optional
+
+- [Full Documentation](/llms-full.txt): Complete concatenated documentation file for LLM context ingestion.

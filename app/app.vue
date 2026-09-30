@@ -61,6 +61,18 @@ useHead({
       href: '/mcp',
     },
     {
+      rel: 'help',
+      type: 'text/markdown',
+      href: '/llms.txt',
+      title: 'LLMs.txt',
+    },
+    {
+      rel: 'alternate',
+      type: 'text/markdown',
+      href: '/llms.txt',
+      title: 'LLMs.txt',
+    },
+    {
       rel: 'icon',
       type: 'image/png',
       sizes: '32x32',

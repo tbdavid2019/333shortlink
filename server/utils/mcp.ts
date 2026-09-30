@@ -6,7 +6,7 @@ import { customAlphabet } from 'nanoid'
 
 const PROTOCOL_VERSION = '2024-11-05'
 const SERVER_INFO = {
-  name: 'sink-mcp-server',
+  name: '333shortlink-mcp-server',
   version: '0.2.1',
 }
 
@@ -14,6 +14,11 @@ export const MCP_TOOLS = [
   {
     name: 'shorten_url',
     description: 'Shorten a destination URL into a fast, trackable short link with optional custom slug, expiration, and notes.',
+    annotations: {
+      readOnlyHint: false,
+      consequentialHint: false,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -56,6 +61,11 @@ export const MCP_TOOLS = [
   {
     name: 'lookup_link',
     description: 'Look up destination URL, metadata, creation time, and expiration details of an existing short link by slug.',
+    annotations: {
+      readOnlyHint: true,
+      consequentialHint: false,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -70,6 +80,11 @@ export const MCP_TOOLS = [
   {
     name: 'list_links',
     description: 'List stored short links with metadata. Requires Site Token authentication.',
+    annotations: {
+      readOnlyHint: true,
+      consequentialHint: false,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -91,6 +106,11 @@ export const MCP_TOOLS = [
   {
     name: 'delete_link',
     description: 'Delete an existing short link by slug. Requires Site Token authentication.',
+    annotations: {
+      readOnlyHint: false,
+      consequentialHint: true,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -109,6 +129,11 @@ export const MCP_TOOLS = [
   {
     name: 'get_link_analytics',
     description: 'Query access metrics and view statistics for a short link. Requires Site Token authentication.',
+    annotations: {
+      readOnlyHint: true,
+      consequentialHint: false,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -131,7 +156,12 @@ export const MCP_TOOLS = [
   },
   {
     name: 'get_service_info',
-    description: 'Get Sink shortlink service status, version, and WebMCP capabilities.',
+    description: 'Get 333shortlink service status, version, and WebMCP capabilities.',
+    annotations: {
+      readOnlyHint: true,
+      consequentialHint: false,
+      untrustedContentHint: false,
+    },
     inputSchema: {
       type: 'object',
       properties: {},
@@ -141,9 +171,9 @@ export const MCP_TOOLS = [
 
 export const MCP_RESOURCES = [
   {
-    uri: 'sink://info',
+    uri: '333shortlink://info',
     name: 'Service Info',
-    description: 'General system status and configuration of this Sink instance',
+    description: 'General system status and configuration of this 333shortlink instance',
     mimeType: 'application/json',
   },
 ]
@@ -203,7 +233,7 @@ export async function executeMcpTool(event: H3Event, name: string, args: Record<
             type: 'text',
             text: JSON.stringify(
               {
-                service: 'Sink URL Shortener',
+                service: '333shortlink URL Shortener',
                 version: SERVER_INFO.version,
                 protocolVersion: PROTOCOL_VERSION,
                 siteTitle: appConfig.title,
@@ -604,7 +634,7 @@ export async function handleMcpRpcMessage(event: H3Event, body: any): Promise<an
 
       case 'resources/read': {
         const uri = params?.uri
-        if (uri === 'sink://info') {
+        if (uri === '333shortlink://info' || uri === 'shortlink://info' || uri === 'sink://info') {
           const origin = `${getRequestProtocol(event)}://${getRequestHost(event)}`
           const appConfig = useAppConfig(event)
           return {
@@ -616,7 +646,7 @@ export async function handleMcpRpcMessage(event: H3Event, body: any): Promise<an
                   uri,
                   mimeType: 'application/json',
                   text: JSON.stringify({
-                    service: 'Sink URL Shortener',
+                    service: '333shortlink URL Shortener',
                     version: SERVER_INFO.version,
                     siteTitle: appConfig.title,
                     siteUrl: origin,
@@ -663,7 +693,7 @@ export function getMcpDiscoveryPayload(event: H3Event) {
     version: SERVER_INFO.version,
     protocolVersion: PROTOCOL_VERSION,
     title: appConfig.title,
-    description: 'Sink URL Shortener MCP & WebMCP Service',
+    description: '333shortlink URL Shortener MCP & WebMCP Service',
     endpoints: {
       mcp: `${origin}/mcp`,
       apiMcp: `${origin}/api/mcp`,

@@ -20,7 +20,8 @@
 - ⚡ **100% Serverless 架构**：完全运行于 Cloudflare Workers（带 Static Assets）、KV 与 Analytics Engine。零服务器维护成本、零冷启动延迟、全球边缘极速响应。
 - 🌐 **全站动态多域名品牌化**：系统自动根据当前访问域名动态调整后台品牌名称与面包屑，无需重复修改源码。
 - 🪪 **生物识别 Passkey (WebAuthn)**：支持 Touch ID、Face ID、Windows Hello 及安全密钥免密登录，具备单次消费防重放机制。
-- 🤖 **WebMCP 与 MCP 协议原生支持**：内置 Model Context Protocol (MCP) 与 Cloudflare WebMCP，支持 Chrome 146+ 浏览器端 AI Agent 及 Claude Desktop / Cursor 结构化调用。
+- 🤖 **WebMCP 与 MCP 协议原生支持**：内置 Model Context Protocol (MCP) 与 Google Chrome WebMCP，支持 Chrome 146+ 浏览器端 AI Agent（包含 `consequentialHint` 安全确认标记与 `signal` 取消控制）及 Claude Desktop / Cursor 结构化调用。
+- 📄 **LLMs.txt 规范标准支持**：原生提供 [`/llms.txt`](public/llms.txt) 与 [`/llms-full.txt`](public/llms-full.txt)，遵循 [llmstxt.org](https://llmstxt.org/) 规范，供 AI 模型与 Agent 秒级解析全站架构与工具定义。
 - 🔁 **随机短链接去重复用**：缩短相同目标网址时自动复用已有短链接，自定义后缀保持独立。
 - 🧠 **AI 智能后缀生成**：集成 Cloudflare Workers AI，根据长网址智能推荐语义化、易记的短链接后缀。
 - 🧭 **中转跳转页 (Transition Page) 与追踪集成**：支持自定义过渡倒计时跳转页面，原生集成 GA4、Meta Pixel 与 LINE LIFF 登录验证追踪。
@@ -30,13 +31,13 @@
 
 ## 🧱 技术栈
 
-| 层级         | 选用技术                                                                                                         |
-| :----------- | :--------------------------------------------------------------------------------------------------------------- |
-| **全栈框架** | [Nuxt 4](https://nuxt.com/) (Vue 3, Vite, Tailwind CSS, shadcn-vue)                                              |
-| **边缘计算** | [Cloudflare Workers with Static Assets](https://developers.cloudflare.com/workers/)                              |
-| **键值存储** | [Cloudflare Workers KV](https://developers.cloudflare.com/kv/)                                                   |
-| **指标分析** | [Cloudflare Workers Analytics Engine](https://developers.cloudflare.com/analytics/)                              |
-| **AI 协议**  | [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) & [WebMCP](https://blog.cloudflare.com/webmcp/) |
+| 层级         | 选用技术                                                                                                                                                              |
+| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **全栈框架** | [Nuxt 4](https://nuxt.com/) (Vue 3, Vite, Tailwind CSS, shadcn-vue)                                                                                                   |
+| **边缘计算** | [Cloudflare Workers with Static Assets](https://developers.cloudflare.com/workers/)                                                                                   |
+| **键值存储** | [Cloudflare Workers KV](https://developers.cloudflare.com/kv/)                                                                                                        |
+| **指标分析** | [Cloudflare Workers Analytics Engine](https://developers.cloudflare.com/analytics/)                                                                                   |
+| **AI 协议**  | [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)、[Chrome WebMCP](https://developer.chrome.com/docs/ai/webmcp) 与 [llmstxt.org](https://llmstxt.org/) |
 
 ---
 
@@ -105,6 +106,7 @@ pnpm dev
 
 - 🚀 **[Workers 部署指南 (Deployment Guide)](docs/deployment/workers.md)**：完整生产部署与多租户账号独立发布说明。
 - 🤖 **[WebMCP 与 MCP 协议指南 (MCP Guide)](docs/mcp.md)**：Claude Desktop、Cursor 与 Chrome 146+ AI Agent 工具配置。
+- 📄 **[LLMs.txt 规范文件](public/llms.txt)**：遵循 [llmstxt.org](https://llmstxt.org/) 规范的机器可读架构与工具总览。
 - 🧭 **[Transition Page 与追踪集成指南](docs/transition-page.md)**：中转页模式切换、GA4、Meta Pixel 与 LINE LIFF 追踪设置。
 - 🔐 **[安全性与 Passkey 认证指南](docs/security.md)**：生物识别注册、HMAC 签名 Challenge 与单次消费防重放保护。
 - 📡 **[REST API 接口规范 (API Reference)](docs/api.md)**：完整 HTTP API 端点与数据结构说明。

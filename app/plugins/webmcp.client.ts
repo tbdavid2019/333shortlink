@@ -6,11 +6,17 @@ export default defineNuxtPlugin(() => {
   if (!modelContext || typeof modelContext.registerTool !== 'function')
     return
 
-  // Register WebMCP tools directly in browser runtime
+  // Register WebMCP tools directly in browser runtime matching Chrome WebMCP spec
+  // Ref: https://developer.chrome.com/docs/ai/webmcp
   try {
     modelContext.registerTool({
       name: 'shorten_url',
-      description: 'Shorten a destination URL into a short link with optional custom slug, expiration, and notes.',
+      description: 'Shorten a destination URL into a fast, trackable short link with optional custom slug, expiration, and notes.',
+      annotations: {
+        readOnlyHint: false,
+        consequentialHint: false,
+        untrustedContentHint: false,
+      },
       inputSchema: {
         type: 'object',
         properties: {
@@ -33,9 +39,10 @@ export default defineNuxtPlugin(() => {
         },
         required: ['url'],
       },
-      execute: async (args: Record<string, any>) => {
+      execute: async (args: Record<string, any>, options: { signal?: AbortSignal } = {}) => {
         const res = await $fetch('/mcp', {
           method: 'POST',
+          signal: options.signal,
           body: {
             jsonrpc: '2.0',
             id: `client-mcp-${Date.now()}`,
@@ -52,7 +59,12 @@ export default defineNuxtPlugin(() => {
 
     modelContext.registerTool({
       name: 'lookup_link',
-      description: 'Look up destination URL and metadata of an existing short link by slug.',
+      description: 'Look up destination URL, metadata, and expiration details of an existing short link by slug.',
+      annotations: {
+        readOnlyHint: true,
+        consequentialHint: false,
+        untrustedContentHint: false,
+      },
       inputSchema: {
         type: 'object',
         properties: {
@@ -63,9 +75,10 @@ export default defineNuxtPlugin(() => {
         },
         required: ['slug'],
       },
-      execute: async (args: Record<string, any>) => {
+      execute: async (args: Record<string, any>, options: { signal?: AbortSignal } = {}) => {
         const res = await $fetch('/mcp', {
           method: 'POST',
+          signal: options.signal,
           body: {
             jsonrpc: '2.0',
             id: `client-mcp-${Date.now()}`,

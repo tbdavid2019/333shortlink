@@ -20,7 +20,8 @@
 - ⚡ **100% Serverless**: Powered by Cloudflare Workers (with Static Assets), KV, and Analytics Engine. Zero server maintenance, zero cold starts, global edge latency.
 - 🌐 **Dynamic Multi-Domain Branding**: Automatically adapts dashboard branding and breadcrumbs to the visited host domain without code changes.
 - 🪪 **Biometric Passkeys (WebAuthn)**: One-click passwordless login via Touch ID, Face ID, Windows Hello, and security keys with single-use replay protection.
-- 🤖 **WebMCP & MCP Protocol Native**: Built-in support for Model Context Protocol (MCP) and Cloudflare WebMCP (Chrome 146+ in-browser agents and Claude/Cursor).
+- 🤖 **WebMCP & MCP Protocol Native**: Built-in support for Model Context Protocol (MCP), Google Chrome WebMCP (Chrome 146+ in-browser agents with `consequentialHint` safety annotations), and Claude/Cursor.
+- 📄 **LLMs.txt Standard**: Built-in [`/llms.txt`](public/llms.txt) and [`/llms-full.txt`](public/llms-full.txt) following [llmstxt.org](https://llmstxt.org/) for AI agents and LLM ingestion.
 - 🔁 **Smart Random Slug Deduplication**: Reuses existing random shortlinks for identical target URLs while preserving custom slugs.
 - 🧠 **AI-Generated Slugs**: Integrated Cloudflare Workers AI for semantic, memorable slug recommendations.
 - 🧭 **Transition Pages & Tracking**: Intermediate landing pages with countdowns, custom HTML, and integrations for GA4, Meta Pixel, and LINE LIFF.
@@ -30,13 +31,13 @@
 
 ## 🧱 Tech Stack
 
-| Layer                   | Technology                                                                                                       |
-| :---------------------- | :--------------------------------------------------------------------------------------------------------------- |
-| **Fullstack Framework** | [Nuxt 4](https://nuxt.com/) (Vue 3, Vite, Tailwind CSS, shadcn-vue)                                              |
-| **Compute & Edge**      | [Cloudflare Workers with Static Assets](https://developers.cloudflare.com/workers/)                              |
-| **Key-Value Database**  | [Cloudflare Workers KV](https://developers.cloudflare.com/kv/)                                                   |
-| **Metrics & Analytics** | [Cloudflare Workers Analytics Engine](https://developers.cloudflare.com/analytics/)                              |
-| **AI Protocol**         | [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) & [WebMCP](https://blog.cloudflare.com/webmcp/) |
+| Layer                   | Technology                                                                                                                                                              |
+| :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Fullstack Framework** | [Nuxt 4](https://nuxt.com/) (Vue 3, Vite, Tailwind CSS, shadcn-vue)                                                                                                     |
+| **Compute & Edge**      | [Cloudflare Workers with Static Assets](https://developers.cloudflare.com/workers/)                                                                                     |
+| **Key-Value Database**  | [Cloudflare Workers KV](https://developers.cloudflare.com/kv/)                                                                                                          |
+| **Metrics & Analytics** | [Cloudflare Workers Analytics Engine](https://developers.cloudflare.com/analytics/)                                                                                     |
+| **AI Protocol**         | [Model Context Protocol (MCP)](https://modelcontextprotocol.io/), [Chrome WebMCP](https://developer.chrome.com/docs/ai/webmcp), and [llmstxt.org](https://llmstxt.org/) |
 
 ---
 
@@ -105,6 +106,7 @@ Detailed guides and specifications are modularized in the [`docs/`](docs/) direc
 
 - 🚀 **[Workers Deployment Guide](docs/deployment/workers.md)**: Full production deployment and multi-tenant accounts setup.
 - 🤖 **[WebMCP & MCP Protocol Guide](docs/mcp.md)**: Connect Claude Desktop, Cursor, and Chrome 146+ agents.
+- 📄 **[LLMs.txt Standard](public/llms.txt)**: Machine-readable documentation and tool summary following [llmstxt.org](https://llmstxt.org/).
 - 🧭 **[Transition Page & Tracking Guide](docs/transition-page.md)**: Configure interstitial pages, GA4, Meta Pixel, and LINE LIFF.
 - 🔐 **[Security & Passkeys Guide](docs/security.md)**: Biometric authentication, challenge tokens, and anti-replay protection.
 - 📡 **[REST API Reference](docs/api.md)**: API endpoints and payload schemas.
