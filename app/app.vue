@@ -25,13 +25,33 @@ const absoluteOgImage = computed(() => {
   return img.startsWith('http') ? img : `${base.replace(/\/$/, '')}${img.startsWith('/') ? '' : '/'}${img}`
 })
 
-const seoTitle = computed(() => `${siteBrand.value} — 現代化極速開源短網址服務 | 隱私安全・即時分析・客製跳轉`)
+const { locale, t } = useI18n()
 
-const seoDescription = computed(() =>
-  description && description.length > 20
-    ? description
-    : '現代化極速開源短網址服務。支援生物識別 Passkey 免密登入、即時訪客統計與全球地理分析、自定義中轉過渡跳轉頁面與開放 API，輕量高效且保障隱私。',
-)
+const seoTitle = computed(() => {
+  const suffix = t('seo.title')
+  return `${siteBrand.value} — ${suffix}`
+})
+
+const seoDescription = computed(() => {
+  if (description && description.length > 20 && !description.includes('Cloudflare') && !description.includes('AI')) {
+    return description
+  }
+  return t('seo.description')
+})
+
+const ogLocale = computed(() => {
+  const map = {
+    'en-US': 'en_US',
+    'zh-TW': 'zh_TW',
+    'zh-CN': 'zh_CN',
+    'fr-FR': 'fr_FR',
+    'de-DE': 'de_DE',
+    'vi-VN': 'vi_VN',
+  }
+  return map[locale.value] || 'en_US'
+})
+
+const htmlLang = computed(() => locale.value || 'en-US')
 
 const twitterUsername = twitter ? twitter.replace('https://x.com/', '').replace('@', '') : ''
 
@@ -48,9 +68,9 @@ useSeoMeta({
   ogImageType: 'image/png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: computed(() => `${siteBrand.value} — 現代化極速開源短網址服務`),
+  ogImageAlt: computed(() => `${siteBrand.value} — ${t('seo.title')}`),
   ogUrl: siteUrl,
-  ogLocale: 'zh_TW',
+  ogLocale,
   twitterTitle: seoTitle,
   twitterDescription: seoDescription,
   twitterImage: absoluteOgImage,
@@ -61,7 +81,7 @@ useSeoMeta({
 
 useHead({
   htmlAttrs: {
-    lang: 'zh-TW',
+    lang: htmlLang,
   },
   meta: [
     {

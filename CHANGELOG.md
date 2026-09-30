@@ -2,6 +2,24 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 支援多語系動態 SEO 與 En | 繁體 介面語系切換器 (Dynamic Multi-Language SEO & Locale Switcher)
+
+* **徹底消除繁體中文硬編碼，實現全動態 SSR 多語系 SEO**：
+  * **i18n 多國語言字典擴充**：於全數 6 種語系字典（`en-US.json`、`zh-TW.json`、`zh-CN.json`、`fr-FR.json`、`de-DE.json`、`vi-VN.json`）新增專屬 `"seo"` 字典區塊（`seo.title` 與 `seo.description`）。
+  * **動態 SSR HTML `<head>`**：
+    * 於 [`app/app.vue`](app/app.vue) 透過 `useI18n()` 響應式計算 `seoTitle`、`seoDescription`、`ogImageAlt`。
+    * 動態映射 `ogLocale`（例如 `en-US` 轉為 `en_US`，`zh-TW` 轉為 `zh_TW`）。
+    * 動態更新 `<html lang="...">` 屬性（`en-US`, `zh-TW`, `zh-CN` 等），徹底擺脫硬編碼。
+    * 於首頁 [`app/pages/index.vue`](app/pages/index.vue) 同步接入多語系 `t('seo.title')` 與 `t('seo.description')`。
+* **全新 En | 繁體 語系切換組件 ([`app/components/SwitchLanguage.vue`](app/components/SwitchLanguage.vue))**：
+  * **清晰視覺識別**：按鈕直觀顯示當前選擇語言之縮寫標籤（如 `En`、`繁體`、`简体`、`Fr`、`De`、`Vi`），配合語系圖示讓使用者一眼辨識。
+  * **狀態指示與選單優化**：下拉選單中當前啟用的語系特別標示高亮字體與綠色打勾圖示（`Check`）。
+  * **語系偏好持久化**：切換時自動寫入 `sink_i18n_redirected` Cookie（有效期限 1 年），確保使用者下次訪問或跨頁面時自動維持選擇之語系。
+* **自動化測試套件擴充 ([`tests/seo.spec.ts`](tests/seo.spec.ts))**：
+  * 新增傳送 `Accept-Language: zh-TW` 驗證繁體中文標題與描述之單元測試。
+  * 新增傳送 `Accept-Language: en-US` 驗證英文標題（`Modern Open-Source URL Shortener`）與描述之單元測試。
+  * 確保全站 11 個測試套件、60 項單元測試 100% 通過。
+
 ### 📌 修復 SEO Meta 標籤、OpenGraph 規範與全站 333 Logo 品牌升級 (SEO, Meta Tags & Brand Logo Upgrade)
 
 * **修復 SEO、Canonical 與 OpenGraph 完整性（OG 評分提升至 100/100）**：

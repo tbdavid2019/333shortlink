@@ -25,6 +25,7 @@
 - 🔁 **Smart Random Slug Deduplication**: Reuses existing random shortlinks for identical target URLs while preserving custom slugs.
 - 🧠 **AI-Generated Slugs**: Integrated Cloudflare Workers AI for semantic, memorable slug recommendations.
 - 🧭 **Transition Pages & Tracking**: Intermediate landing pages with countdowns, custom HTML, and integrations for GA4, Meta Pixel, and LINE LIFF.
+- 🌍 **Dynamic Multilingual SEO & UI**: SSR-rendered meta tags matching client `Accept-Language`, with an intuitive En | 繁體 language switcher and persistent preference.
 - 📊 **Real-time Analytics**: Built-in 3D globe and detailed visitor metrics (referrers, devices, geolocations, and views).
 
 ---

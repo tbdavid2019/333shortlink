@@ -2,9 +2,11 @@
 definePageMeta({ layout: 'auth' })
 
 const siteBrand = useSiteBrand()
+const { t } = useI18n()
 
 useSeoMeta({
-  title: computed(() => `${siteBrand.value} — 現代化極速開源短網址服務 | 隱私安全・即時分析・客製跳轉`),
+  title: computed(() => `${siteBrand.value} — ${t('seo.title')}`),
+  description: computed(() => t('seo.description')),
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 })
 </script>

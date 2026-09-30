@@ -193,5 +193,9 @@
       "za": "Slug Z-A",
       "tip": "Trải nghiệm: Chỉ áp dụng với các liên kết đã tải"
     }
+  },
+  "seo": {
+    "title": "Dịch vụ rút gọn liên kết mã nguồn mở hiện đại | Nhanh chóng, an toàn & phân tích",
+    "description": "Dịch vụ rút gọn URL mã nguồn mở hiện đại. Hỗ trợ đăng nhập không mật khẩu bằng Passkey, phân tích thời gian thực và chuyển hướng tùy chỉnh."
   }
 }
