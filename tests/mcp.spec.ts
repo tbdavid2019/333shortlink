@@ -8,7 +8,7 @@ describe('mCP & WebMCP Endpoints', () => {
       expect(response.status).toBe(200)
 
       const data = await response.json()
-      expect(data).toHaveProperty('name', 'sink-mcp-server')
+      expect(data).toHaveProperty('name', '333shortlink-mcp-server')
       expect(data).toHaveProperty('protocolVersion', '2024-11-05')
       expect(data.capabilities).toHaveProperty('webmcp', true)
       expect(data.capabilities).toHaveProperty('tools', true)
@@ -24,7 +24,7 @@ describe('mCP & WebMCP Endpoints', () => {
       expect(response.status).toBe(200)
 
       const data = await response.json()
-      expect(data).toHaveProperty('name', 'sink-mcp-server')
+      expect(data).toHaveProperty('name', '333shortlink-mcp-server')
     })
   })
 
@@ -53,7 +53,7 @@ describe('mCP & WebMCP Endpoints', () => {
         result: {
           protocolVersion: '2024-11-05',
           serverInfo: {
-            name: 'sink-mcp-server',
+            name: '333shortlink-mcp-server',
           },
         },
       })
@@ -146,7 +146,7 @@ describe('mCP & WebMCP Endpoints', () => {
       expect(response.status).toBe(200)
       const data = await response.json()
       expect(data.result).toHaveProperty('content')
-      expect(data.result.content[0].text).toContain('Sink URL Shortener')
+      expect(data.result.content[0].text).toContain('333shortlink URL Shortener')
     })
 
     it('executes shorten_url tool and returns short link', async () => {
