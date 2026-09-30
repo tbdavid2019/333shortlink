@@ -133,53 +133,33 @@ pnpm deploy:worker
 
 ### 檢查發現的注意事項
 
-#### 1. `pnpm deploy` 預設其實是 Pages
+#### 1. `deploy` 預設指令已全面切換為 Workers
 
-目前 [`package.json`](/Users/david/Documents/git/tbdavid2019/Sink/package.json) 內：
+目前 [`package.json`](package.json) 內：
 
 ```json
 {
-  "deploy": "npm run deploy:pages"
+  "deploy": "npm run deploy:worker",
+  "deploy:worker": "npm run build:worker && wrangler deploy",
+  "deploy:pages": "npm run build:pages && wrangler pages deploy dist"
 }
 ```
 
 也就是說：
 
-- `pnpm deploy` = Pages
-- `pnpm deploy:worker` = Workers
+- `pnpm run deploy`（或 `pnpm deploy:worker`）= Workers（自動執行 `build:worker` 並部署）
+- `pnpm deploy:pages` = Pages（自動帶入 `NITRO_PRESET=cloudflare-pages` 構建並部署）
 
-如果使用者沒有注意，很容易以為 `deploy` 是通用部署指令。
+> 💡 **提示**：在 pnpm 10 中，直接輸入 `pnpm deploy` 會被 pnpm 內建 workspace 部署命令攔截，請務必執行 `pnpm deploy:worker` 或 `pnpm run deploy`。
 
-#### 2. `deploy:pages` 本身不會自動切到 Pages preset
+#### 2. `wrangler.jsonc` 為 Workers 的標準設定
 
-目前 [`package.json`](/Users/david/Documents/git/tbdavid2019/Sink/package.json) 內：
-
-```json
-{
-  "deploy:pages": "wrangler pages deploy dist"
-}
-```
-
-這代表它只負責把 `dist` 上傳出去，不負責保證 `dist` 是用 `cloudflare-pages` preset build 出來的。
-
-所以若是本地手動部署 Pages，正確流程應該是：
-
-```bash
-NITRO_PRESET=cloudflare-pages pnpm build
-npx wrangler pages deploy dist --project-name <your-pages-project-name>
-```
-
-#### 3. `wrangler.jsonc` 目前是偏向 Workers 路徑的設定
-
-目前 [`wrangler.jsonc`](/Users/david/Documents/git/tbdavid2019/Sink/wrangler.jsonc) 包含：
+目前 [`wrangler.jsonc`](wrangler.jsonc) 包含：
 
 - `main: "dist/server/index.mjs"`
 - `assets.directory: "dist/public"`
 
-這是 Worker 部署路徑需要的設定，不是 Pages 專案本身的設定檔格式。這是正常的，但也代表：
-
-- `wrangler.jsonc` 不能被理解成「Pages 與 Workers 完全共用同一套 deploy 入口」
-- Pages 仍需要走自己的 build target 與 deploy 指令
+這是 Worker (with Static Assets) 部署路徑的標準配置；若走 Pages 部署則由 `wrangler pages deploy dist` 處理。
 
 ---
 
@@ -207,13 +187,16 @@ pnpm dev
 ### 部署到 Workers
 
 ```bash
-pnpm build
 pnpm deploy:worker
+# 或
+pnpm run deploy
 ```
 
 ### 部署到 Pages
 
 ```bash
+pnpm deploy:pages
+# 或手動執行
 NITRO_PRESET=cloudflare-pages pnpm build
 npx wrangler pages deploy dist --project-name <your-pages-project-name>
 ```
