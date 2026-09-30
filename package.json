@@ -22,9 +22,7 @@
     "build:worker": "NITRO_PRESET=cloudflare-module npm run build",
     "build:pages": "NITRO_PRESET=cloudflare-pages npm run build",
     "deploy": "npm run deploy:worker",
-    "deploy:worker": "npm run build:worker && wrangler deploy $([ -f wrangler.local.jsonc ] && echo \"-c wrangler.local.jsonc\")",
-    "deploy:david": "npm run build:worker && wrangler deploy -c wrangler.david.local.jsonc",
-    "deploy:ai360": "npm run build:worker && wrangler deploy -c wrangler.ai360.local.jsonc",
+    "deploy:worker": "npm run build:worker && wrangler deploy $([ -n \"$WRANGLER_CONFIG\" ] && echo \"-c $WRANGLER_CONFIG\" || ([ -f wrangler.local.jsonc ] && echo \"-c wrangler.local.jsonc\"))",
     "deploy:pages": "npm run build:pages && wrangler pages deploy dist",
     "preview": "wrangler dev --var $(cat .env | sed 's/=/:/g')",
     "test": "vitest"

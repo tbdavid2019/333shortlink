@@ -418,10 +418,12 @@ export default defineAppConfig({
    pnpm wrangler login
    ```
 2. 設定您的 KV 命名空間 ID：
-   - 確保在 [wrangler.jsonc](wrangler.jsonc) 中已填入正確的 `kv_namespaces.id`（請參考上方的首次部署步驟）。
+   - 複製 `wrangler.local.example.jsonc` 為 `wrangler.local.jsonc`（已受 `.gitignore` 保護），並填入正確的 `kv_namespaces.id`（請參考上方的首次部署步驟）。
 3. 執行部署指令：
    ```bash
    pnpm deploy:worker
+   # 或指定特定設定檔（例如多帳號）：
+   # WRANGLER_CONFIG=my-config.local.jsonc pnpm deploy:worker
    ```
 
 ---
