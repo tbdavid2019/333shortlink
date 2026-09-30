@@ -4,7 +4,7 @@
 
 **基於 Cloudflare Workers、KV 與 Nuxt 4 構建的現代化、極速且安全的開源 Serverless 短網址服務。**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com/)
 [![Nuxt 4](https://img.shields.io/badge/Nuxt-4.x-00DC82?logo=nuxt.js)](https://nuxt.com/)
 [![Vitest](https://img.shields.io/badge/Tested%20with-Vitest-6E9F18?logo=vitest)](https://vitest.dev/)
@@ -146,4 +146,4 @@ pnpm test
 
 ## 📄 授權條款 (License)
 
-本專案採用 [MIT License](LICENSE) 開源授權。
+本專案採用 [GNU Affero 通用公共授權條款第三版 (AGPL-3.0)](LICENSE) 開源授權。

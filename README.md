@@ -4,7 +4,7 @@
 
 **Modern, lightweight, and blazingly fast serverless URL shortener built on Cloudflare Workers, KV, and Nuxt 4.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com/)
 [![Nuxt 4](https://img.shields.io/badge/Nuxt-4.x-00DC82?logo=nuxt.js)](https://nuxt.com/)
 [![Vitest](https://img.shields.io/badge/Tested%20with-Vitest-6E9F18?logo=vitest)](https://vitest.dev/)
@@ -146,4 +146,4 @@ Originally evolved from [miantiao-me/Sink](https://github.com/miantiao-me/Sink).
 
 ## 📄 License
 
-Licensed under the [MIT License](LICENSE).
+Licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
