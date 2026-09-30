@@ -241,7 +241,11 @@ Sink 內建對 **Model Context Protocol (MCP)** 以及 **Cloudflare WebMCP**（C
 1. 登入您的 Cloudflare 控制台，前往 **Storage & Databases (存儲與資料庫)** -> **KV**。
 2. 點擊 **Create a namespace (建立命名空間)**，將其命名（例如：`KV`）。
 3. 建立後複製生成的 **Namespace ID**（一串 32 位的英數混合字串）。
-4. 開啟專案根目錄的 [wrangler.jsonc](wrangler.jsonc)，找到 `kv_namespaces`，將 ID 填入：
+4. 複製本機私有設定檔（該檔案已於 `.gitignore` 忽略，嚴格防止金鑰洩漏至版本庫）：
+   ```bash
+   cp wrangler.local.example.jsonc wrangler.local.jsonc
+   ```
+5. 開啟 `wrangler.local.jsonc`，將複製的 Namespace ID 填入 `kv_namespaces`：
    ```json
    {
      "kv_namespaces": [
@@ -252,6 +256,7 @@ Sink 內建對 **Model Context Protocol (MCP)** 以及 **Cloudflare WebMCP**（C
      ]
    }
    ```
+   > 💡 部署指令 `pnpm deploy:worker` 或 `pnpm run deploy` 會自動偵測並優先載入 `wrangler.local.jsonc`。
 
 ### 2. 啟用 Cloudflare Analytics Engine (分析引擎)
 
