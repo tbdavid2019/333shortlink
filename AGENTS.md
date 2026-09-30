@@ -34,6 +34,26 @@ Git history follows Conventional Commits (`fix: adjust analytics filter`, `chore
 - In `CHANGELOG.md`, record the date, title, detailed changes, schema changes, test coverage, and deployment gotchas if applicable.
 - In `README.md`, document new features, API endpoints, environment variables, or usage guides whenever user-facing capabilities or workflows are introduced.
 
+## Autonomous Agent Execution Guidelines (自動化工作流程)
+
+For any code changes, feature additions, or bug fixes, the AI assistant MUST autonomously complete the following end-to-end workflow without waiting for user reminders:
+
+1. **Pre-flight Quality & Security Checks**:
+   - Perform a strict code review on all modified and newly created files (ensuring no hardcoded credentials, no regressions, and robust error handling).
+   - Run `pnpm lint` (or `pnpm lint:fix`) and ensure 0 lint errors.
+   - Run `pnpm test` and verify that all unit/integration tests pass.
+2. **Documentation & Changelog Maintenance**:
+   - Update `CHANGELOG.md` with the date, feature description, schema changes, and deployment notes.
+   - Update `README.md` (and bilingual docs `README.zh-TW.md`, `README.zh-CN.md`, `docs/`) if user-facing behavior or endpoints changed.
+3. **Automated Git Commit & Push**:
+   - Stage all relevant changes (`git add`).
+   - Create a clean Conventional Commit message (`feat(...)`, `fix(...)`, etc.).
+   - Automatically push to remote (`git push origin master`).
+4. **Automated Cloudflare Deployment**:
+   - Automatically execute deployment after pushing: run `pnpm run deploy:all` (if multiple local site configurations `wrangler.*.local.jsonc` exist) or `pnpm run deploy`.
+   - Purge edge cache when appropriate (`pnpm run purge:cache all`).
+   - Report the deployed status, live endpoints, and test results back to the user upon completion.
+
 ## Configuration & Security Tips
 
 Environment variables (e.g., `NUXT_SITE_TOKEN`, KV bindings, Analytics tokens) live in `.env`, while `wrangler.jsonc` defines Worker bindings. Use `pnpm preview` or `wrangler dev --var KEY:VALUE` to inject local secrets. Never commit real credentials—document placeholders in `docs/configuration.md` instead. If Cloudflare resources or binding names change, update both `wrangler` config and the corresponding references under `server/` to avoid deployment regressions.
