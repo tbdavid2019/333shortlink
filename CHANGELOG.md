@@ -1,5 +1,18 @@
 # CHANGELOG & Deployment Gotchas (開發與部署備忘錄)
 
+## 📅 [2026-09-30]
+
+### 📌 登入頁短網址範例與站點品牌動態化
+
+* **短網址示範格式修正（單層 Slug 路由）**：
+  * 修正 [`app/layouts/auth.vue`](app/layouts/auth.vue) 中寫死的範例路徑 `glsoft.ai/go/live`：Sink 的短網址路由為根路徑單層 Slug 架構（`domain/{slug}`，`slugRegex` 為 `/^[a-z0-9]+(?:-[a-z0-9]+)*$/i`），系統並不使用 `/go/...` 二層路徑。
+  * 將短網址範例修正為符合真實機制的 `glsoft.ai/104`（`{domain}/104`）。
+* **站點網域與品牌動態讀取**：
+  * 在 [`app/layouts/auth.vue`](app/layouts/auth.vue) 加入 `displayHost` 計算屬性，優先讀取當前造訪網域（`window.location.host` / `useRequestURL().host`），若無則讀取 [`app/app.config.ts`](app/app.config.ts) 設定中的 `title`。
+  * 更新 [`app/utils/login-copy.ts`](app/utils/login-copy.ts) 的 `useLoginCopy()`，動態注入 `appConfig.title` 作為 `brand`，確保不同網域或自訂站名時自動連動顯示。
+
+---
+
 ## 📅 [2026-09-29]
 
 ### 📌 Dashboard Settings Canonical Routes、Passkey 解碼修正與 Pages 部署配置

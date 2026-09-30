@@ -147,5 +147,12 @@ const loginCopy = {
 
 export function useLoginCopy() {
   const { locale } = useI18n()
-  return computed(() => loginCopy[locale.value as keyof typeof loginCopy] || loginCopy['zh-TW'])
+  const { title } = useAppConfig()
+  return computed(() => {
+    const base = loginCopy[locale.value as keyof typeof loginCopy] || loginCopy['zh-TW']
+    return {
+      ...base,
+      brand: title || base.brand,
+    }
+  })
 }

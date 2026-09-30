@@ -3,6 +3,17 @@ import { ArrowRight } from 'lucide-vue-next'
 import { useLoginCopy } from '~/utils/login-copy'
 
 const copy = useLoginCopy()
+const { title: siteTitle } = useAppConfig()
+const requestURL = useRequestURL()
+
+const displayHost = computed(() => {
+  if (import.meta.client && typeof window !== 'undefined' && window.location.host) {
+    return window.location.host
+  }
+  return requestURL.host || siteTitle || 'glsoft.ai'
+})
+
+const exampleShortUrl = computed(() => `${displayHost.value}/104`)
 </script>
 
 <template>
@@ -78,7 +89,7 @@ const copy = useLoginCopy()
                   {{ copy.shortUrl }}
                 </p>
                 <p class="truncate text-sm font-medium text-emerald-200">
-                  glsoft.ai/go/live
+                  {{ exampleShortUrl }}
                 </p>
               </div>
             </div>
