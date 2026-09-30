@@ -55,7 +55,8 @@ export default defineNuxtConfig({
   },
   compatibilityDate: 'latest',
   nitro: {
-    preset: process.env.NITRO_PRESET || (import.meta.env.DEV ? 'cloudflare-module' : 'cloudflare-pages'),
+    preset: process.env.NITRO_PRESET
+      || (process.env.CF_PAGES === '1' || provider === 'cloudflare_pages' ? 'cloudflare-pages' : 'cloudflare-module'),
     prerender: {
       crawlLinks: true,
       routes: [

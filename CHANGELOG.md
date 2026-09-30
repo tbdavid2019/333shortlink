@@ -10,6 +10,14 @@
 * **站點網域與品牌動態讀取**：
   * 在 [`app/layouts/auth.vue`](app/layouts/auth.vue) 加入 `displayHost` 計算屬性，優先讀取當前造訪網域（`window.location.host` / `useRequestURL().host`），若無則讀取 [`app/app.config.ts`](app/app.config.ts) 設定中的 `title`。
   * 更新 [`app/utils/login-copy.ts`](app/utils/login-copy.ts) 的 `useLoginCopy()`，動態注入 `appConfig.title` 作為 `brand`，確保不同網域或自訂站名時自動連動顯示。
+* **部署架構切換至 Cloudflare Workers (with Static Assets)**：
+  * 在 [`nuxt.config.ts`](nuxt.config.ts) 將 `nitro.preset` 預設值切換為 `cloudflare-module`，使建置產物產出標準 Workers 執行檔 `dist/server/index.mjs` 與靜態資源目錄 `dist/public/`。
+  * 刪除舊版冗餘的 `wrangler.toml`（原為 Pages 舊設定），統一由 `wrangler.jsonc` 管理 Workers 專案名稱、入口腳本、靜態資源目錄與所有雲端綁定（KV、Analytics Engine、Workers AI 等）。
+  * 更新 [`package.json`](package.json) 腳本：`pnpm run deploy`（或 `pnpm deploy:worker`）預設執行 Cloudflare Workers 部署（`pnpm build:worker && wrangler deploy`）；因 pnpm 10 內建 `pnpm deploy` 命令，請使用 `pnpm run deploy` 或 `pnpm deploy:worker`；並同步保留 `build:pages` 與 `deploy:pages` 作為雙軌相容備選。
+* **Cloudflare 新一代官方 CLI (`cf`) 安裝與配置**：
+  * 安裝官方新版 Cloudflare CLI (`cf`，版本 `1.0.0-beta.5`) 至全域系統 (`/usr/local/bin/cf`) 並加入專案開發依賴。
+  * 在 [`package.json`](package.json) 加入 `"cf": "cf"` 便捷指令，支援 `pnpm cf <command>`。
+  * 更新本地部署備忘手冊 [`local.md`](local.md)，補充 Workers 部署指南與 `cf auth login` 認證步驟。
 
 ---
 

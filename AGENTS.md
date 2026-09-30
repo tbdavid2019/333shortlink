@@ -6,14 +6,15 @@ Sink runs on Nuxt 4 and Cloudflare Workers. Application code lives in `app/` (pa
 
 ## Build, Test, and Development Commands
 
-Use pnpm with Node 20.11+. Key commands:
+Use pnpm with Node 22.18+ (required by the Cloudflare CLI `cf`). Key commands:
 
 - `pnpm dev` spins up the Nuxt dev server with local Worker bindings.
-- `pnpm build` runs `nuxt build` plus the map generator to verify production bundles.
+- `pnpm build` runs `nuxt build` with `cloudflare-module` Worker preset.
 - `pnpm preview` executes `wrangler dev --var ...` for a full Worker preview.
 - `pnpm lint` / `pnpm lint:fix` invoke ESLint (`@antfu/eslint-config`, `eslint-plugin-better-tailwindcss`).
 - `pnpm test` triggers the Vitest suite.
-- `pnpm deploy:worker` and `pnpm deploy:pages` publish to Cloudflare Workers or Pages respectively.
+- `pnpm deploy:worker` (or `pnpm run deploy`) publishes to Cloudflare Workers with Static Assets.
+- `pnpm deploy:pages` publishes to Cloudflare Pages (legacy compatibility).
 
 ## Coding Style & Naming Conventions
 

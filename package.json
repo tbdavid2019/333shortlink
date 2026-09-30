@@ -5,10 +5,10 @@
   "private": true,
   "packageManager": "pnpm@10.20.0",
   "engines": {
-    "node": ">=20.11"
+    "node": ">=22.18"
   },
   "scripts": {
-    "build": "NITRO_PRESET=cloudflare-pages NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
     "build:map": "node scripts/build-map.js",
     "build:colo": "node scripts/build-colo.js",
     "migrate:link-index": "node scripts/migrate-link-url-index.mjs",
@@ -17,11 +17,13 @@
     "lint:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
     "wrangler": "wrangler",
+    "cf": "cf",
     "dev": "nuxt dev",
+    "build:worker": "NITRO_PRESET=cloudflare-module npm run build",
     "build:pages": "NITRO_PRESET=cloudflare-pages npm run build",
-    "deploy": "npm run deploy:pages",
-    "deploy:pages": "NITRO_PRESET=cloudflare-pages npm run build && wrangler pages deploy dist",
-    "deploy:worker": "wrangler deploy",
+    "deploy": "npm run deploy:worker",
+    "deploy:worker": "npm run build:worker && wrangler deploy",
+    "deploy:pages": "npm run build:pages && wrangler pages deploy dist",
     "preview": "wrangler dev --var $(cat .env | sed 's/=/:/g')",
     "test": "vitest"
   },
@@ -71,6 +73,7 @@
     "@vitest/snapshot": "3.2.7",
     "@vitest/utils": "3.2.7",
     "@vueuse/integrations": "^14.0.0",
+    "cf": "1.0.0-beta.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eslint": "^9.39.0",
