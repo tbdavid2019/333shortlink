@@ -25,9 +25,12 @@ const exampleShortUrl = computed(() => `${displayHost.value}/104`)
       >
         <div class="flex items-center gap-3">
           <span
-            class="flex size-11 items-center justify-center rounded-xl bg-black"
+            class="
+              flex size-11 items-center justify-center overflow-hidden
+              rounded-xl
+            "
           >
-            <img src="/sink.png" alt="" class="size-6">
+            <UiBrandLogo :badge="true" :size="38" />
           </span>
           <div>
             <p class="text-sm font-semibold tracking-wide">

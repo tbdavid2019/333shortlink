@@ -11,38 +11,62 @@ const siteUrl = computed(() => {
   if (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) {
     return origin
   }
-  return undefined
+  const host = requestURL?.host
+  if (host && !host.includes('localhost') && !host.includes('127.0.0.1')) {
+    const proto = requestURL?.protocol || 'https:'
+    return `${proto}//${host}`
+  }
+  return `https://${siteBrand.value.includes('.') ? siteBrand.value : 'aiurl.tw'}`
 })
-const twitterUsername = twitter ? twitter.replace('https://x.com/', '') : ''
+
+const absoluteOgImage = computed(() => {
+  const base = siteUrl.value || 'https://aiurl.tw'
+  const img = image || '/banner.png'
+  return img.startsWith('http') ? img : `${base.replace(/\/$/, '')}${img.startsWith('/') ? '' : '/'}${img}`
+})
+
+const seoTitle = computed(() => `${siteBrand.value} — 現代化極速開源短網址服務 | 隱私安全・即時分析・WebMCP`)
+
+const seoDescription = computed(() =>
+  description && description.length > 20
+    ? description
+    : '基於 Cloudflare Workers 與 KV 構建的現代化極速開源短網址服務。支援生物識別 Passkey 免密登入、即時訪客數據分析與 3D 地球儀、WebMCP AI Agent 協議整合以及客製化中轉跳轉頁面。',
+)
+
+const twitterUsername = twitter ? twitter.replace('https://x.com/', '').replace('@', '') : ''
 
 useSeoMeta({
-  title: computed(() => `${siteBrand.value} - ${description}`),
-  description,
+  title: seoTitle,
+  description: seoDescription,
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   ogType: 'website',
-  ogTitle: siteBrand,
+  ogTitle: seoTitle,
   ogSiteName: siteBrand,
-  ogDescription: description,
-  ogImage: image,
+  ogDescription: seoDescription,
+  ogImage: absoluteOgImage,
+  ogImageSecureUrl: absoluteOgImage,
+  ogImageType: 'image/png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: siteBrand,
+  ogImageAlt: computed(() => `${siteBrand.value} — 現代化極速開源短網址服務`),
   ogUrl: siteUrl,
   ogLocale: 'zh_TW',
-  twitterTitle: siteBrand,
-  twitterDescription: description,
-  twitterImage: image,
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+  twitterImage: absoluteOgImage,
   twitterCard: 'summary_large_image',
   twitterSite: twitterUsername ? `@${twitterUsername}` : undefined,
+  twitterCreator: twitterUsername ? `@${twitterUsername}` : undefined,
 })
 
 useHead({
   htmlAttrs: {
-    lang: 'en',
+    lang: 'zh-TW',
   },
   meta: [
     {
       name: 'viewport',
-      content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
+      content: 'width=device-width, initial-scale=1, maximum-scale=5',
       tagPosition: 'head',
     },
     {

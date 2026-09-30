@@ -27,13 +27,12 @@ const title = useSiteBrand()
             "
           >
             <span
-              class="flex h-8 w-8 items-center justify-center rounded-full"
+              class="
+                flex h-8 w-8 items-center justify-center overflow-hidden
+                rounded-lg
+              "
             >
-              <img
-                src="/sink.png"
-                :alt="title"
-                class="h-full w-full rounded-full"
-              >
+              <UiBrandLogo :badge="true" :size="32" />
             </span>
             <span class="mx-2">{{ title }}</span>
           </a>
@@ -68,15 +67,11 @@ const title = useSiteBrand()
             >
               <span
                 class="
-                  flex h-8 w-8 items-center justify-center rounded-full
-                  bg-gray-900 text-white
+                  flex h-8 w-8 items-center justify-center overflow-hidden
+                  rounded-lg
                 "
               >
-                <img
-                  src="/sink.png"
-                  :alt="title"
-                  class="h-full w-full rounded-full"
-                >
+                <UiBrandLogo :badge="true" :size="32" />
               </span>
               <span class="mx-2">{{ title }}</span>
             </a>

@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': {
-      prerender: true,
+      prerender: false,
     },
     '/dashboard/**': {
       prerender: true,
@@ -52,6 +52,12 @@ export default defineNuxtConfig({
     '/mcp': {
       prerender: false,
     },
+    '/llms.txt': {
+      prerender: false,
+    },
+    '/llms-full.txt': {
+      prerender: false,
+    },
   },
   experimental: {
     enforceModuleCompatibility: true,
@@ -64,9 +70,10 @@ export default defineNuxtConfig({
       crawlLinks: true,
       ignore: [
         '/mcp',
+        '/llms.txt',
+        '/llms-full.txt',
       ],
       routes: [
-        '/',
         '/dashboard/login',
         '/dashboard/settings',
         '/dashboard/settings/seo',

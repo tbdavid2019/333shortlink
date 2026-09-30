@@ -78,8 +78,12 @@ async function signInWithToken() {
         lg:hidden
       "
     >
-      <span class="flex size-11 items-center justify-center rounded-xl bg-black">
-        <img src="/sink.png" alt="" class="size-6">
+      <span
+        class="
+          flex size-11 items-center justify-center overflow-hidden rounded-xl
+        "
+      >
+        <UiBrandLogo :badge="true" :size="38" />
       </span>
       <div>
         <p class="text-sm font-semibold tracking-wide text-foreground">
