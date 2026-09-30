@@ -27,7 +27,7 @@
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "65a3e94949c54a85bf19b0b664d5e237" // IMPORTANT: Change this to your KV namespace ID
+      "id": "YOUR_KV_NAMESPACE_ID" // IMPORTANT: Set your KV ID here, or override in git-ignored wrangler.local.jsonc
     }
   ]
 }

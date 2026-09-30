@@ -14,6 +14,10 @@
   * 在 [`nuxt.config.ts`](nuxt.config.ts) 將 `nitro.preset` 預設值切換為 `cloudflare-module`，使建置產物產出標準 Workers 執行檔 `dist/server/index.mjs` 與靜態資源目錄 `dist/public/`。
   * 刪除舊版冗餘的 `wrangler.toml`（原為 Pages 舊設定），統一由 `wrangler.jsonc` 管理 Workers 專案名稱、入口腳本、靜態資源目錄與所有雲端綁定（KV、Analytics Engine、Workers AI 等）。
   * 更新 [`package.json`](package.json) 腳本：`pnpm run deploy`（或 `pnpm deploy:worker`）預設執行 Cloudflare Workers 部署（`pnpm build:worker && wrangler deploy`）；因 pnpm 10 內建 `pnpm deploy` 命令，請使用 `pnpm run deploy` 或 `pnpm deploy:worker`；並同步保留 `build:pages` 與 `deploy:pages` 作為雙軌相容備選。
+* **開源安全性與本地配置隔離 (`wrangler.local.jsonc`)**：
+  * 在 [`.gitignore`](.gitignore) 加入 `wrangler.local.jsonc` 與 `wrangler.*.local.*`，嚴格防止開發者真實的 Cloudflare 資源 ID（如 KV Namespace ID）洩漏至公開版本庫。
+  * [`wrangler.jsonc`](wrangler.jsonc) 保持純淨通用範本與安全佔位符 `YOUR_KV_NAMESPACE_ID`。
+  * [`package.json`](package.json) 的 `deploy:worker` 部署指令自動偵測本地是否存在 `wrangler.local.jsonc`，若存在自動帶入 `-c wrangler.local.jsonc` 優先套用本機私有資源綁定。
 * **Cloudflare 新一代官方 CLI (`cf`) 安裝與配置**：
   * 安裝官方新版 Cloudflare CLI (`cf`，版本 `1.0.0-beta.5`) 至全域系統 (`/usr/local/bin/cf`) 並加入專案開發依賴。
   * 在 [`package.json`](package.json) 加入 `"cf": "cf"` 便捷指令，支援 `pnpm cf <command>`。

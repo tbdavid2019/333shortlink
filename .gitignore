@@ -32,3 +32,5 @@ public/world.json
 skills-lock.json
 local.md
 .impeccable
+wrangler.local.jsonc
+wrangler.*.local.*
