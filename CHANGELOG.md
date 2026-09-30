@@ -2,6 +2,14 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 修正 ai360 Worker 目標名稱 (aiurltw) 與保留多 Token 驗證 (Worker Target Correction & Auth Token Preservation)
+
+* **修正 Cloudflare Worker 目標部署實體**：
+  * 將 `wrangler.ai360.local.jsonc` 之 Worker 名稱由預設 `sink` 修正為目標 Worker 名稱 `aiurltw`。
+  * 明確綁定環境變數 `NUXT_SITE_TOKEN`、`NUXT_CF_ACCOUNT_ID`、`NUXT_CF_API_TOKEN`，確保多組管理員 Token（含 `0906541100`、`miru2026`、`OtwD-9Gk-dn1`）100% 正確生效。
+  * 重新部署至 `aiurltw` 並將自訂網域 `aiurl.tw` 與 `x.aiurl.tw` 完整切換導向至 `aiurltw`。
+  * 清理錯誤建立之暫存 Worker `sink`，避免網域衝突與未授權登入失敗。
+
 ### 📌 支援多語系動態 SEO 與 En | 繁體 介面語系切換器 (Dynamic Multi-Language SEO & Locale Switcher)
 
 * **徹底消除繁體中文硬編碼，實現全動態 SSR 多語系 SEO**：
