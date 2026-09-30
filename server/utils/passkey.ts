@@ -130,7 +130,7 @@ async function createChallenge(event: Parameters<typeof getRequestURL>[0], cerem
 }
 
 async function getUserHandle(rpId: string) {
-  const handle = await crypto.subtle.digest('SHA-256', encoder.encode(`glsoft.ai:administrator:${rpId}`))
+  const handle = await crypto.subtle.digest('SHA-256', encoder.encode(`sink:administrator:${rpId}`))
   return bytesToBase64Url(new Uint8Array(handle))
 }
 
@@ -200,11 +200,11 @@ export async function createRegistrationOptions(event: Parameters<typeof getRequ
     challengeToken,
     options: {
       challenge: challenge.challenge,
-      rp: { id: challenge.rpId, name: 'glsoft.ai' },
+      rp: { id: challenge.rpId, name: challenge.rpId },
       user: {
         id: challenge.userHandle,
-        name: 'glsoft.ai administrator',
-        displayName: 'glsoft.ai administrator',
+        name: `${challenge.rpId} administrator`,
+        displayName: `${challenge.rpId} administrator`,
       },
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
       timeout: 60_000,

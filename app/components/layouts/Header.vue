@@ -2,7 +2,7 @@
 import { Ellipsis, X } from 'lucide-vue-next'
 
 const showMenu = ref(false)
-const { title } = useAppConfig()
+const title = useSiteBrand()
 </script>
 
 <template>

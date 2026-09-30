@@ -15,7 +15,7 @@ defineProps({
     default: '',
   },
 })
-const { title: siteTitle } = useAppConfig()
+const siteTitle = useSiteBrand()
 </script>
 
 <template>

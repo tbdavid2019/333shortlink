@@ -1,8 +1,10 @@
 <script setup>
 definePageMeta({ layout: 'auth' })
 
+const siteBrand = useSiteBrand()
+
 useSeoMeta({
-  title: 'Sign in - glsoft.ai',
+  title: computed(() => `Sign in - ${siteBrand.value}`),
   robots: 'noindex, nofollow',
 })
 </script>

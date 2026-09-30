@@ -49,6 +49,9 @@ export default defineNuxtConfig({
     '/api/**': {
       cors: process.env.NUXT_API_CORS === 'true',
     },
+    '/mcp': {
+      prerender: false,
+    },
   },
   experimental: {
     enforceModuleCompatibility: true,
@@ -59,6 +62,9 @@ export default defineNuxtConfig({
       || (process.env.CF_PAGES === '1' || provider === 'cloudflare_pages' ? 'cloudflare-pages' : 'cloudflare-module'),
     prerender: {
       crawlLinks: true,
+      ignore: [
+        '/mcp',
+      ],
       routes: [
         '/',
         '/dashboard/login',

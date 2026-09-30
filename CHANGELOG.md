@@ -2,6 +2,18 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 全站多網域品牌動態化與 MCP 端點修復
+
+* **全站多網域品牌動態化（Multi-Tenant Dynamic Domain Branding）**：
+  * 新增 [`app/composables/brand.ts`](app/composables/brand.ts)（`useSiteBrand()`），自動根據當前瀏覽器 `window.location.host` 或 Nuxt 伺服端 `useRequestURL().host` 判定造訪網域，消除開源庫中寫死單一商業網域（如 `glsoft.ai`）的問題。
+  * 更新 [`app/components/layouts/Header.vue`](app/components/layouts/Header.vue)、[`app/components/layouts/Footer.vue`](app/components/layouts/Footer.vue)、[`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue)、[`app/layouts/auth.vue`](app/layouts/auth.vue) 及 [`app/app.vue`](app/app.vue)，使頁首、頁尾、後台麵包屑、登入側邊欄及 SEO / JSON-LD 結構化資料完全動態反映當前站點網域（例如在 `aiurl.tw` 顯示 `aiurl.tw`，在 `glsoft.ai` 顯示 `glsoft.ai`）。
+  * 更新 [`app/app.config.ts`](app/app.config.ts)、[`app/utils/login-copy.ts`](app/utils/login-copy.ts) 及多國語言字典（`i18n/locales/*.json`），將預設 fallback 品牌統一調整為中立開源名稱 `'Sink'`。
+  * 更新 [`server/utils/passkey.ts`](server/utils/passkey.ts)，將 WebAuthn RP 名稱與使用者帳號識別動態綁定至 `challenge.rpId`，使 Touch ID / Face ID 授權視窗精準顯示所在站點網域。
+* **靜態預渲染排除 `/mcp` 端點（修復 POST 405 Method Not Allowed）**：
+  * 在 [`nuxt.config.ts`](nuxt.config.ts) 的 `routeRules` 加入 `'/mcp': { prerender: false }`，並在 `nitro.prerender.ignore` 中加入 `'/mcp'`。
+  * 修復因 `crawlLinks: true` 爬取 `app/app.vue` 中 `<link rel="model-context" href="/mcp">` 而將 `/mcp` 意外寫入靜態資源清單 `dist/public/mcp`，導致 Cloudflare Workers Static Assets 攔截 `POST /mcp` 並拒絕請求（405 Method Not Allowed）的問題。
+  * 排除後完整 Vitest 測試套件（包含 12 項 MCP & WebMCP JSON-RPC 協議與工具呼叫測試）100% 通過（56/56 tests passed）。
+
 ### 📌 登入頁短網址範例與站點品牌動態化
 
 * **短網址示範格式修正（單層 Slug 路由）**：

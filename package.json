@@ -25,7 +25,7 @@
     "deploy:worker": "npm run build:worker && wrangler deploy $([ -n \"$WRANGLER_CONFIG\" ] && echo \"-c $WRANGLER_CONFIG\" || ([ -f wrangler.local.jsonc ] && echo \"-c wrangler.local.jsonc\"))",
     "deploy:pages": "npm run build:pages && wrangler pages deploy dist",
     "preview": "wrangler dev --var $(cat .env | sed 's/=/:/g')",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "@intlify/message-compiler": "^11.1.12",

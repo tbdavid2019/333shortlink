@@ -22,7 +22,7 @@
   "login": {
     "title": "Đăng nhập bằng Passkey",
     "description": "Dùng Touch ID, Face ID, Windows Hello hoặc Passkey đã lưu.",
-    "brand": "glsoft.ai",
+    "brand": "Sink",
     "admin_access": "Quyền quản trị",
     "workspace_title": "Quản lý liên kết rõ ràng hơn.",
     "workspace_description": "Tạo và sắp xếp liên kết ngắn, sau đó xem hiệu quả của chúng.",

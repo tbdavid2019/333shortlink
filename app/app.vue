@@ -1,23 +1,34 @@
 <script setup>
-const { title, description, image, twitter } = useAppConfig()
+const { description, image, twitter } = useAppConfig()
+const requestURL = useRequestURL()
+const siteBrand = useSiteBrand()
 
-const siteUrl = 'https://glsoft.ai'
+const siteUrl = computed(() => {
+  if (import.meta.client && typeof window !== 'undefined' && window.location.origin) {
+    return window.location.origin
+  }
+  const origin = requestURL?.origin
+  if (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) {
+    return origin
+  }
+  return undefined
+})
 const twitterUsername = twitter ? twitter.replace('https://x.com/', '') : ''
 
 useSeoMeta({
-  title: `${title} - ${description}`,
+  title: computed(() => `${siteBrand.value} - ${description}`),
   description,
   ogType: 'website',
-  ogTitle: title,
-  ogSiteName: title,
+  ogTitle: siteBrand,
+  ogSiteName: siteBrand,
   ogDescription: description,
   ogImage: image,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: title,
+  ogImageAlt: siteBrand,
   ogUrl: siteUrl,
   ogLocale: 'zh_TW',
-  twitterTitle: title,
+  twitterTitle: siteBrand,
   twitterDescription: description,
   twitterImage: image,
   twitterCard: 'summary_large_image',
@@ -81,13 +92,13 @@ useHead({
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify({
+      children: computed(() => JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        'name': title,
+        'name': siteBrand.value,
         'description': description,
-        'url': siteUrl,
-      }),
+        ...(siteUrl.value ? { url: siteUrl.value } : {}),
+      })),
     },
   ],
 })
