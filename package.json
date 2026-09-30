@@ -23,6 +23,10 @@
     "build:pages": "NITRO_PRESET=cloudflare-pages npm run build",
     "deploy": "npm run deploy:worker",
     "deploy:worker": "npm run build:worker && wrangler deploy $([ -n \"$WRANGLER_CONFIG\" ] && echo \"-c $WRANGLER_CONFIG\" || ([ -f wrangler.local.jsonc ] && echo \"-c wrangler.local.jsonc\"))",
+    "deploy:david": "WRANGLER_CONFIG=wrangler.david.local.jsonc pnpm deploy:worker",
+    "deploy:ai360": "WRANGLER_CONFIG=wrangler.ai360.local.jsonc pnpm deploy:worker",
+    "deploy:all": "pnpm run build:worker && wrangler deploy -c wrangler.david.local.jsonc && wrangler deploy -c wrangler.ai360.local.jsonc",
+    "purge:cache": "cf cache purge -z c4232f264ead2791c645c74bc087507c --body '{\"purge_everything\": true}' -f && cf cache purge -z a20c371ac217a96fe96bdfd4d8744c26 --body '{\"purge_everything\": true}' -f",
     "deploy:pages": "npm run build:pages && wrangler pages deploy dist",
     "preview": "wrangler dev --var $(cat .env | sed 's/=/:/g')",
     "test": "vitest run"
