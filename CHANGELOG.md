@@ -21,6 +21,9 @@
 * **專用伺服端 `/llms.txt` 與 `/llms-full.txt` 路由**：
   * 新增 [`server/routes/llms.txt.ts`](server/routes/llms.txt.ts)、[`server/routes/llms-full.txt.ts`](server/routes/llms-full.txt.ts) 與常數定義 [`server/utils/llms.ts`](server/utils/llms.ts)，確保無論是否啟用靜態資源皆能 100% 穩定秒級返回標準 Markdown 內容。
   * 新增單元測試 [`tests/seo.spec.ts`](tests/seo.spec.ts) 與 [`tests/llms.spec.ts`](tests/llms.spec.ts)，全站測試套件擴充至 11 個測試檔、59 項測試 100% 通過。
+* **Cloudflare Custom Domain 綁定與全域快取清除優化**：
+  * 在 `wrangler.*.local.jsonc` 顯式配置 `routes`（`aiurl.tw` 與 `x.aiurl.tw` 開啟 `custom_domain: true`），解決 Cloudflare 預設舊 Worker 路由占用問題，使 `aiurl.tw` 成功直接由最新 `sink` Worker 驅動。
+  * 強化 [`scripts/purge-cache.mjs`](scripts/purge-cache.mjs)，當傳入 `all` 時自動透過 `cf zones list` 抓取所屬所有 Zone ID 進行無縫快取清空。
 
 ### 📌 支援 llms.txt 規範標準與升級 Google Chrome WebMCP 官方規格 (Support llms.txt Standard & Chrome WebMCP Specification)
 

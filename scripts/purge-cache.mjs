@@ -9,9 +9,20 @@ if (args.length === 0 && !process.env.CLOUDFLARE_ZONE_ID) {
   process.exit(0)
 }
 
-const targets = args.length > 0
+let targets = args.length > 0
   ? args
   : (process.env.CLOUDFLARE_ZONE_ID || '').split(',').map(s => s.trim()).filter(Boolean)
+
+if (targets.includes('all')) {
+  try {
+    const raw = execSync('cf zones list', { encoding: 'utf-8' })
+    const zones = JSON.parse(raw)
+    targets = zones.map(z => z.id)
+  }
+  catch {
+    targets = targets.filter(t => t !== 'all')
+  }
+}
 
 for (const target of targets) {
   console.log(`🧹 Purging cache for zone: ${target}...`)
