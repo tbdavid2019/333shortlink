@@ -681,7 +681,7 @@ export function getMcpDiscoveryPayload(event: H3Event) {
 export const handleMcpEvent = eventHandler(async (event) => {
   const method = getMethod(event)
 
-  if (method === 'GET') {
+  if (method === 'GET' || method === 'HEAD') {
     setHeader(event, 'Content-Type', 'application/json')
     setHeader(event, 'Cache-Control', 'public, max-age=60')
     return getMcpDiscoveryPayload(event)
