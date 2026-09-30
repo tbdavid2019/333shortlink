@@ -1,19 +1,64 @@
 # Deployment on Cloudflare Workers
 
-1. [Fork](https://github.com/miantiao-me/Sink/fork) the repository to your GitHub account.
-2. Create a [KV namespace](https://developers.cloudflare.com/kv/) (under **Storage & Databases** -> **KV**), and copy the namespace ID.
-3. Update the `kv_namespaces` ID in `wrangler.jsonc` with your own namespace ID.
-4. Create a project in [Cloudflare Workers](https://developers.cloudflare.com/workers/).
-5. Select the `Sink` repository and use the following build and deploy commands:
-   - **Build command**: `pnpm run build` or `npm run build`
-   - **Deploy command**: `npx wrangler deploy`
+Sink runs 100% on Cloudflare Workers with Static Assets.
 
-6. Save and deploy the project.
-7. After deployment, go to **Settings** -> **Variables and Secrets** -> **Add**, and configure the following environment variables:
-   - `NUXT_SITE_TOKEN`: Must be at least **8** characters long. This token grants Site Token fallback sign-in and API / MCP bearer access; existing integrations can keep using it.
-   - `NUXT_CF_ACCOUNT_ID`: Find your [account ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/).
-   - `NUXT_CF_API_TOKEN`: Create a [Cloudflare API token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) with at least `Account.Account Analytics` permission. [See reference.](https://developers.cloudflare.com/analytics/analytics-engine/sql-api/#authentication)
+## 🚀 Quick Setup & Deployment
 
-8. Enable Analytics Engine. In **Workers & Pages**, go to **Account details** in the right panel, locate **Analytics Engine**, and click **Set up** to enable the free tier. Name them `sink` and `ANALYTICS`, or else overwrite it with `NUXT_DATASET` and update your `wrangler.jsonc` accordingly
-9. Redeploy the project.
-10. To update your code, refer to the official GitHub documentation: [Syncing a fork branch from the web UI](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-web-ui 'GitHub: Syncing a fork').
+1. **Clone or Fork**: Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/tbdavid2019/sinkurl.git
+   cd sinkurl
+   pnpm install
+   ```
+
+2. **Create a KV Namespace**:
+
+   ```bash
+   npx wrangler kv namespace create KV
+   ```
+
+   Copy the 32-character `id` returned by the command.
+
+3. **Configure Local Secrets**:
+   Copy the template to your local private config (this file is `.gitignore`d to prevent leaking IDs):
+
+   ```bash
+   cp wrangler.local.example.jsonc wrangler.local.jsonc
+   ```
+
+   Open `wrangler.local.jsonc` and paste your KV ID into `kv_namespaces[0].id`.
+
+4. **Deploy**:
+
+   ```bash
+   pnpm run deploy
+   ```
+
+5. **Configure Environment Variables**:
+   In the Cloudflare Dashboard (or via `wrangler secret put`):
+   - `NUXT_SITE_TOKEN`: Administrator access token (at least 8 characters).
+   - `NUXT_CF_ACCOUNT_ID` & `NUXT_CF_API_TOKEN`: (Optional) Required for Analytics Engine dashboard metrics.
+
+6. **First Sign-in & Passkey Setup**:
+   Visit `https://<your-worker-subdomain>.workers.dev/dashboard/login`, sign in using your `NUXT_SITE_TOKEN`, and navigate to **Settings → Security** to register your device Passkey (Touch ID, Face ID, or Windows Hello).
+
+---
+
+## 🏢 Multi-Tenant & Multi-Site Deployments
+
+To deploy the same codebase to multiple independent Cloudflare accounts or domains:
+
+1. Create a named config:
+   ```bash
+   cp wrangler.local.example.jsonc wrangler.<site-name>.local.jsonc
+   ```
+2. Set the `account_id`, `name`, and `kv_namespaces.id` in that file.
+3. Deploy that specific site:
+   ```bash
+   pnpm run deploy <site-name>
+   ```
+4. Or deploy to all configured sites at once:
+   ```bash
+   pnpm run deploy all
+   ```

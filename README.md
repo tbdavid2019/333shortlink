@@ -30,34 +30,41 @@
 
 ---
 
-## 🚀 安裝與設定方式
+## 🚀 快速開始與部署指南 (Getting Started)
 
 ### 系統需求
 
-- **Node.js**: `>= 20.11`
-- **套件管理器**: `pnpm`
+- **Node.js**: `>= 22.18` (Cloudflare 官方 CLI 推薦版本)
+- **套件管理器**: `pnpm` (建議版本 $\ge 10$)
+- **Cloudflare 帳號** (免費方案即可完整運行)
+
+---
 
 ### 1. 安裝相依套件
 
-在專案根目錄下執行以下指令：
-
 ```bash
+git clone https://github.com/tbdavid2019/sinkurl.git
+cd sinkurl
 pnpm install
 ```
 
+---
+
 ### 2. 設定環境變數
 
-將專案根目錄下的 `.env.example` 複製一份並命名為 `.env`：
+複製 `.env.example` 為 `.env`：
 
 ```bash
 cp .env.example .env
 ```
 
-並修改其中的設定：
+修改 `.env` 核心設定：
 
-- `NUXT_SITE_TOKEN`: Site Token 登入備援，以及既有 API / MCP bearer client 的存取憑證。多個 token 可用逗號 `,` 分開。
-- `NUXT_HOME_URL`: 首頁預設跳轉的 URL。
-- `NUXT_CF_ACCOUNT_ID` 與 `NUXT_CF_API_TOKEN`: 用於讀取 Cloudflare 分析數據的帳號 ID 與 API Token。
+- `NUXT_SITE_TOKEN`: 後台主管理金鑰（至少 8 位字元，如 `my-super-secret-token`）。供初次登入、API Bearer Token 與 MCP 服務授權使用。
+- `NUXT_HOME_URL`: （選填）未登入訪客直接造訪首頁時的預設跳轉目標網址。
+- `NUXT_CF_ACCOUNT_ID` 與 `NUXT_CF_API_TOKEN`: （選填）用於讀取 Cloudflare 分析數據的帳號 ID 與 API Token。
+
+---
 
 ### 3. 本地開發與預覽
 
@@ -67,8 +74,128 @@ cp .env.example .env
 pnpm dev
 ```
 
+瀏覽器造訪 `http://localhost:3000` 即可開始使用！
+
 > 💡 **本地開發是如何運行的？**
-> 本地開發時，Wrangler 會在您的電腦中自動**模擬（Emulate）** Cloudflare 運行環境（包含 KV 資料庫與 AI 綁定）。它會將模擬的 KV 資料儲存在專案根目錄下的 `.data`（或 `.wrangler`）資料夾中，因此您不需要連線到線上 Cloudflare 即可在 `http://localhost:3000` 進行完整的短網址新增、查詢及後台測試，且不會影響到您線上的真實數據。
+> 本地開發時，Wrangler 會在您的電腦中自動**模擬（Emulate）** Cloudflare 邊緣運行環境（包含 KV 儲存與 AI 綁定），並將數據存放在本地目錄中。您完全不需要連線至線上 Cloudflare，即可在本地測試短網址新增、跳轉、分析及後台登入。
+
+---
+
+### 4. 部署至 Cloudflare Workers（5 分鐘上線）
+
+本專案採用 **Cloudflare Workers (with Static Assets)** 架構，Nuxt 4 前端靜態資源與後端 API / 跳轉引擎全數合一運行於 Cloudflare 全球邊緣網路。
+
+#### 步驟 4.1：登入 Cloudflare CLI
+
+```bash
+cf auth login
+# 或使用 wrangler
+npx wrangler login
+```
+
+#### 步驟 4.2：建立雲端 KV 資料庫
+
+在終端機執行指令建立名為 `KV` 的命名空間：
+
+```bash
+npx wrangler kv namespace create KV
+```
+
+終端機將會輸出類似如下的資訊：
+
+```text
+✨ Success!
+Add the following to your configuration file:
+[[kv_namespaces]]
+binding = "KV"
+id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+請記下這段 32 碼的 `id`。
+
+#### 步驟 4.3：建立本地安全配置檔 (`wrangler.local.jsonc`)
+
+為確保開源安全性，**請勿將您的真實 KV ID 填入公開的 `wrangler.jsonc`**。本專案已在 `.gitignore` 中忽略了所有 `*.local.jsonc` 檔案：
+
+```bash
+cp wrangler.local.example.jsonc wrangler.local.jsonc
+```
+
+開啟 `wrangler.local.jsonc`，將剛剛取得的 KV ID 貼到 `id` 欄位：
+
+```jsonc
+{
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "你的_KV_NAMESPACE_ID"
+    }
+  ]
+}
+```
+
+#### 步驟 4.4：一鍵構建並部署
+
+執行通用部署指令：
+
+```bash
+pnpm run deploy
+# 或
+pnpm deploy:worker
+```
+
+系統會自動執行 `nuxt build` 打包，並將 Worker 與靜態資源發布至您的 Cloudflare 帳號。完成後即可在終端機取得 `https://sink.<your-subdomain>.workers.dev` 網址！
+
+---
+
+### 5. 多站台 / 多帳號獨立部署 (Multi-Tenant Deployments)
+
+如果您需要將同一套代碼部署至多個不同的 Cloudflare 帳號、不同客戶或多個自訂網域（例如站台 A、站台 B、站台 C），本專案內建了極簡的開源多站設定架構：
+
+1. **新增站台設定檔**：複製範本並以站台名稱命名（例如 `site3`）：
+
+   ```bash
+   cp wrangler.local.example.jsonc wrangler.site3.local.jsonc
+   ```
+
+   在該檔案填入該站台專屬的 `account_id`、`name` 與 `kv_namespaces.id`。所有 `wrangler.*.local.jsonc` 均會被 git 自動忽略保護。
+
+2. **單站發布指令**：
+
+   ```bash
+   pnpm run deploy site3
+   ```
+
+   自動尋找並套用 `wrangler.site3.local.jsonc` 完成獨立部署！
+
+3. **一鍵連鎖多站發布**：
+   ```bash
+   pnpm run deploy all
+   ```
+   自動掃描目錄下所有本地設定檔，只需編譯一次 Nuxt，便會依序推送至您擁有的所有站台！
+
+---
+
+### 6. 首次登入與 Passkeys 設定
+
+1. 造訪您的部署網址（例如 `https://your-domain.com/dashboard/login`）。
+2. 展開 **「使用 Site Token」**，輸入您在 `.env` 或 Cloudflare Worker 環境變數中設定的 `NUXT_SITE_TOKEN` 完成登入。
+3. 登入後進入 **Settings (設定) → Security**。
+4. 點擊 **「新增 Passkey」**，即可透過 Touch ID、Face ID 或 Windows Hello 將您的裝置生物識別綁定為管理員金鑰，日後無須輸入密碼一鍵無感登入！
+
+---
+
+### 7. 代碼品質與測試
+
+在提交 PR 或更新前，請確保檢查均順利通過：
+
+```bash
+# 執行 ESLint 與 Tailwind 檢查
+pnpm lint
+
+# 執行全套 Vitest 測試 (含短網址跳轉、API、Passkey 與 MCP 協議 56 項測試)
+pnpm test
+```
 
 ---
 

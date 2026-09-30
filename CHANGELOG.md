@@ -2,7 +2,28 @@
 
 ## 📅 [2026-09-30]
 
-### 📌 全站多網域品牌動態化與 MCP 端點修復
+### 📌 動態多站台部署架構與開源新手指南 (Dynamic Multi-Site Deployment & Open Source Quickstart)
+
+* **動態多站台部署管理器（`scripts/deploy.mjs`）**：
+  * 徹底重構部署腳本，消除原先在 `package.json` 中寫死特定個人或站點帳號名稱的硬編碼設計。
+  * 實作動態多站台探索與調度：
+    * `pnpm run deploy`：自動部署至本地預設環境（`wrangler.local.jsonc` 或 `wrangler.jsonc`）。
+    * `pnpm run deploy <site>`：動態匹配本地 `wrangler.<site>.local.jsonc` 進行單一站台部署（例如 `pnpm run deploy david`、`pnpm run deploy ai360`、`pnpm run deploy mynewsite`）。
+    * `pnpm run deploy all`：自動掃描並探索本機所有 `wrangler.*.local.jsonc` 設定檔，僅編譯一次 Workers 產物，接著依序全自動部署至所有目標站點。
+    * 支援 `--list` 列出本機偵測到的所有可用站台，以及 `--dry-run` 模擬解析目標設定檔而不觸發實體建置或上傳。
+  * 未來無論新增多少個自訂站台或客戶環境，均只需新增對應的 `wrangler.<name>.local.jsonc`（受 `.gitignore` 保護，永不進入版本庫），無需改動任何專案原始碼或 `package.json`。
+* **通用快取清除腳本（`scripts/purge-cache.mjs`）**：
+  * 新增通用 Cloudflare 快取清除輔助工具，支援以 `pnpm run purge:cache <site>` 或 `pnpm run purge:cache all` 指定站台清除 CDN 快取。
+* **開源版本庫新手安裝與 5 分鐘部署手冊（`README.md` & `docs/deployment/workers.md`）**：
+  * 在 [`README.md`](README.md) 為開源社群及新進開發者編寫從零開始的完整 7 步驟指南：
+    1. 環境需求與版本相容性（Node.js >= 22.18.0、pnpm）。
+    2. 複製專案與安裝依賴。
+    3. 本地環境變數設定（`.env`）。
+    4. 本地開發伺服器啟動與熱重載（`pnpm dev`）。
+    5. 5 分鐘快速部署至 Cloudflare Workers（建立 KV Namespace、私有配置 `wrangler.local.jsonc`、單鍵發布 `pnpm run deploy`）。
+    6. 多站台/多租戶部署操作指南（`wrangler.<site>.local.jsonc` 與動態部署指令）。
+    7. Passkey 首次註冊與全自動單元測試驗證（`pnpm test`）。
+  * 同步更新 [`docs/deployment/workers.md`](docs/deployment/workers.md)，提供標準化的私有資源隔離指南。
 
 * **全站多網域品牌動態化（Multi-Tenant Dynamic Domain Branding）**：
   * 新增 [`app/composables/brand.ts`](app/composables/brand.ts)（`useSiteBrand()`），自動根據當前瀏覽器 `window.location.host` 或 Nuxt 伺服端 `useRequestURL().host` 判定造訪網域，消除開源庫中寫死單一商業網域（如 `glsoft.ai`）的問題。
