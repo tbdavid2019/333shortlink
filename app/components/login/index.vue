@@ -1,6 +1,7 @@
 <script setup>
 import { AlertCircle, Fingerprint, KeyRound, LoaderCircle } from 'lucide-vue-next'
 import { toast } from 'vue-sonner'
+import BrandLogo from '~/components/BrandLogo.vue'
 import { useLoginCopy } from '~/utils/login-copy'
 import { prepareRequestOptions, serializePasskeyCredential } from '~/utils/passkey'
 
@@ -83,7 +84,7 @@ async function signInWithToken() {
           flex size-11 items-center justify-center overflow-hidden rounded-xl
         "
       >
-        <UiBrandLogo :badge="true" :size="38" />
+        <BrandLogo :badge="true" :size="38" />
       </span>
       <div>
         <p class="text-sm font-semibold tracking-wide text-foreground">

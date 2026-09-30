@@ -1,5 +1,6 @@
 <script setup>
 import { ArrowRight } from 'lucide-vue-next'
+import BrandLogo from '~/components/BrandLogo.vue'
 import { useLoginCopy } from '~/utils/login-copy'
 
 const copy = useLoginCopy()
@@ -30,7 +31,7 @@ const exampleShortUrl = computed(() => `${displayHost.value}/104`)
               rounded-xl
             "
           >
-            <UiBrandLogo :badge="true" :size="38" />
+            <BrandLogo :badge="true" :size="38" />
           </span>
           <div>
             <p class="text-sm font-semibold tracking-wide">

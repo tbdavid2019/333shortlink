@@ -1,5 +1,6 @@
 <script setup>
 import { Ellipsis, X } from 'lucide-vue-next'
+import BrandLogo from '~/components/BrandLogo.vue'
 
 const showMenu = ref(false)
 const title = useSiteBrand()
@@ -32,7 +33,7 @@ const title = useSiteBrand()
                 rounded-lg
               "
             >
-              <UiBrandLogo :badge="true" :size="32" />
+              <BrandLogo :badge="true" :size="32" />
             </span>
             <span class="mx-2">{{ title }}</span>
           </a>
@@ -71,7 +72,7 @@ const title = useSiteBrand()
                   rounded-lg
                 "
               >
-                <UiBrandLogo :badge="true" :size="32" />
+                <BrandLogo :badge="true" :size="32" />
               </span>
               <span class="mx-2">{{ title }}</span>
             </a>

@@ -2,6 +2,16 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 徹底修復 333 Logo 組件打包解析與重新導出標準 OpenGraph 橫幅 (Brand Logo Bundling Fix & Balanced OpenGraph Banner)
+
+* **修復 333 BrandLogo 組件打包與解析機制**：
+  * **根治 Nuxt 組件解析失效**：原先放置於 `app/components/ui/` 的組件因 `shadcn-nuxt` 設定 `prefix: ''`，導致模板使用 `<UiBrandLogo>` 時無法正確解析成全域組件。新增獨立組件 [`app/components/BrandLogo.vue`](app/components/BrandLogo.vue) 並於 [`app/layouts/auth.vue`](app/layouts/auth.vue)、[`app/components/login/index.vue`](app/components/login/index.vue) 與 [`app/components/layouts/Header.vue`](app/components/layouts/Header.vue) 採顯式引入（Explicit Import），確保前端客戶端 Bundle（`dist/public/_nuxt/SDeNMG88.js`）100% 完整打包內建 SVG 向量與漸層定義。
+  * **全面替換舊有圖標資源**：透過 [`scripts/build-assets.mjs`](scripts/build-assets.mjs) 重新生成全套高解析度 333 Badge 圖示，包含 [`public/sink.png`](public/sink.png)、[`public/favicon.ico`](public/favicon.ico)、[`public/icon.png`](public/icon.png)、[`public/icon-192.png`](public/icon-192.png)、[`public/android-chrome-512x512.png`](public/android-chrome-512x512.png) 等，徹底清除舊版閃電圖示殘留。
+* **重構完美平衡之 1200x630px OpenGraph 橫幅 ([`public/banner.png`](public/banner.png))**：
+  * **修復圖像位移裁切與歪斜問題**：先前的 `banner.png` 因裁切偏移導致上方標籤邊界被切、右側字樣截斷、左側 Logo 消失。現透過原生 SVG 佈局與標準 Sharp 渲染管道重構，精確控制安全邊界（Safe Padding），左右預留 100px 對稱留白。
+  * **醒目呈現 333 品牌徽章**：於左側黃金視覺焦點置入 120x120px 翡翠綠漸層圓角徽章，搭配微發光陰影與俐落清晰的白色 `333` 圓潤幾何字樣。
+  * **完美相容各社群平台預覽**：無論在 X (Twitter) Card、Facebook、Telegram 或 LinkedIn，均能完整展現「333shortlink 品牌 Logo」、「極速開源・安全隱私・即時分析短網址」以及 5 項核心特色標籤（Fast Redirection, Passkey WebAuthn, Real-time Analytics, Custom Transition, Open Source），無任何字元溢出或邊界裁切。
+
 ### 📌 修正 ai360 Worker 目標名稱 (aiurltw) 與保留多 Token 驗證 (Worker Target Correction & Auth Token Preservation)
 
 * **修正 Cloudflare Worker 目標部署實體**：
