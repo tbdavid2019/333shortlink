@@ -187,7 +187,7 @@ async function writeMigrationViaWrangler(accountId, binding, writes) {
   if (!writes.length)
     return
 
-  const directory = await mkdtemp(join(tmpdir(), 'sinkurl-link-index-'))
+  const directory = await mkdtemp(join(tmpdir(), 'shortlink-link-index-'))
   const filename = join(directory, 'migration.json')
   try {
     await writeFile(filename, JSON.stringify(writes))

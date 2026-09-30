@@ -1,6 +1,6 @@
 const loginCopy = {
   'zh-TW': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: '管理員登入',
     workspaceTitle: '清楚掌握每一條連結。',
     workspaceDescription: '建立與整理短網址，並查看連結成效。',
@@ -24,7 +24,7 @@ const loginCopy = {
     tokenFailed: 'Site Token 無效，請確認後再試一次。',
   },
   'zh-CN': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: '管理员登录',
     workspaceTitle: '清晰管理每一条链接。',
     workspaceDescription: '创建和整理短链接，并查看链接表现。',
@@ -48,7 +48,7 @@ const loginCopy = {
     tokenFailed: 'Site Token 无效，请检查后重试。',
   },
   'en-US': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: 'Administrator access',
     workspaceTitle: 'Your links, clearly managed.',
     workspaceDescription: 'Create and organize short links, then review how they perform.',
@@ -72,7 +72,7 @@ const loginCopy = {
     tokenFailed: 'The Site Token was rejected. Check it and try again.',
   },
   'fr-FR': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: 'Accès administrateur',
     workspaceTitle: 'Gérez vos liens en toute clarté.',
     workspaceDescription: 'Créez et organisez vos liens courts, puis consultez leurs performances.',
@@ -96,7 +96,7 @@ const loginCopy = {
     tokenFailed: 'Le Site Token est invalide. Vérifiez-le et réessayez.',
   },
   'de-DE': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: 'Administratorzugang',
     workspaceTitle: 'Behalte deine Links im Blick.',
     workspaceDescription: 'Erstelle und organisiere Kurzlinks und prüfe ihre Leistung.',
@@ -120,7 +120,7 @@ const loginCopy = {
     tokenFailed: 'Der Site Token wurde abgelehnt. Prüfe ihn und versuche es erneut.',
   },
   'vi-VN': {
-    brand: 'Sink',
+    brand: '333shortlink',
     adminAccess: 'Quyền quản trị',
     workspaceTitle: 'Quản lý liên kết rõ ràng hơn.',
     workspaceDescription: 'Tạo và sắp xếp liên kết ngắn, sau đó xem hiệu quả của chúng.',

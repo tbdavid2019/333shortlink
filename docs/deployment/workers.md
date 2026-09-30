@@ -1,14 +1,14 @@
 # Deployment on Cloudflare Workers
 
-Sink runs 100% on Cloudflare Workers with Static Assets.
+333shortlink runs 100% on Cloudflare Workers with Static Assets.
 
 ## 🚀 Quick Setup & Deployment
 
 1. **Clone or Fork**: Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/tbdavid2019/sinkurl.git
-   cd sinkurl
+   git clone https://github.com/tbdavid2019/333shortlink.git
+   cd 333shortlink
    pnpm install
    ```
 

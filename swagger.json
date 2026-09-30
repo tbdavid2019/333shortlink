@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Sink API",
+    "title": "333shortlink API",
     "version": "1.0.0",
     "description": "URL shortening service API with analytics and real-time tracking"
   },
@@ -146,7 +146,7 @@
                     },
                     "shortLink": {
                       "type": "string",
-                      "example": "https://glsoft.ai/abc123"
+                      "example": "https://example.com/abc123"
                     }
                   }
                 }

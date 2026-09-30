@@ -34,3 +34,4 @@ local.md
 .impeccable
 wrangler.local.jsonc
 wrangler.*.local.*
+orca-paste*

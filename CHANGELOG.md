@@ -2,13 +2,27 @@
 
 ## 📅 [2026-09-30]
 
+### 📌 專案正式命名為 333shortlink 與全站開源資訊脫敏 (Project Renaming to 333shortlink & Neutralization)
+
+* **專案全面重命名為 `333shortlink`**：
+  * GitHub 儲存庫正式重命名為 `https://github.com/tbdavid2019/333shortlink`，更新 git origin 遠端位址。
+  * 更新 [`package.json`](package.json) 專案名稱為 `"333shortlink"`。
+  * 更新 [`wrangler.jsonc`](wrangler.jsonc) 與 [`wrangler.local.example.jsonc`](wrangler.local.example.jsonc) 之 Worker 名稱為 `"333shortlink"`。
+  * 更新 [`app/app.config.ts`](app/app.config.ts) 與 [`app/composables/brand.ts`](app/composables/brand.ts) 的預設品牌 fallback 為中立開源名稱 `'333shortlink'`。
+* **敏感個資、真實網域與 Zone ID 完全清除與安全脫敏**：
+  * 徹底重構 [`scripts/purge-cache.mjs`](scripts/purge-cache.mjs)，移除非公開的特定 Zone ID 與特定網域名稱映射，改為從參數或環境變數動態傳入，確保腳本 100% 適用於任何開源使用者。
+  * 清除 [`app/app.config.ts`](app/app.config.ts) 中所有個人私人信箱、社群帳號與部落格連結，回歸純淨開源中立預設值。
+  * 清除 [`app/components/dashboard/settings/Index.vue`](app/components/dashboard/settings/Index.vue) 中的特定公司名稱範例佔位符。
+  * 清除 [`.env.example`](.env.example) 中的特定名稱金鑰與私人網域範例。
+  * 全面重構 [`README.md`](README.md) 與 [`docs/deployment/install-options.md`](docs/deployment/install-options.md)，清除所有本機絕對檔案路徑與私有公司資料，提供開源社群最專業乾淨的新手指南。
+
 ### 📌 動態多站台部署架構與開源新手指南 (Dynamic Multi-Site Deployment & Open Source Quickstart)
 
 * **動態多站台部署管理器（`scripts/deploy.mjs`）**：
   * 徹底重構部署腳本，消除原先在 `package.json` 中寫死特定個人或站點帳號名稱的硬編碼設計。
   * 實作動態多站台探索與調度：
     * `pnpm run deploy`：自動部署至本地預設環境（`wrangler.local.jsonc` 或 `wrangler.jsonc`）。
-    * `pnpm run deploy <site>`：動態匹配本地 `wrangler.<site>.local.jsonc` 進行單一站台部署（例如 `pnpm run deploy david`、`pnpm run deploy ai360`、`pnpm run deploy mynewsite`）。
+    * `pnpm run deploy <site>`：動態匹配本地 `wrangler.<site>.local.jsonc` 進行單一站台部署（例如 `pnpm run deploy siteA`、`pnpm run deploy siteB`）。
     * `pnpm run deploy all`：自動掃描並探索本機所有 `wrangler.*.local.jsonc` 設定檔，僅編譯一次 Workers 產物，接著依序全自動部署至所有目標站點。
     * 支援 `--list` 列出本機偵測到的所有可用站台，以及 `--dry-run` 模擬解析目標設定檔而不觸發實體建置或上傳。
   * 未來無論新增多少個自訂站台或客戶環境，均只需新增對應的 `wrangler.<name>.local.jsonc`（受 `.gitignore` 保護，永不進入版本庫），無需改動任何專案原始碼或 `package.json`。
@@ -26,9 +40,9 @@
   * 同步更新 [`docs/deployment/workers.md`](docs/deployment/workers.md)，提供標準化的私有資源隔離指南。
 
 * **全站多網域品牌動態化（Multi-Tenant Dynamic Domain Branding）**：
-  * 新增 [`app/composables/brand.ts`](app/composables/brand.ts)（`useSiteBrand()`），自動根據當前瀏覽器 `window.location.host` 或 Nuxt 伺服端 `useRequestURL().host` 判定造訪網域，消除開源庫中寫死單一商業網域（如 `glsoft.ai`）的問題。
-  * 更新 [`app/components/layouts/Header.vue`](app/components/layouts/Header.vue)、[`app/components/layouts/Footer.vue`](app/components/layouts/Footer.vue)、[`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue)、[`app/layouts/auth.vue`](app/layouts/auth.vue) 及 [`app/app.vue`](app/app.vue)，使頁首、頁尾、後台麵包屑、登入側邊欄及 SEO / JSON-LD 結構化資料完全動態反映當前站點網域（例如在 `aiurl.tw` 顯示 `aiurl.tw`，在 `glsoft.ai` 顯示 `glsoft.ai`）。
-  * 更新 [`app/app.config.ts`](app/app.config.ts)、[`app/utils/login-copy.ts`](app/utils/login-copy.ts) 及多國語言字典（`i18n/locales/*.json`），將預設 fallback 品牌統一調整為中立開源名稱 `'Sink'`。
+  * 新增 [`app/composables/brand.ts`](app/composables/brand.ts)（`useSiteBrand()`），自動根據當前瀏覽器 `window.location.host` 或 Nuxt 伺服端 `useRequestURL().host` 判定造訪網域，消除開源庫中寫死單一商業網域的問題。
+  * 更新 [`app/components/layouts/Header.vue`](app/components/layouts/Header.vue)、[`app/components/layouts/Footer.vue`](app/components/layouts/Footer.vue)、[`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue)、[`app/layouts/auth.vue`](app/layouts/auth.vue) 及 [`app/app.vue`](app/app.vue)，使頁首、頁尾、後台麵包屑、登入側邊欄及 SEO / JSON-LD 結構化資料完全動態反映當前站點網域。
+  * 更新 [`app/app.config.ts`](app/app.config.ts)、[`app/utils/login-copy.ts`](app/utils/login-copy.ts) 及多國語言字典（`i18n/locales/*.json`），將預設 fallback 品牌統一調整為中立開源名稱 `'333shortlink'`。
   * 更新 [`server/utils/passkey.ts`](server/utils/passkey.ts)，將 WebAuthn RP 名稱與使用者帳號識別動態綁定至 `challenge.rpId`，使 Touch ID / Face ID 授權視窗精準顯示所在站點網域。
 * **靜態預渲染排除 `/mcp` 端點（修復 POST 405 Method Not Allowed）**：
   * 在 [`nuxt.config.ts`](nuxt.config.ts) 的 `routeRules` 加入 `'/mcp': { prerender: false }`，並在 `nitro.prerender.ignore` 中加入 `'/mcp'`。
@@ -38,8 +52,8 @@
 ### 📌 登入頁短網址範例與站點品牌動態化
 
 * **短網址示範格式修正（單層 Slug 路由）**：
-  * 修正 [`app/layouts/auth.vue`](app/layouts/auth.vue) 中寫死的範例路徑 `glsoft.ai/go/live`：Sink 的短網址路由為根路徑單層 Slug 架構（`domain/{slug}`，`slugRegex` 為 `/^[a-z0-9]+(?:-[a-z0-9]+)*$/i`），系統並不使用 `/go/...` 二層路徑。
-  * 將短網址範例修正為符合真實機制的 `glsoft.ai/104`（`{domain}/104`）。
+  * 修正 [`app/layouts/auth.vue`](app/layouts/auth.vue) 中寫死的範例路徑：短網址路由為根路徑單層 Slug 架構（`domain/{slug}`，`slugRegex` 為 `/^[a-z0-9]+(?:-[a-z0-9]+)*$/i`），系統並不使用 `/go/...` 二層路徑。
+  * 將短網址範例修正為符合真實機制的 `{domain}/demo`。
 * **站點網域與品牌動態讀取**：
   * 在 [`app/layouts/auth.vue`](app/layouts/auth.vue) 加入 `displayHost` 計算屬性，優先讀取當前造訪網域（`window.location.host` / `useRequestURL().host`），若無則讀取 [`app/app.config.ts`](app/app.config.ts) 設定中的 `title`。
   * 更新 [`app/utils/login-copy.ts`](app/utils/login-copy.ts) 的 `useLoginCopy()`，動態注入 `appConfig.title` 作為 `brand`，確保不同網域或自訂站名時自動連動顯示。
@@ -66,7 +80,7 @@
   * 將 [`app/pages/dashboard/settings.vue`](app/pages/dashboard/settings.vue) 重構為 [`app/pages/dashboard/settings/[[tab]].vue`](app/pages/dashboard/settings/[[tab]].vue)，支援直達路徑 `/dashboard/settings/security`、`/dashboard/settings/seo`、`/dashboard/settings/enterprise`、`/dashboard/settings/transition`。
   * 點擊頁籤時自動透過 `router.replace` 同步更新瀏覽器網址列為 Canonical Route，重新整理或加入書籤皆能精準保留所在頁籤，並相容 `?tab=...` 查詢參數。
   * 在 [`nuxt.config.ts`](nuxt.config.ts) 的 `nitro.prerender.routes` 明確加入上述設定直達子路徑，建置時產出獨立靜態 HTML 檔，免去 404 跳轉延遲。
-  * 修正 [`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue) 中 `const { title } = useAppConfig()` 遮蔽 prop `title` 的問題（原先麵包屑會重複顯示站點名稱 `glsoft.ai > 儀表板 > glsoft.ai`），並新增子路徑階層支援（例如 `glsoft.ai > 儀表板 > 設定 > Security`）。
+  * 修正 [`app/components/dashboard/Breadcrumb.vue`](app/components/dashboard/Breadcrumb.vue) 中 `const { title } = useAppConfig()` 遮蔽 prop `title` 的問題（原先麵包屑會重複顯示站點名稱 `domain > 儀表板 > domain`），並新增子路徑階層支援（例如 `domain > 儀表板 > 設定 > Security`）。
   * 修正 [`app/components/dashboard/Nav.vue`](app/components/dashboard/Nav.vue) 於設定子路徑時無法維持「設定」頁籤高亮狀態的問題。
 * **Passkey WebAuthn Challenge 解碼與重放防護修正**：
   * 修正 [`server/utils/passkey.ts`](server/utils/passkey.ts) 中 `base64UrlToBytes` 的字元驗證正則：原先誤寫為 `/^[w-]*$/`（僅匹配英文字母 `w` 與 `-`），導致任何標準 Base64URL challenge payload 解碼直接拋錯，觸發 `Passkey request expired` 或 `Passkey challenge token is not valid Base64URL`。已修正為 `/^[\w-]*={0,2}$/`。
@@ -81,7 +95,7 @@
 * **Cloudflare Pages 預設建置 Preset 修復**：
   * 根因分析：Cloudflare Pages 於 CI 自動建置時預設調用 `pnpm build`（即 `nuxt build`）；原先 `nuxt.config.ts` 的 `nitro.preset` 未定義且專案目錄存在 `wrangler.jsonc`，導致 Nitro 自動回退為 `cloudflare-module`，產出 `dist/server/index.mjs` 與 `dist/public`，缺少 Pages 必需的 `dist/_worker.js`，導致部署至 Pages 後邊緣 API 與部分頁面遭遇 404 或快取錯亂。
 * **首頁去品牌化並改為登入頁面**：
-  * 將 [`app/pages/index.vue`](app/pages/index.vue) 原有的公司簡介（「資旅軟體開發有限公司」、統編、代表人、地址等品牌資訊）以及 loading spinner 完全移除，去品牌化並直接改為與 `/dashboard/login` 一致的 `<Login />` 登入介面（`layout: 'auth'`）。
+  * 將 [`app/pages/index.vue`](app/pages/index.vue) 原有的示範公司簡介（統編、代表人、地址等品牌資訊）以及 loading spinner 完全移除，去品牌化並直接改為與 `/dashboard/login` 一致的 `<Login />` 登入介面（`layout: 'auth'`）。
   * 更新 [`app/middleware/auth.global.ts`](app/middleware/auth.global.ts)，使首頁 `/` 與 `/dashboard/login` 統一作為認證入口：已登入者造訪 `/` 或 `/dashboard/login` 自動跳轉至 `/dashboard`；未登入者直接在 `/` 進行 Passkey 或 Site Token 登入。
   * 移除 [`server/middleware/1.redirect.ts`](server/middleware/1.redirect.ts) 與 [`nuxt.config.ts`](nuxt.config.ts) 中的 `homeURL` 強制跳轉邏輯，避免環境變數（如 `NUXT_HOME_URL`）將首頁訪問劫持至外部站點或失效網址，保證訪客造訪根域名 `/` 必為登入頁面。
   * 自 [`app/app.config.ts`](app/app.config.ts) 移除不再使用的 `company` 設定區塊。
@@ -92,7 +106,7 @@
 * 在 Dashboard Settings 新增 Security 頁籤，可註冊及移除 Passkey；首次註冊使用既有 Site Token 登入。
 * Passkey 驗證使用 120 秒隨機 challenge、RP ID / origin / 使用者驗證檢查與 Web Crypto ES256 簽章驗證；成功後建立 8 小時 HttpOnly session cookie。
 * 保留 `NUXT_SITE_TOKEN` 作為登入備援及既有 API / MCP bearer access，既有下游 App 不需更換 token。
-* 移除共用頁尾中的公司版權文字，保留 glsoft.ai 名稱與社群連結。
+* 移除共用頁尾中的公司版權文字，保留名稱與社群連結。
 * Passkey 公開金鑰與裝置名稱存入既有 Cloudflare KV；未新增環境變數或外部依賴。
 
 本文件記錄了專案開發、部署及設定過程中遇到的一些關鍵「坑」與解決方案，供後續維護參考。
@@ -236,18 +250,18 @@
 
 修復 OG 分數 37/100 的多項 SEO 問題，包含社群預覽與搜尋引擎索引最佳化：
 
-* **修正 OG Image 過小問題**：預設 OG 圖片從 `https://blog.david888.com/banner.png` (404) 改為 `/banner.png` (本地 2400×1260px，部署於 `https://glsoft.ai/banner.png`)；Dashboard 後台設定的 OG Image 若指向 SVG logo (94×23px) 需手動更新。
-* **補齊遺漏的 OG / Twitter 標籤**：`og:url`、`og:locale` (zh_TW)、`og:image:width` (1200)、`og:image:height` (630)、`og:image:alt`、`twitter:site` (@oobwei)，同時寫入 `app/app.vue` 與 `app/pages/index.vue`。
+* **修正 OG Image 過小問題**：預設 OG 圖片改為 `/banner.png` (本地 2400×1260px)；Dashboard 後台設定的 OG Image 若指向 SVG logo (94×23px) 需手動更新。
+* **補齊遺漏的 OG / Twitter 標籤**：`og:url`、`og:locale` (zh_TW)、`og:image:width` (1200)、`og:image:height` (630)、`og:image:alt`、`twitter:site`，同時寫入 `app/app.vue` 與 `app/pages/index.vue`。
 * **新增 SEO 實用標籤**：`<link rel="canonical">`、`<link rel="manifest">`、`<meta name="theme-color">` (#10b981)、32×32 PNG favicon、SVG favicon、JSON-LD 結構化資料 (WebSite Schema)。
-* **修正預設 Description 過長**：`app/app.config.ts` description 從 `'短網址'` 改為完整描述 (`'Sink - 快速短網址服務，支援自訂短網址、訪問分析與團隊管理'`)，Dashboard 後台設定若仍為舊值需手動更新。
+* **修正預設 Description 過長**：`app/app.config.ts` description 從 `'短網址'` 改為完整描述 (`'333shortlink - 快速短網址服務，支援自訂短網址、訪問分析與團隊管理'`)，Dashboard 後台設定若仍為舊值需手動更新。
 * **Loading 狀態補上 H1**：首頁載入中狀態新增 `<h1>` 標籤，讓搜尋引擎爬蟲能讀到頁面主題。
 
 ### 💡 部署後手動設定
 部署後請進入 `Dashboard -> Settings -> Site SEO`，確認以下欄位：
 
-* **OG Image URL** → `https://glsoft.ai/banner.png`
+* **OG Image URL** → `/banner.png`
 * **Description** → 建議 110–160 字元的簡短描述
-* **Site Title** → 建議 `glsoft.ai` 或 `Sink`
+* **Site Title** → 建議 `333shortlink`
 
 ---
 
@@ -406,8 +420,8 @@ Transition Page 的全域設定由原本單純的開關，調整為三種模式�
 
 ### 📌 2. 個別短連結剛修改 transition 設定時，可能短時間內看起來沒生效
 
-### ❌ 遇到問題
-例如將 `glsoft.ai/104` 設為要顯示 transition page，但實測時仍直接跳轉到目的網址。
+#### ❌ 遇到問題
+例如將短網址設為要顯示 transition page，但實測時仍直接跳轉到目的網址。
 
 ### 🔍 原因分析
 原本 redirect middleware 在讀取短連結資料時使用了 KV 快取 TTL。這會導致：
@@ -428,7 +442,7 @@ Transition Page 的全域設定由原本單純的開關，調整為三種模式�
 ### 📌 1. Cloudflare Pages 與 Workers 的編譯預設差異 (API 404 問題)
 
 ### ❌ 遇到問題
-在執行部署後，訪問 `https://glsoft.ai/dashboard/login` 登入或點擊任何 API 時，瀏覽器回傳 `[GET] "/api/verify": 404` 錯誤。
+在執行部署後，訪問 `/dashboard/login` 登入或點擊任何 API 時，瀏覽器回傳 `[GET] "/api/verify": 404` 錯誤。
 
 ### 🔍 原因分析
 * 本專案同時支援 Cloudflare Workers（執行 `wrangler deploy`）與 Cloudflare Pages（執行 `wrangler pages deploy`）部署。
@@ -442,7 +456,7 @@ Transition Page 的全域設定由原本單純的開關，調整為三種模式�
 NITRO_PRESET=cloudflare-pages pnpm build
 
 # 2. 部署至 Pages 專案
-npx wrangler pages deploy dist --project-name sink
+npx wrangler pages deploy dist --project-name 333shortlink
 ```
 
 ---
@@ -460,7 +474,7 @@ npx wrangler pages deploy dist --project-name sink
 修改任何環境變數/加密密碼後，**必須重新進行一次編譯與部署**，新的變數才會在最新生成的部署中生效：
 ```bash
 NITRO_PRESET=cloudflare-pages pnpm build
-npx wrangler pages deploy dist --project-name sink
+npx wrangler pages deploy dist --project-name 333shortlink
 ```
 
 ---
@@ -480,13 +494,12 @@ npx wrangler pages deploy dist --project-name sink
 
 ---
 
-## 📌 4. 網站名稱 `glsoft.ai` 與預設公司資訊的來源
+## 📌 4. 網站名稱與品牌設定的來源
 
 ### ❓ 常見疑問
-網站首頁、頁尾以及瀏覽器分頁標題上顯示的 `glsoft.ai` 與 `資旅軟體開發有限公司` 是在哪裡設定的？
+網站首頁、頁尾以及瀏覽器分頁標題上顯示的品牌名稱是在哪裡設定的？
 
 ### 💡 設定檔案
-這些全域變數是靜態配置在 **[app/app.config.ts](app/app.config.ts)** 中：
-* `title`: 網站品牌標題（如 `glsoft.ai`），被 Header、Footer 和麵包屑組件共同使用。
-* `company`: 預設的公司統編、代表人、地址及版權宣告（`company.name`）。
-* **自訂方法**：直接編輯該檔案中的對應欄位，重新編譯部署即可全局更新。
+全域品牌與 SEO 設定優先由後台管理（`Dashboard -> Settings -> Site SEO`），未設定時由 **[app/app.config.ts](app/app.config.ts)** 提供預設值：
+* `title`: 網站品牌標題（預設為 `333shortlink`），被 Header、Footer 和麵包屑組件共同使用。
+* **自訂方法**：直接在後台設定或編輯該檔案中的對應欄位，重新編譯部署即可全局更新。

@@ -21,6 +21,6 @@ export function useSiteBrand() {
     if (host && host !== 'localhost' && host !== '127.0.0.1') {
       return host
     }
-    return appConfig.title || 'Sink'
+    return appConfig.title || '333shortlink'
   })
 }

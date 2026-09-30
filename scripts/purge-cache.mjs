@@ -3,21 +3,20 @@ import { execSync } from 'node:child_process'
 
 const args = process.argv.slice(2).filter(Boolean)
 
-// Known zone map for convenience (optional)
-const ZONE_MAP = {
-  'glsoft.ai': 'c4232f264ead2791c645c74bc087507c',
-  'aiurl.tw': 'a20c371ac217a96fe96bdfd4d8744c26',
+if (args.length === 0 && !process.env.CLOUDFLARE_ZONE_ID) {
+  console.log('Usage: node scripts/purge-cache.mjs <zone-id-or-name> [more-zones...]')
+  console.log('Or set CLOUDFLARE_ZONE_ID environment variable.')
+  process.exit(0)
 }
 
 const targets = args.length > 0
   ? args
-  : Object.keys(ZONE_MAP)
+  : (process.env.CLOUDFLARE_ZONE_ID || '').split(',').map(s => s.trim()).filter(Boolean)
 
 for (const target of targets) {
-  const zoneId = ZONE_MAP[target] || target
-  console.log(`🧹 Purging cache for zone: ${target} (${zoneId})...`)
+  console.log(`🧹 Purging cache for zone: ${target}...`)
   try {
-    execSync(`cf cache purge -z ${zoneId} --body '{"purge_everything": true}' -f`, { stdio: 'inherit' })
+    execSync(`cf cache purge -z ${target} --body '{"purge_everything": true}' -f`, { stdio: 'inherit' })
     console.log(`✅ Cache purged for ${target}`)
   }
   catch (error) {

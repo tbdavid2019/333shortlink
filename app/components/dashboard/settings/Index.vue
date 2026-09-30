@@ -565,7 +565,7 @@ onMounted(() => {
                     focus:outline-none
                     dark:border-zinc-800 dark:bg-zinc-950
                   "
-                  placeholder="e.g., 資旅軟體開發有限公司"
+                  placeholder="e.g., Acme Corporation"
                   :disabled="loading || !enabled"
                 >
               </div>
