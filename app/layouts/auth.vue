@@ -48,13 +48,18 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
           <div>
             <h2
               class="
-                text-3xl leading-[1.15] font-semibold tracking-tight
-                xl:text-4xl
+                text-3xl leading-[1.2] font-semibold tracking-normal
+                text-balance
+                xl:text-4xl xl:leading-[1.18]
               "
             >
               {{ copy.workspaceTitle }}
             </h2>
-            <p class="mt-4 max-w-md text-base leading-7 text-emerald-50/70">
+            <p
+              class="
+                mt-4 max-w-md text-base leading-relaxed text-emerald-100/75
+              "
+            >
               {{ copy.workspaceDescription }}
             </p>
           </div>
@@ -66,27 +71,39 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
           >
             <p
               class="
-                mb-3 text-[11px] font-medium tracking-[0.16em]
-                text-emerald-100/55 uppercase
+                mb-3 text-[11px] font-semibold tracking-[0.14em]
+                text-emerald-100/60 uppercase
               "
             >
               {{ copy.samplePath }}
             </p>
             <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] text-emerald-100/55">
+                <p class="mb-1 text-[11px] text-emerald-100/60">
                   {{ copy.originalUrl }}
                 </p>
-                <p class="truncate text-sm font-medium text-white">
+                <p
+                  class="
+                    truncate font-mono text-xs font-medium tracking-tight
+                    text-white/95
+                    sm:text-sm
+                  "
+                >
                   example.com/launch
                 </p>
               </div>
-              <ArrowRight class="size-4 text-emerald-300" />
+              <ArrowRight class="size-4 shrink-0 text-emerald-300" />
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] text-emerald-100/55">
+                <p class="mb-1 text-[11px] text-emerald-100/60">
                   {{ copy.shortUrl }}
                 </p>
-                <p class="truncate text-sm font-medium text-emerald-200">
+                <p
+                  class="
+                    truncate font-mono text-xs font-medium tracking-tight
+                    text-emerald-300
+                    sm:text-sm
+                  "
+                >
                   {{ exampleShortUrl }}
                 </p>
               </div>

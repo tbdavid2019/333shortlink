@@ -112,10 +112,15 @@ async function signInWithToken() {
         >
           <Fingerprint class="size-6" />
         </div>
-        <h1 class="text-3xl font-semibold tracking-tight text-foreground">
+        <h1
+          class="
+            text-2xl font-semibold tracking-tight text-balance text-foreground
+            sm:text-3xl
+          "
+        >
           {{ copy.title }}
         </h1>
-        <p class="mt-2 text-sm leading-6 text-muted-foreground">
+        <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
           {{ copy.description }}
         </p>
       </div>
@@ -193,8 +198,9 @@ async function signInWithToken() {
                 <AlertDescription>
                   {{ copy.previewToken }} <code
                     class="
-                      font-mono text-green-600
-                      dark:text-green-400
+                      rounded bg-muted px-1.5 py-0.5 font-mono text-xs
+                      font-semibold text-emerald-600
+                      dark:text-emerald-400
                     "
                   >SinkCool</code>.
                 </AlertDescription>

@@ -2,6 +2,18 @@
 
 ## 📅 [2026-10-06]
 
+### 📌 Impeccable 排版與字藝層次重構 (Impeccable Typeset & Font Polish)
+
+* **全站底層排版渲染優化 ([`app/assets/css/tailwind.css`](app/assets/css/tailwind.css))**：
+  * 啟用 `antialiased` 與 `text-rendering: optimizeLegibility`，顯著改善各作業系統（macOS / Windows / iOS / Android）下 CJK 中文字體與無襯線拉丁字元之邊緣鋸齒。
+  * 開啟 OpenType 高級排版特性（`cv02`, `cv03`, `cv04`, `cv11`），使數字、標點及字母組合更為勻稱。
+  * 品牌客製化文字選取樣式（`::selection` 改為翡翠綠微透亮綠底色），消除瀏覽器預設死板藍底，提升視覺沉浸感。
+* **登入畫面文字層級與對比調校 ([`app/layouts/auth.vue`](app/layouts/auth.vue) & [`app/components/login/index.vue`](app/components/login/index.vue))**：
+  * 主標題導入 `text-balance`（`text-wrap: balance`），杜絕多國語系下標題行末孤字（Orphan Word）現象。
+  * 深色底色（`#102c28`）排版光學校正：放寬 Display 字體字距（`tracking-normal`）並校正行高（`leading-[1.2]`），提升低對比暗底易讀性。
+  * 網址識別符號（URL Identifiers）採用等寬字體（`font-mono tracking-tight`），增強機器可讀性與短網址識別感。
+  * 警告提示框內 Inline Code 標籤重構，搭配 `rounded-md bg-muted px-1.5 py-0.5 font-mono text-xs font-semibold` 強化代碼質感。
+
 ### 📌 登入頁左側側邊欄新增「技術提供 david888.com」與「Tabs URL Copy」擴充功能推廣卡片 (Login Sidebar Enhancement)
 
 * **新增「技術提供 david888.com」標註**：
