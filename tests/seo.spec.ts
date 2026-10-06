@@ -12,7 +12,8 @@ describe('sEO & Meta Tags', () => {
     expect(html).toContain('property="og:image"')
     expect(html).toContain('content="index, follow')
     expect(html).not.toContain('content="noindex, nofollow"')
-    expect(html).toContain('現代化極速開源短網址服務')
+    expect(html).toContain('現代化極速短網址服務')
+    expect(html).not.toContain('現代化極速開源短網址服務')
   })
 
   it('serves homepage with English SEO tags when Accept-Language is English', async () => {
@@ -21,6 +22,7 @@ describe('sEO & Meta Tags', () => {
 
     const html = await res.text()
     expect(html).toContain('rel="canonical"')
-    expect(html).toContain('Modern Open-Source URL Shortener')
+    expect(html).toContain('Modern URL Shortener')
+    expect(html).not.toContain('Modern Open-Source URL Shortener')
   })
 })

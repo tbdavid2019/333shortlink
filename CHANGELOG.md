@@ -2,6 +2,20 @@
 
 ## 📅 [2026-10-06]
 
+### 📌 標題去「開源」化與專業短網址品牌調校 (Title & SEO Neutralization - Remove "Open-Source")
+
+* **全站標題 (Title) 與 SEO Meta 去「開源」化**：
+  * **繁體中文 (`i18n/locales/zh-TW.json`)**：SEO 標題調整為「現代化極速短網址服務 | 隱私安全・即時分析・客製跳轉」，描述同步去「開源」字樣，凸顯極速、穩定、隱私安全之核心價值。
+  * **簡體中文 (`i18n/locales/zh-CN.json`)**：SEO 標題調整為「现代化极速短链接服务 | 隐私安全・即时分析・客制跳转」。
+  * **英文與多語系 (`en-US`, `de-DE`, `fr-FR`, `vi-VN`)**：標題全面去除 `Open-Source` / `open source` / `mã nguồn mở`，統一聚焦為 `Modern URL Shortener | Fast, Secure & Custom Redirects`。
+  * **全站應用設定 (`app/app.config.ts`)**：全域預設 description 去除「開源」，維護產品純粹、商務與專業形象。
+  * **社群分享橫幅 (`public/banner.svg` & `public/banner.png`)**：
+    * 頂部副標題由「⚡ 極速開源・安全隱私・即時分析短網址」校正為「⚡ 極速穩定・安全隱私・即時分析短網址」。
+    * 英文描述由 `Modern, High-Performance Open-Source URL Shortener.` 調整為 `Modern, High-Performance URL Shortener.`。
+    * 特色膠囊（Feature Pill）由 `Open Source` 替換為 `Privacy First`。
+    * 透過 Sharp 重新編譯生成標準 1200x630px 社群預覽圖。
+  * **單元測試同步驗證 (`tests/seo.spec.ts`)**：測試案例加入反向斷言 `expect(html).not.toContain('現代化極速開源短網址服務')` 與 `expect(html).not.toContain('Modern Open-Source URL Shortener')`，確保未來回歸零風險。
+
 ### 📌 中文排版層級全面升級放大與登入版面大氣重構 (CJK Typography Scale & Login Layout Upgrade)
 
 * **中文字體視覺比例深度校正與層級大幅放大 ([`app/layouts/auth.vue`](app/layouts/auth.vue) & [`app/components/login/index.vue`](app/components/login/index.vue))**：

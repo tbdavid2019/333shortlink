@@ -59,11 +59,11 @@
 
     <!-- Main Title -->
     <text x="156" y="72" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1">333shortlink</text>
-    <text x="156" y="112" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="600" fill="#34d399">⚡ 極速開源・安全隱私・即時分析短網址</text>
+    <text x="156" y="112" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="600" fill="#34d399">⚡ 極速穩定・安全隱私・即時分析短網址</text>
 
     <!-- Description Paragraph -->
     <text x="0" y="200" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="500" fill="#e2e8f0">
-      Modern, High-Performance Open-Source URL Shortener.
+      Modern, High-Performance URL Shortener.
     </text>
     <text x="0" y="240" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">
       Fast Redirection • Real-time Analytics • Biometric Passkeys • Custom Transition Pages
@@ -88,8 +88,8 @@
       <text x="738" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Custom Transition</text>
 
       <!-- Pill 5 -->
-      <rect x="854" y="0" width="146" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
-      <text x="927" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Open Source</text>
+      <rect x="854" y="0" width="156" height="48" rx="24" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="932" y="30" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#34d399" text-anchor="middle">Privacy First</text>
     </g>
   </g>
 </svg>
