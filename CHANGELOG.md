@@ -2,11 +2,17 @@
 
 ## 📅 [2026-10-06]
 
-### 📌 更新本機 Wrangler CLI
+### 📌 登入頁左側側邊欄新增「技術提供 david888.com」與「Tabs URL Copy」擴充功能推廣卡片 (Login Sidebar Enhancement)
 
-* 將開發相依套件 `wrangler` 從 `4.45.3` 更新至 `4.147.0`，同步更新 `pnpm-lock.yaml`。
-* 此版本提供 `wrangler pages deployment delete`，可清理 Cloudflare Pages 專案的舊部署記錄。
-* 無應用程式 schema 或部署設定變更。
+* **新增「技術提供 david888.com」標註**：
+  * 於登入頁面左側側邊欄底部（以及行動裝置視圖底端）加入「技術提供 `david888.com`」連結標註，支援 6 國語言（`zh-TW`、`zh-CN`、`en-US`、`fr-FR`、`de-DE`、`vi-VN`）。
+* **新增「Tabs URL Copy」Chrome 擴充功能推廣推薦**：
+  * 於登入頁左側區域新增專屬 Chrome 擴充功能推薦卡片，直接導向至 Chrome Web Store 頁面。
+  * 支援多國語系推廣文案，提供一鍵大量複製分頁網址與短網址管理協同體驗。
+* **更新本機 Wrangler CLI**：
+  * 將開發相依套件 `wrangler` 從 `4.45.3` 更新至 `4.147.0`，同步更新 `pnpm-lock.yaml`。
+  * 此版本提供 `wrangler pages deployment delete`，可清理 Cloudflare Pages 專案的舊部署記錄。
+  * 無應用程式 schema 或部署設定變更。
 
 ## 📅 [2026-09-30]
 
