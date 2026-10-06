@@ -1,5 +1,13 @@
 # CHANGELOG & Deployment Gotchas (開發與部署備忘錄)
 
+## 📅 [2026-10-06]
+
+### 📌 更新本機 Wrangler CLI
+
+* 將開發相依套件 `wrangler` 從 `4.45.3` 更新至 `4.147.0`，同步更新 `pnpm-lock.yaml`。
+* 此版本提供 `wrangler pages deployment delete`，可清理 Cloudflare Pages 專案的舊部署記錄。
+* 無應用程式 schema 或部署設定變更。
+
 ## 📅 [2026-09-30]
 
 ### 📌 徹底修復 333 Logo 組件打包解析與重新導出標準 OpenGraph 橫幅 (Brand Logo Bundling Fix & Balanced OpenGraph Banner)
