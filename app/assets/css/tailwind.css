@@ -164,6 +164,9 @@
     @apply bg-background text-foreground antialiased;
     text-rendering: optimizeLegibility;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang TC', 'Noto Sans TC',
+      'Microsoft JhengHei', system-ui, sans-serif;
   }
 
   ::selection {

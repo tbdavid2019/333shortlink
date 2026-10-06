@@ -7,7 +7,7 @@ const colorMode = useColorMode()
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="ghost">
+      <Button variant="ghost" class="h-10 w-10 rounded-xl">
         <Sun
           class="
             absolute h-5 w-5 scale-100 transition-all

@@ -33,31 +33,30 @@ async function selectLocale(code) {
     <DropdownMenuTrigger as-child>
       <Button
         variant="ghost"
-        size="sm"
         class="
-          h-9 gap-1.5 px-2.5 text-xs font-medium text-muted-foreground
+          h-10 gap-2 rounded-xl px-3 text-sm font-semibold text-muted-foreground
           hover:text-foreground
         "
       >
-        <Languages class="size-4" />
+        <Languages class="size-4.5" />
         <span>{{ currentLabel }}</span>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
       align="end"
-      class="w-40"
+      class="w-44"
     >
       <DropdownMenuItem
         v-for="l in locales"
         :key="l.code"
-        class="flex cursor-pointer items-center justify-between text-xs"
+        class="flex cursor-pointer items-center justify-between py-2 text-sm"
         @click="selectLocale(l.code)"
       >
         <span class="flex items-center gap-2">
           <span>{{ l.emoji }}</span>
           <span :class="{ 'font-semibold text-foreground': l.code === locale }">{{ l.name }}</span>
         </span>
-        <Check v-if="l.code === locale" class="size-3.5 text-emerald-600" />
+        <Check v-if="l.code === locale" class="size-4 text-emerald-600" />
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

@@ -2,7 +2,25 @@
 
 ## 📅 [2026-10-06]
 
-### 📌 品牌 Logo 重新生成（配橄欖綠「333 短址」）與登入首頁字藝重構 (Olive Brand Logo & Login Typeset)
+### 📌 中文排版層級全面升級放大與登入版面大氣重構 (CJK Typography Scale & Login Layout Upgrade)
+
+* **中文字體視覺比例深度校正與層級大幅放大 ([`app/layouts/auth.vue`](app/layouts/auth.vue) & [`app/components/login/index.vue`](app/components/login/index.vue))**：
+  * **正視中文字（方塊字）與西文字之視覺體積差異**：西文字母具備上下伸展（Ascender / Descender）與寬窄變化，在 11-14px 仍具基本辨識度；而中文方塊字筆畫密集（8-20+ 筆劃密集於方塊內），微縮尺寸極易模糊失真。全面破除預設西文小字限制，將中文字體依視覺光學比例全面放大升級。
+  * **登入頁左側主視覺全面擴展**：
+    * **主標題大器居首**：由原先 `text-3xl xl:text-4xl` 大幅升級至 `text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-black leading-[1.15]`，在桌面寬螢幕展現極致視覺震撼力與權威感。
+    * **副標題與描述文案放大**：由 `text-base` 升級為 `text-lg sm:text-xl lg:text-2xl leading-relaxed text-[#dbe8cb]/95`，閱讀清晰不費力。
+    * **內容容器寬度倍增**：由狹窄拘謹的 `max-w-md`（448px）擴展至 `max-w-xl xl:max-w-2xl`（672px），徹底消除大螢幕上過度空曠的黑底真空感。
+    * **「跳轉示意」與「Tabs URL Copy」卡片字級升級**：內部原先模糊之 `text-[11px]` 全部躍升至 `text-xs sm:text-sm` 及 `text-sm sm:text-base`，內襯墊與圖標（Arrow / Chrome）同步加大，視覺重心勻稱協調。
+    * **品牌標誌與技術提供**：頂部 Logo 放大至 `:size="56"`，品牌字躍升至 `text-xl sm:text-2xl font-black`；底部「技術提供 `david888.com`」擴大為 `text-sm sm:text-base font-bold`。
+  * **右側登入卡片容器與元件尺寸升級**：
+    * **卡片本體加寬與呼吸感**：容器由 `max-w-md` 拓寬為 `max-w-lg xl:max-w-xl`，內襯墊增至 `p-8 sm:p-12`。
+    * **標題與內文**：標題放大至 `text-3xl sm:text-4xl lg:text-[2.6rem] font-black`，描述文案提升為 `text-base sm:text-lg`。
+    * **Passkey 按鈕與輸入框加高加重**：Passkey 主要按鈕加高至 `h-14 sm:h-16 text-base sm:text-lg font-bold`；Site Token 輸入框與提交按鈕加高至 `h-13 sm:h-14 text-base sm:text-lg`，點擊與觸控反饋更為紮實穩健。
+* **原生 CJK 字型堆疊與渲染優化 ([`app/assets/css/tailwind.css`](app/assets/css/tailwind.css))**：
+  * 在 `body` 明確定義原生繁簡黑體字族優先鏈（`PingFang TC`, `Noto Sans TC`, `Microsoft JhengHei`），確保在 macOS、Windows、iOS、Android 各端均展現最高品質的黑體骨架與筆畫銳利度。
+* **橄欖綠「333 短址」Logo 字級光學校準 ([`app/components/BrandLogo.vue`](app/components/BrandLogo.vue) & [`scripts/build-assets.mjs`](scripts/build-assets.mjs))**：
+  * 重新調整向量字重與字號：數字 `333` 字級提升至 `40px`（`font-weight="900"`），「`短址`」字級提升至 `26px`（`font-weight="800"`、`letter-spacing: 2px`），並同步以 Sharp 重新編譯各尺寸圖標、橫幅與 Favicon。
+
 
 * **全新橄欖綠「333 短址」品牌視覺標誌 ([`app/components/BrandLogo.vue`](app/components/BrandLogo.vue))**：
   * **字藝排列**：改為雙層居中排列——上層醒目呈現加粗特黑幾何數字 `333`（`font-weight="900"`），下層以現代黑體排印帶字距之 `短址`（`font-weight="700"`、`letter-spacing="3px"`）。

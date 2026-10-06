@@ -25,38 +25,60 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
           xl:p-14
         "
       >
-        <div class="flex items-center gap-3.5">
+        <div class="flex items-center gap-4">
           <span
             class="
-              flex size-11 items-center justify-center overflow-hidden
-              rounded-xl shadow-md ring-1 ring-white/10
+              flex size-14 items-center justify-center overflow-hidden
+              rounded-2xl shadow-lg ring-1 ring-white/15
             "
           >
-            <BrandLogo :badge="true" :size="44" />
+            <BrandLogo :badge="true" :size="56" />
           </span>
           <div>
-            <p class="text-base font-bold tracking-tight text-white">
+            <p
+              class="
+                text-xl font-black tracking-tight text-white
+                sm:text-2xl
+              "
+            >
               {{ copy.brand }}
             </p>
-            <p class="text-xs font-medium text-[#d5e3c2]/70">
+            <p
+              class="
+                text-xs font-semibold text-[#d5e3c2]/85
+                sm:text-sm
+              "
+            >
               {{ copy.adminAccess }}
             </p>
           </div>
         </div>
 
-        <div class="max-w-xl space-y-6 py-8">
+        <div
+          class="
+            max-w-xl space-y-8 py-8
+            xl:max-w-2xl xl:space-y-10
+          "
+        >
           <div>
             <h2
               class="
-                text-3xl leading-[1.22] font-extrabold tracking-tight
-                text-balance text-white
-                xl:text-4xl xl:leading-[1.18]
+                text-4xl leading-[1.2] font-black tracking-tight text-balance
+                text-white
+                sm:text-5xl
+                lg:text-5xl
+                xl:text-6xl xl:leading-[1.15]
               "
             >
               {{ copy.workspaceTitle }}
             </h2>
             <p
-              class="mt-4 max-w-md text-base leading-relaxed text-[#dbe8cb]/85"
+              class="
+                mt-5 max-w-xl text-lg leading-relaxed font-normal
+                text-[#dbe8cb]/95
+                sm:text-xl
+                lg:text-2xl
+              "
             >
               {{ copy.workspaceDescription }}
             </p>
@@ -64,43 +86,61 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
 
           <div
             class="
-              max-w-md rounded-2xl border border-white/10 bg-white/[0.05] p-5
-              backdrop-blur-sm
+              max-w-xl rounded-2xl border border-white/15 bg-white/[0.06] p-6
+              shadow-xl shadow-black/10 backdrop-blur-sm
+              sm:p-7
+              xl:max-w-2xl
             "
           >
             <p
               class="
-                mb-3 text-[11px] font-bold tracking-[0.16em] text-[#cde49e]
+                mb-4 text-xs font-bold tracking-[0.14em] text-[#cde49e]
                 uppercase
+                sm:text-sm
               "
             >
               {{ copy.samplePath }}
             </p>
-            <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <div
+              class="
+                grid grid-cols-[1fr_auto_1fr] items-center gap-4
+                sm:gap-6
+              "
+            >
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] font-medium text-[#d5e3c2]/65">
+                <p
+                  class="
+                    mb-1.5 text-xs font-medium text-[#d5e3c2]/75
+                    sm:text-sm
+                  "
+                >
                   {{ copy.originalUrl }}
                 </p>
                 <p
                   class="
-                    truncate font-mono text-xs font-semibold tracking-tight
+                    truncate font-mono text-sm font-semibold tracking-tight
                     text-white/95
-                    sm:text-sm
+                    sm:text-base
                   "
                 >
                   example.com/launch
                 </p>
               </div>
-              <ArrowRight class="size-4 shrink-0 text-[#cde49e]" />
+              <ArrowRight class="size-5 shrink-0 text-[#cde49e]" />
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] font-medium text-[#d5e3c2]/65">
+                <p
+                  class="
+                    mb-1.5 text-xs font-medium text-[#d5e3c2]/75
+                    sm:text-sm
+                  "
+                >
                   {{ copy.shortUrl }}
                 </p>
                 <p
                   class="
-                    truncate font-mono text-xs font-bold tracking-tight
+                    truncate font-mono text-sm font-bold tracking-tight
                     text-[#cde49e]
-                    sm:text-sm
+                    sm:text-base
                   "
                 >
                   {{ exampleShortUrl }}
@@ -115,69 +155,89 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
             target="_blank"
             rel="noopener noreferrer"
             class="
-              group block max-w-md rounded-2xl border border-[#8fa85b]/30
-              bg-[#242e15]/55 p-4.5 backdrop-blur-sm transition-all duration-200
-              hover:border-[#a4c06b]/50 hover:bg-[#2c3819]/75 hover:shadow-lg
-              hover:shadow-black/20
+              group block max-w-xl rounded-2xl border border-[#8fa85b]/35
+              bg-[#242e15]/65 p-6 backdrop-blur-sm transition-all duration-200
+              hover:border-[#a4c06b]/60 hover:bg-[#2c3819]/85 hover:shadow-xl
+              hover:shadow-black/25
+              xl:max-w-2xl
             "
           >
-            <div class="flex items-start justify-between gap-3">
-              <div class="flex items-center gap-3">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-center gap-4">
                 <span
                   class="
-                    flex size-9 shrink-0 items-center justify-center rounded-xl
-                    border border-[#8fa85b]/40 bg-[#5c732b]/25 text-[#cde49e]
-                    transition-transform duration-200
+                    flex size-12 shrink-0 items-center justify-center
+                    rounded-2xl border border-[#8fa85b]/40 bg-[#5c732b]/30
+                    text-[#cde49e] transition-transform duration-200
                     group-hover:scale-105
                   "
                 >
-                  <Chrome class="size-4.5" />
+                  <Chrome class="size-6" />
                 </span>
                 <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm font-bold tracking-normal text-white">
+                  <div class="flex items-center gap-2.5">
+                    <span
+                      class="
+                        text-base font-bold tracking-normal text-white
+                        sm:text-lg
+                      "
+                    >
                       {{ copy.extTitle }}
                     </span>
                     <span
                       class="
-                        rounded-md bg-[#8fa85b]/25 px-2 py-0.5 text-[10px]
-                        font-bold tracking-wide text-[#d9edb2]
+                        rounded-md bg-[#8fa85b]/30 px-2.5 py-0.5 text-xs
+                        font-bold tracking-wide text-[#e1f5be]
                       "
                     >
                       {{ copy.extBadge }}
                     </span>
                   </div>
-                  <p class="mt-0.5 text-xs font-medium text-[#d5e3c2]/75">
+                  <p
+                    class="
+                      mt-1 text-sm font-medium text-[#d5e3c2]/85
+                      sm:text-base
+                    "
+                  >
                     {{ copy.extSubtitle }}
                   </p>
                 </div>
               </div>
               <ExternalLink
                 class="
-                  size-4 shrink-0 text-[#cde49e]/60 transition-colors
+                  size-5 shrink-0 text-[#cde49e]/70 transition-colors
                   group-hover:text-[#cde49e]
                 "
               />
             </div>
-            <p class="mt-3 text-xs leading-relaxed text-[#dbe8cb]/85">
+            <p
+              class="
+                mt-4 text-sm leading-relaxed text-[#dbe8cb]/95
+                sm:text-base
+              "
+            >
               {{ copy.extDesc }}
             </p>
           </a>
         </div>
 
-        <div class="space-y-2 text-xs text-[#d5e3c2]/70">
+        <div
+          class="
+            space-y-3 text-sm text-[#d5e3c2]/80
+            sm:text-base
+          "
+        >
           <p class="leading-relaxed">
             {{ copy.footer }}
           </p>
-          <p class="border-t border-white/10 pt-3">
+          <p class="border-t border-white/15 pt-4">
             {{ copy.techProvider }}
             <a
               href="https://david888.com"
               target="_blank"
               rel="noopener noreferrer"
               class="
-                font-semibold text-[#cde49e] underline-offset-4
-                transition-colors
+                font-bold text-[#cde49e] underline-offset-4 transition-colors
                 hover:text-white hover:underline
               "
             >
@@ -190,9 +250,9 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
       <section class="relative flex min-h-[100dvh] flex-col">
         <div
           class="
-            flex items-center justify-end gap-1 px-5 pt-5
-            sm:px-8
-            lg:px-10
+            flex items-center justify-end gap-1 px-6 pt-6
+            sm:px-10
+            lg:px-12
           "
         >
           <SwitchLanguage />
@@ -200,16 +260,16 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
         </div>
         <div
           class="
-            flex flex-1 items-center justify-center px-5 py-10
-            sm:px-8
-            lg:px-12
+            flex flex-1 items-center justify-center px-6 py-12
+            sm:px-10
+            lg:px-14
           "
         >
           <slot />
         </div>
         <div
           class="
-            p-4 text-center text-xs text-muted-foreground
+            p-5 text-center text-sm font-medium text-muted-foreground
             lg:hidden
           "
         >
@@ -219,7 +279,7 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
             target="_blank"
             rel="noopener noreferrer"
             class="
-              font-medium text-foreground underline-offset-2
+              font-semibold text-foreground underline-offset-2
               hover:underline
             "
           >

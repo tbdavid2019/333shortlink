@@ -18,8 +18,8 @@ const badgeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="51
   </defs>
   <rect width="100" height="100" rx="25" fill="url(#brandLogoOliveGrad)" />
   <rect x="0.75" y="0.75" width="98.5" height="98.5" rx="24.25" fill="none" stroke="url(#brandLogoOliveBorder)" stroke-width="1.5" />
-  <text x="50" y="47" text-anchor="middle" fill="#ffffff" font-family="PingFang TC, Noto Sans TC, Heiti TC, Microsoft JhengHei, system-ui, sans-serif" font-weight="900" font-size="33" letter-spacing="-0.5">333</text>
-  <text x="51" y="77" text-anchor="middle" fill="#e3eed0" font-family="PingFang TC, Noto Sans TC, Heiti TC, Microsoft JhengHei, system-ui, sans-serif" font-weight="700" font-size="19" letter-spacing="3">短址</text>
+  <text x="50" y="48" text-anchor="middle" fill="#ffffff" font-family="PingFang TC, Noto Sans TC, Heiti TC, Microsoft JhengHei, system-ui, sans-serif" font-weight="900" font-size="40" letter-spacing="-0.5">333</text>
+  <text x="50.5" y="81" text-anchor="middle" fill="#e7f2d5" font-family="PingFang TC, Noto Sans TC, Heiti TC, Microsoft JhengHei, system-ui, sans-serif" font-weight="800" font-size="26" letter-spacing="2">短址</text>
 </svg>`
 
 async function generate() {

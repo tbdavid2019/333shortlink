@@ -23,23 +23,23 @@ withDefaults(defineProps<Props>(), {
   >
     <text
       x="50"
-      y="47"
+      y="48"
       text-anchor="middle"
       fill="currentColor"
       font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans TC', sans-serif"
       font-weight="900"
-      font-size="36"
+      font-size="40"
       letter-spacing="-0.5"
     >333</text>
     <text
-      x="51"
-      y="78"
+      x="50.5"
+      y="81"
       text-anchor="middle"
       fill="currentColor"
       font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans TC', sans-serif"
-      font-weight="700"
-      font-size="20"
-      letter-spacing="3"
+      font-weight="800"
+      font-size="26"
+      letter-spacing="2"
     >短址</text>
   </svg>
 
@@ -77,23 +77,23 @@ withDefaults(defineProps<Props>(), {
     />
     <text
       x="50"
-      y="47"
+      y="48"
       text-anchor="middle"
       fill="#ffffff"
       font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans TC', sans-serif"
       font-weight="900"
-      font-size="33"
+      font-size="40"
       letter-spacing="-0.5"
     >333</text>
     <text
-      x="51"
-      y="77"
+      x="50.5"
+      y="81"
       text-anchor="middle"
-      fill="#e3eed0"
+      fill="#e7f2d5"
       font-family="system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', 'Noto Sans TC', sans-serif"
-      font-weight="700"
-      font-size="19"
-      letter-spacing="3"
+      font-weight="800"
+      font-size="26"
+      letter-spacing="2"
     >短址</text>
   </svg>
 </template>
