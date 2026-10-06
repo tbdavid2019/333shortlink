@@ -167,7 +167,7 @@
   }
 
   ::selection {
-    @apply bg-emerald-500/25 text-foreground;
+    @apply bg-[#668235]/30 text-foreground;
   }
 
   button:not(:disabled),

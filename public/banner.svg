@@ -13,12 +13,13 @@
       <stop offset="0%" stop-color="#059669" stop-opacity="0.2" />
       <stop offset="100%" stop-color="#059669" stop-opacity="0" />
     </radialGradient>
-    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#10b981" />
-      <stop offset="100%" stop-color="#047857" />
+    <linearGradient id="badgeGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#668235" />
+      <stop offset="48%" stop-color="#4c6224" />
+      <stop offset="100%" stop-color="#303e16" />
     </linearGradient>
     <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#10b981" flood-opacity="0.45" />
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#4c6224" flood-opacity="0.45" />
     </filter>
   </defs>
 
@@ -52,11 +53,9 @@
   <g transform="translate(100, 100)">
     <!-- Logo Badge -->
     <rect width="120" height="120" rx="32" fill="url(#badgeGrad)" filter="url(#badgeShadow)" />
-    <g transform="translate(14, 14) scale(3.83)" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <path d="M4 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
-      <path d="M10 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
-      <path d="M16 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
-    </g>
+    <rect x="1" y="1" width="118" height="118" rx="31" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" />
+    <text x="60" y="58" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', sans-serif" font-weight="900" font-size="42" letter-spacing="-0.5">333</text>
+    <text x="61" y="96" text-anchor="middle" fill="#e3eed0" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang TC', sans-serif" font-weight="700" font-size="24" letter-spacing="4">短址</text>
 
     <!-- Main Title -->
     <text x="156" y="72" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1">333shortlink</text>

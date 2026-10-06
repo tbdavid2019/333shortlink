@@ -2,7 +2,14 @@
 
 ## 📅 [2026-10-06]
 
-### 📌 Impeccable 排版與字藝層次重構 (Impeccable Typeset & Font Polish)
+### 📌 品牌 Logo 重新生成（配橄欖綠「333 短址」）與登入首頁字藝重構 (Olive Brand Logo & Login Typeset)
+
+* **全新橄欖綠「333 短址」品牌視覺標誌 ([`app/components/BrandLogo.vue`](app/components/BrandLogo.vue))**：
+  * **字藝排列**：改為雙層居中排列——上層醒目呈現加粗特黑幾何數字 `333`（`font-weight="900"`），下層以現代黑體排印帶字距之 `短址`（`font-weight="700"`、`letter-spacing="3px"`）。
+  * **橄欖綠雙漸層徽章**：採用奢華質感之橄欖綠（`#668235` → `#4c6224` → `#303e16`）搭配微透亮邊框光暈（`rgba(255,255,255,0.35)`），全站各尺寸圖標（`public/icon.png`、`public/banner.png`、`favicon.ico` 等）均透過 [`scripts/build-assets.mjs`](scripts/build-assets.mjs) 原生向量重繪渲染。
+* **登入首頁字藝與色彩深度融合 ([`app/layouts/auth.vue`](app/layouts/auth.vue) & [`app/components/login/index.vue`](app/components/login/index.vue))**：
+  * **左側側邊欄沈浸式橄欖底色**：由冷翡翠色全面升級為溫潤沉穩的深橄欖絲絨色（`bg-[#18210e]`），並搭配橄欖金亮色（`#cde49e`、`#8fa85b`）強化「連結跳轉示意」與「Tabs URL Copy」卡片視覺重心。
+  * **主次字藝層次昇華**：首頁主標題採用特黑 `font-extrabold tracking-tight text-balance`；短網址與原始連結採用 `font-mono tracking-tight` 明顯區分自然語言與網址代碼；登入按鈕與圖示色彩與橄欖品牌調性完美一體。
 
 * **全站底層排版渲染優化 ([`app/assets/css/tailwind.css`](app/assets/css/tailwind.css))**：
   * 啟用 `antialiased` 與 `text-rendering: optimizeLegibility`，顯著改善各作業系統（macOS / Windows / iOS / Android）下 CJK 中文字體與無襯線拉丁字元之邊緣鋸齒。

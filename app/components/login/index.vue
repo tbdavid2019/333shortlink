@@ -75,22 +75,23 @@ async function signInWithToken() {
   <section class="w-full max-w-md">
     <div
       class="
-        mb-8 flex items-center gap-3
+        mb-8 flex items-center gap-3.5
         lg:hidden
       "
     >
       <span
         class="
           flex size-11 items-center justify-center overflow-hidden rounded-xl
+          shadow-sm ring-1 ring-border
         "
       >
-        <BrandLogo :badge="true" :size="38" />
+        <BrandLogo :badge="true" :size="44" />
       </span>
       <div>
-        <p class="text-sm font-semibold tracking-wide text-foreground">
+        <p class="text-base font-bold tracking-tight text-foreground">
           {{ copy.brand }}
         </p>
-        <p class="text-xs text-muted-foreground">
+        <p class="text-xs font-medium text-muted-foreground">
           {{ copy.adminAccess }}
         </p>
       </div>
@@ -106,7 +107,7 @@ async function signInWithToken() {
         <div
           class="
             mb-6 hidden size-12 items-center justify-center rounded-xl
-            bg-emerald-700 text-white
+            bg-[#4a5f23] text-white shadow-sm ring-1 ring-black/5
             lg:flex
           "
         >
@@ -114,13 +115,13 @@ async function signInWithToken() {
         </div>
         <h1
           class="
-            text-2xl font-semibold tracking-tight text-balance text-foreground
-            sm:text-3xl
+            text-2xl font-bold tracking-tight text-balance text-foreground
+            sm:text-3xl sm:leading-tight
           "
         >
           {{ copy.title }}
         </h1>
-        <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+        <p class="mt-2.5 text-sm leading-relaxed text-muted-foreground">
           {{ copy.description }}
         </p>
       </div>
@@ -128,9 +129,10 @@ async function signInWithToken() {
       <div class="space-y-4">
         <Button
           class="
-            h-12 w-full rounded-lg bg-emerald-700 text-sm font-semibold
-            text-white transition
-            hover:bg-emerald-800
+            h-12 w-full rounded-xl bg-[#4a5f23] text-sm font-semibold
+            tracking-wide text-white shadow-sm transition
+            hover:bg-[#3d4f1c]
+            active:scale-[0.99]
             disabled:cursor-not-allowed disabled:opacity-60
           "
           :disabled="!passkeySupported || passkeyLoading"
@@ -188,8 +190,8 @@ async function signInWithToken() {
                   h-11 w-full rounded-lg border border-input bg-background px-4
                   text-sm text-foreground transition outline-none
                   placeholder:text-muted-foreground/70
-                  focus-visible:border-emerald-600 focus-visible:ring-4
-                  focus-visible:ring-emerald-600/10
+                  focus-visible:border-[#5a742b] focus-visible:ring-4
+                  focus-visible:ring-[#5a742b]/15
                 "
               >
               <Alert v-if="previewMode">
@@ -199,8 +201,8 @@ async function signInWithToken() {
                   {{ copy.previewToken }} <code
                     class="
                       rounded bg-muted px-1.5 py-0.5 font-mono text-xs
-                      font-semibold text-emerald-600
-                      dark:text-emerald-400
+                      font-semibold text-[#4a5f23]
+                      dark:text-[#a8cb6c]
                     "
                   >SinkCool</code>.
                 </AlertDescription>

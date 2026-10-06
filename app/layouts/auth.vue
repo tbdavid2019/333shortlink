@@ -20,25 +20,25 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
     >
       <aside
         class="
-          relative hidden overflow-hidden bg-[#102c28] p-10 text-white
+          relative hidden overflow-hidden bg-[#18210e] p-10 text-white
           lg:flex lg:flex-col lg:justify-between
           xl:p-14
         "
       >
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3.5">
           <span
             class="
               flex size-11 items-center justify-center overflow-hidden
-              rounded-xl
+              rounded-xl shadow-md ring-1 ring-white/10
             "
           >
-            <BrandLogo :badge="true" :size="38" />
+            <BrandLogo :badge="true" :size="44" />
           </span>
           <div>
-            <p class="text-sm font-semibold tracking-wide">
+            <p class="text-base font-bold tracking-tight text-white">
               {{ copy.brand }}
             </p>
-            <p class="text-xs text-emerald-100/65">
+            <p class="text-xs font-medium text-[#d5e3c2]/70">
               {{ copy.adminAccess }}
             </p>
           </div>
@@ -48,17 +48,15 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
           <div>
             <h2
               class="
-                text-3xl leading-[1.2] font-semibold tracking-normal
-                text-balance
+                text-3xl leading-[1.22] font-extrabold tracking-tight
+                text-balance text-white
                 xl:text-4xl xl:leading-[1.18]
               "
             >
               {{ copy.workspaceTitle }}
             </h2>
             <p
-              class="
-                mt-4 max-w-md text-base leading-relaxed text-emerald-100/75
-              "
+              class="mt-4 max-w-md text-base leading-relaxed text-[#dbe8cb]/85"
             >
               {{ copy.workspaceDescription }}
             </p>
@@ -66,25 +64,26 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
 
           <div
             class="
-              max-w-md rounded-xl border border-white/10 bg-white/[0.06] p-4
+              max-w-md rounded-2xl border border-white/10 bg-white/[0.05] p-5
+              backdrop-blur-sm
             "
           >
             <p
               class="
-                mb-3 text-[11px] font-semibold tracking-[0.14em]
-                text-emerald-100/60 uppercase
+                mb-3 text-[11px] font-bold tracking-[0.16em] text-[#cde49e]
+                uppercase
               "
             >
               {{ copy.samplePath }}
             </p>
             <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] text-emerald-100/60">
+                <p class="mb-1 text-[11px] font-medium text-[#d5e3c2]/65">
                   {{ copy.originalUrl }}
                 </p>
                 <p
                   class="
-                    truncate font-mono text-xs font-medium tracking-tight
+                    truncate font-mono text-xs font-semibold tracking-tight
                     text-white/95
                     sm:text-sm
                   "
@@ -92,15 +91,15 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
                   example.com/launch
                 </p>
               </div>
-              <ArrowRight class="size-4 shrink-0 text-emerald-300" />
+              <ArrowRight class="size-4 shrink-0 text-[#cde49e]" />
               <div class="min-w-0">
-                <p class="mb-1 text-[11px] text-emerald-100/60">
+                <p class="mb-1 text-[11px] font-medium text-[#d5e3c2]/65">
                   {{ copy.shortUrl }}
                 </p>
                 <p
                   class="
-                    truncate font-mono text-xs font-medium tracking-tight
-                    text-emerald-300
+                    truncate font-mono text-xs font-bold tracking-tight
+                    text-[#cde49e]
                     sm:text-sm
                   "
                 >
@@ -116,69 +115,70 @@ const extensionUrl = 'https://chromewebstore.google.com/detail/tabs-url-copy-%E5
             target="_blank"
             rel="noopener noreferrer"
             class="
-              group block max-w-md rounded-xl border border-emerald-400/20
-              bg-emerald-950/40 p-4 backdrop-blur-sm transition-all duration-200
-              hover:border-emerald-400/40 hover:bg-emerald-950/60
+              group block max-w-md rounded-2xl border border-[#8fa85b]/30
+              bg-[#242e15]/55 p-4.5 backdrop-blur-sm transition-all duration-200
+              hover:border-[#a4c06b]/50 hover:bg-[#2c3819]/75 hover:shadow-lg
+              hover:shadow-black/20
             "
           >
             <div class="flex items-start justify-between gap-3">
-              <div class="flex items-center gap-2.5">
+              <div class="flex items-center gap-3">
                 <span
                   class="
-                    flex size-8 shrink-0 items-center justify-center rounded-lg
-                    border border-emerald-400/30 bg-emerald-500/10
-                    text-emerald-300 transition-transform duration-200
+                    flex size-9 shrink-0 items-center justify-center rounded-xl
+                    border border-[#8fa85b]/40 bg-[#5c732b]/25 text-[#cde49e]
+                    transition-transform duration-200
                     group-hover:scale-105
                   "
                 >
-                  <Chrome class="size-4" />
+                  <Chrome class="size-4.5" />
                 </span>
                 <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-semibold tracking-wide text-white">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold tracking-normal text-white">
                       {{ copy.extTitle }}
                     </span>
                     <span
                       class="
-                        rounded bg-emerald-400/15 px-1.5 py-0.5 text-[10px]
-                        font-medium text-emerald-300
+                        rounded-md bg-[#8fa85b]/25 px-2 py-0.5 text-[10px]
+                        font-bold tracking-wide text-[#d9edb2]
                       "
                     >
                       {{ copy.extBadge }}
                     </span>
                   </div>
-                  <p class="text-[11px] text-emerald-100/65">
+                  <p class="mt-0.5 text-xs font-medium text-[#d5e3c2]/75">
                     {{ copy.extSubtitle }}
                   </p>
                 </div>
               </div>
               <ExternalLink
                 class="
-                  size-4 shrink-0 text-emerald-300/60 transition-colors
-                  group-hover:text-emerald-200
+                  size-4 shrink-0 text-[#cde49e]/60 transition-colors
+                  group-hover:text-[#cde49e]
                 "
               />
             </div>
-            <p class="mt-2.5 text-xs leading-relaxed text-emerald-100/70">
+            <p class="mt-3 text-xs leading-relaxed text-[#dbe8cb]/85">
               {{ copy.extDesc }}
             </p>
           </a>
         </div>
 
-        <div class="space-y-2 text-xs text-emerald-50/60">
-          <p>
+        <div class="space-y-2 text-xs text-[#d5e3c2]/70">
+          <p class="leading-relaxed">
             {{ copy.footer }}
           </p>
-          <p class="border-t border-white/10 pt-2">
+          <p class="border-t border-white/10 pt-3">
             {{ copy.techProvider }}
             <a
               href="https://david888.com"
               target="_blank"
               rel="noopener noreferrer"
               class="
-                font-medium text-emerald-300 underline-offset-2
+                font-semibold text-[#cde49e] underline-offset-4
                 transition-colors
-                hover:text-emerald-100 hover:underline
+                hover:text-white hover:underline
               "
             >
               david888.com
