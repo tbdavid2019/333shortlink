@@ -8,8 +8,8 @@
 * **移除過期測試依賴**：刪除只用於產生測試資料的 `@anatine/zod-mock` 與 `@faker-js/faker`，改用明確的 URL/slug fixture，讓測試資料可重現並支援 Zod 4。
 * **遷移 Cloudflare Workers 測試設定**：改用 `@cloudflare/vitest-plugin` 的 `cloudflareTest()` API，新增不含遠端 AI 綁定的 `wrangler.test.jsonc`，讓測試以本機模擬執行；`tsconfig.json` 同步更新 Cloudflare 測試型別路徑。
 * **未修補警示**：`deepmerge@4.3.1` 仍有 1 項 low severity 警示，上游目前未提供修補版；該套件由 Nuxt/Nitro build 工具鏈間接引入。
-* **部署注意事項**：Worker 生產設定與服務綁定維持既有配置；部署時仍使用 `pnpm run deploy:all` 依序發布 `ai360` 與 `david` 兩個 local Wrangler 設定。
-* **驗證結果**：Vitest 11 個測試檔、60 項測試全數通過；lint 0 errors（保留 1 個既存 Tailwind class warning）；Cloudflare Worker production build 成功。
+* **部署結果**：使用 `pnpm run deploy:all` 成功發布 `aiurltw`（`aiurl.tw`、`x.aiurl.tw`）與 `sink`（`glsoft.ai`）；部署後 `aiurl.tw`、`glsoft.ai` 首頁皆回應 HTTP 200。
+* **驗證結果**：Vitest 11 個測試檔、60 項測試全數通過；lint 0 errors（保留 1 個既存 Tailwind class warning）；Cloudflare Worker production build 與雙 Worker 部署成功。
 
 ## 📅 [2026-10-06]
 
