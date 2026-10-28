@@ -1,12 +1,10 @@
-import { generateMock } from '@anatine/zod-mock'
 import { describe, expect, it } from 'vitest'
-import { z } from 'zod'
 import { fetch, fetchWithAuth } from '../utils'
 
-const testLinkPayload = generateMock(z.object({
-  url: z.string().url(),
-  slug: z.string().min(1).max(50),
-}))
+const testLinkPayload = {
+  url: 'https://example.com/test-link-payload',
+  slug: 'test-link-payload',
+}
 
 describe('/api/link/ai', () => {
   // it('generates AI Slug for valid URL', async () => {
@@ -168,10 +166,10 @@ describe.sequential('/api/link/create', () => {
 
 describe.sequential('/api/link/upsert', () => {
   it('creates new link with valid data', async () => {
-    const payload = generateMock(z.object({
-      url: z.string().url(),
-      slug: z.string().min(1).max(50),
-    }))
+    const payload = {
+      url: 'https://example.com/test-upsert-payload',
+      slug: 'test-upsert-payload',
+    }
 
     const response = await fetchWithAuth('/api/link/upsert', {
       method: 'POST',
@@ -243,10 +241,10 @@ describe.sequential('/api/link/list', () => {
 
 describe.sequential('/api/link/count', () => {
   it('returns the total number of links and updates after create/delete', async () => {
-    const payload = generateMock(z.object({
-      url: z.string().url(),
-      slug: z.string().min(1).max(50),
-    }))
+    const payload = {
+      url: 'https://example.com/test-link-count-payload',
+      slug: 'test-link-count-payload',
+    }
 
     const beforeResponse = await fetchWithAuth('/api/link/count')
     expect(beforeResponse.status).toBe(200)
