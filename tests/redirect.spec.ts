@@ -293,7 +293,7 @@ describe.sequential('transition redirect behavior', () => {
 
     const response = await fetch(`/${slug}`, {
       headers: {
-        'User-Agent': 'Line/15.0.0',
+        'User-Agent': 'facebookexternalhit/1.1;line-poker/1.0',
       },
       redirect: 'manual',
     })
@@ -304,6 +304,25 @@ describe.sequential('transition redirect behavior', () => {
     expect(html).toContain('<meta property="og:description" content="Site OG Description">')
     expect(html).toContain('<meta property="og:image" content="https://example.com/site-og.jpg">')
     expect(html).toContain('<meta property="og:site_name" content="Site Name">')
+  })
+
+  it('redirects a LINE in-app browser instead of serving a crawler preview', async () => {
+    const slug = uniqueSlug('line-browser')
+    const target = 'https://example.com/line-browser'
+    const createResponse = await fetchWithAuth('/api/link/create', {
+      method: 'POST',
+      body: JSON.stringify({ url: target, slug, transitionMode: 'off' }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    expect(createResponse.status).toBe(201)
+
+    const response = await fetch(`/${slug}`, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 9; wv) AppleWebKit/537.36 Chrome/76.0 Mobile Safari/537.36 Line/15.0.0/IAB' },
+      redirect: 'manual',
+    })
+    expect(response.status).toBeGreaterThanOrEqual(300)
+    expect(response.status).toBeLessThan(400)
+    expect(response.headers.get('location')).toBe(target)
   })
 
   it('redirects social preview crawlers when global ogMode is passthrough', async () => {

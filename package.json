@@ -78,6 +78,7 @@
     "cf": "1.0.0-beta.24",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "deepmerge": "^4.3.1",
     "eslint": "^9.39.5",
     "eslint-plugin-better-tailwindcss": "^3.7.10",
     "eslint-plugin-format": "^1.0.2",

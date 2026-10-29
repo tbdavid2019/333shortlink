@@ -26,7 +26,7 @@ function sanitizeTransitionHtml(html: string) {
 }
 
 function isSocialPreviewCrawler(userAgent: string) {
-  return /facebookexternalhit|facebot|twitterbot|slackbot|discordbot|telegrambot|whatsapp|linkedinbot|pinterest|skypeuripreview|line/i.test(userAgent)
+  return /facebookexternalhit|facebot|twitterbot|slackbot|discordbot|telegrambot|whatsapp|linkedinbot|pinterest|skypeuripreview|line-poker|line-crawler|linespider/i.test(userAgent)
 }
 
 function isGeneralBot(userAgent: string) {

@@ -28,6 +28,8 @@
 - 🌍 **Dynamic Multilingual SEO & UI**: SSR-rendered meta tags matching client `Accept-Language`, with an intuitive En | 繁體 language switcher and persistent preference.
 - 📊 **Real-time Analytics**: Built-in 3D globe and detailed visitor metrics (referrers, devices, geolocations, and views).
 
+Geographic metrics estimate location from the request IP. Recognized bots, including link preview fetches, are counted by default; set `NUXT_DISABLE_BOT_ACCESS_LOG=true` to exclude them from future access logs.
+
 ---
 
 ## 🧱 Tech Stack

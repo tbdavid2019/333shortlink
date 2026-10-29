@@ -68,7 +68,7 @@ Set the maximum query data volume for the Metric list.
 
 ## `NUXT_DISABLE_BOT_ACCESS_LOG`
 
-Access statistics do not count bot traffic.
+Set to `true` to exclude recognized bot traffic from access statistics. The default is `false`, so link preview fetches may appear in geographic metrics. Locations are estimates based on the request IP; historical records are unchanged when this setting is updated.
 
 ## `NUXT_API_CORS`
 

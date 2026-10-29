@@ -1,5 +1,18 @@
 # CHANGELOG & Deployment Gotchas (開發與部署備忘錄)
 
+## 📅 [2026-10-29]
+
+### 📌 deepmerge 安全補丁
+
+* 為間接依賴 `deepmerge@4.3.1` 加入 pnpm 本地補丁，過濾來源及目標物件的 `__proto__`，涵蓋套件三個 JavaScript 入口；上游目前尚未提供修補版本，GitHub 仍可能依版本顯示告警。
+* 新增原型污染回歸測試與測試用途的開發依賴。部署時需保留 `patches/` 並依 lockfile 安裝；上游發布修補版後應移除補丁並更新依賴。Schema 無變更。
+
+### 📌 LINE 瀏覽器與預覽爬蟲辨識
+
+* 縮小社群預覽的 User-Agent 判斷，讓 LINE 內建瀏覽器依連結設定正常跳轉，LINE 預覽爬蟲仍取得 Open Graph 資訊。
+* 新增 LINE 預覽及內建瀏覽器的跳轉回歸測試；地理資訊仍採用 Cloudflare 請求 IP 的估算結果。爬蟲流量預設計入統計，可使用 `NUXT_DISABLE_BOT_ACCESS_LOG=true` 排除已辨識的爬蟲；既有統計資料不會回溯修正。
+* Schema 無變更；部署依既有 Worker 流程進行。
+
 ## 📅 [2026-10-28]
 
 ### 📌 Dependabot 相依套件安全更新與 Vitest 4 遷移
