@@ -66,6 +66,54 @@ describe.sequential('transition redirect behavior', () => {
     expect(await response.text()).toContain('Redirecting in')
   })
 
+  it('sanitizes custom HTML before rendering it in the Worker response', async () => {
+    const slug = uniqueSlug('transition-xss')
+
+    const createResponse = await fetchWithAuth('/api/link/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        url: 'https://example.com/transition-xss',
+        slug,
+        transitionMode: 'on',
+        transitionHtml: '<h2>Trusted notice</h2><a href="java&#x0A;script:alert(1)" onclick="alert(2)">bad link</a><a href="&#xA0;javascript:alert(1)">unicode link</a><script>transition-script-sentinel</script><style>transition-style-sentinel{display:none}</style><svg onload="transition-svg-sentinel"></svg><form><input value="transition-form-sentinel"></form><code class="fixed inset-0 z-50">code</code>',
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    expect(createResponse.status).toBe(201)
+
+    const response = await fetch(`/${slug}`, { redirect: 'manual' })
+    const html = await response.text()
+
+    expect(response.status).toBe(200)
+    expect(html).toContain('<h2>Trusted notice</h2>')
+    expect(html).toContain('<a>bad link</a>')
+    expect(html).toContain('<a>unicode link</a>')
+    expect(html).not.toMatch(/javascript:|onload="transition-svg-sentinel"|transition-(script|style|form)-sentinel|<svg|<form|<input|class="fixed inset-0 z-50"/i)
+  })
+
+  it('limits nesting depth when rendering user-authored HTML', async () => {
+    const slug = uniqueSlug('transition-deep-html')
+    const nestedContent = `${'<div>'.repeat(100)}Depth limited${'</div>'.repeat(100)}`
+    const createResponse = await fetchWithAuth('/api/link/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        url: 'https://example.com/deep-html',
+        slug,
+        transitionMode: 'on',
+        transitionHtml: nestedContent,
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    expect(createResponse.status).toBe(201)
+    const response = await fetch(`/${slug}`, { redirect: 'manual' })
+    expect(response.status).toBe(200)
+    expect(await response.text()).toContain('Depth limited')
+  })
+
   it('respects a link opt-out when global mode is default', async () => {
     const slug = uniqueSlug('transition-off')
 

@@ -2,6 +2,7 @@
 import { TransitionModeSchema } from '@@/schemas/settings'
 import { marked } from 'marked'
 import { toast } from 'vue-sonner'
+import { sanitizeTransitionHtml } from '~~/utils/sanitize-transition-html'
 
 // Site SEO settings
 const seoTitle = ref('')
@@ -193,12 +194,7 @@ async function saveTransitionSettings() {
 function sanitizeMarkdownHtml(html) {
   if (!html || typeof html !== 'string')
     return ''
-  return html
-    .replace(/<\s*script\b[^>]*>[\s\S]*?<\s*\/\s*script\s*>/gi, '')
-    .replace(/<\s*(iframe|object|embed|form|base)\b[^>]*>/gi, '')
-    .replace(/\bon\w+\s*=\s*(['"]).*?\1/gi, '')
-    .replace(/\bon\w+\s*=\s*[^\s>]+/gi, '')
-    .replace(/javascript:/gi, '')
+  return sanitizeTransitionHtml(html)
 }
 
 const previewHtml = computed(() => {

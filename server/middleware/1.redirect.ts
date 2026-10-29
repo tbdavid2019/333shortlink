@@ -2,6 +2,7 @@ import type { LinkSchema } from '@@/schemas/link'
 import type { z } from 'zod'
 import { SeoSettingsSchema, TrackingSettingsSchema, TransitionSettingsSchema } from '@@/schemas/settings'
 import { parsePath, withQuery } from 'ufo'
+import { sanitizeTransitionHtml } from '~~/utils/sanitize-transition-html'
 
 function escapeHtml(value: string) {
   return value
@@ -14,15 +15,6 @@ function escapeHtml(value: string) {
 
 function safeJsonStringify(value: any) {
   return JSON.stringify(value).replace(/</g, '\\u003c')
-}
-
-function sanitizeTransitionHtml(html: string) {
-  return html
-    .replace(/<\s*script\b[^>]*>[\s\S]*?<\s*\/\s*script\s*>/gi, '')
-    .replace(/<\s*(iframe|object|embed|form|link|meta|style|base)\b[^>]*>/gi, '')
-    .replace(/\bon\w+\s*=\s*(['"]).*?\1/gi, '')
-    .replace(/\bon\w+\s*=\s*[^\s>]+/gi, '')
-    .replace(/javascript:/gi, '')
 }
 
 function isSocialPreviewCrawler(userAgent: string) {

@@ -37,6 +37,8 @@ Custom HTML or Markdown can be supplied at two levels:
 2. **Global Transition Page Content**: Set in `Settings -> Transition Page`.
 3. **Default System Fallback**: Standard clean countdown screen with a "Continue Now" button.
 
+Custom HTML is filtered when displayed. Common text formatting, links, and images are supported; scripts, embedded frames, forms, event handlers, inline styles, and unsafe URL schemes are removed. Existing saved content is filtered on display without changing the stored value. The settings previews use the same HTML policy.
+
 ---
 
 ## 📊 Tracking Integrations
