@@ -1,5 +1,11 @@
 # CHANGELOG & Deployment Gotchas (開發與部署備忘錄)
 
+## 📅 [2026-10-29] Dependabot 安全警示修補
+
+* 將 `@intlify/core`、`@intlify/core-base`、`@intlify/shared`、`@intlify/message-compiler` 與 `vue-i18n` 統一鎖定至 `11.4.14`，修補 Vue I18n 的 7 筆 XSS 與跳脫處理警示；Schema 與環境變數無變更。
+* `deepmerge@4.3.1` 尚無上游修補版，現有 pnpm patch 會在來源及目標物件合併時拒絕 `__proto__`，並附原型污染回歸測試；GitHub 告警以已緩解風險結案並記錄此理由。
+* 部署沿用既有 Worker 設定，安裝需保留 `pnpm-workspace.yaml`、`pnpm-lock.yaml` 與 `patches/`。
+
 ## 📅 [2026-10-29] 轉場頁內容安全修補
 
 * 使用 HTML 解析與允許清單過濾轉場頁內容及設定頁預覽，移除指令碼、事件處理器、不安全的網址協定與任意樣式屬性，並保留常見格式、圖片與安全連結。
